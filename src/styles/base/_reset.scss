@@ -1,0 +1,175 @@
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as func;
+@use "../abstracts/mixins" as mix;
+
+$font-pretendard: "Pretendard", "malgun", "Apple SD Gothic Neo", "돋움", Dotum;
+$font-cjk: "Noto Sans", "malgun", "Apple SD Gothic Neo", "돋움", Dotum;
+$font-jp: "Noto Sans JP";
+$font-sc: "Noto Sans SC";
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: 2px;
+    border-radius: 0.2rem;
+  }
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+:root {
+  -webkit-tap-highlight-color: transparent;
+  cursor: default;
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+html,
+body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img,
+picture,
+video,
+canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  &[href="#none"] {
+    cursor: auto;
+  }
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html {
+  font-size: 8px;
+  @include mix.respond-to(360px) {
+    font-size: var.$root-font-size;
+  }
+}
+
+body {
+  font-family: $font-pretendard;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+
+  font-size: 1.6rem;
+  font-weight: func.get-font-weight("regular");
+  line-height: 1.4;
+  letter-spacing: -0.05em;
+  background: var(--bg-color-1);
+  color: var(--text-color-1);
+}
+
+[hidden] {
+  display: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color-2);
+  margin: 3.2rem 0;
+}
+
+input,
+textarea {
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  &:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: 2px;
+    border-radius: 0.2rem;
+  }
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:autofill,
+input:autofill:hover,
+input:autofill:focus,
+input:autofill:active {
+  -webkit-text-fill-color: var(--text-color-1);
+}
+
+textarea {
+  resize: none;
+}
+
+.is-error input,
+.is-error textarea {
+  caret-color: var(--color-error);
+}
+
+#root {
+  min-height: 100%;
+}
+
+strong,
+b {
+  font-weight: func.get-font-weight("bold");
+  color: var(--text-color-1);
+}

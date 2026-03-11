@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "./variables" as var;
+
+@function percent($current, $container) {
+  @return calc($current / $container) * 100%;
+}
+
+@function em($current, $container) {
+  @return calc($current / $container) * 1em;
+}
+
+@function ratio($current, $container) {
+  @return calc($container / $current);
+}
+
+@function rem($current, $container: var.$root-font-size) {
+  @return calc($current / $container) * 1rem;
+}
+
+@function vw($current, $container) {
+  @return calc($current / $container) * 100vw;
+}
+
+@function get-font-weight($weight-name) {
+  @if map.has-key(var.$font-weights, $weight-name) {
+    @return map.get(var.$font-weights, $weight-name);
+  }
+
+  @warn "Unknown font weight: #{$weight-name}.";
+  @return null;
+}
+
+@function get-responsive-size($key) {
+  @if map.has-key(var.$breakpoints, $key) {
+    @return map.get(var.$breakpoints, $key);
+  }
+
+  @warn "Unknown breakpoint: #{$key}.";
+  @return null;
+}
+
+@function z($key) {
+  @if map.has-key(var.$z-index, $key) {
+    @return map.get(var.$z-index, $key);
+  }
+
+  @warn "Unknown z-index key: #{$key}.";
+  @return null;
+}
+
+@function ease($keyword) {
+  @if map.has-key(var.$easings, $keyword) {
+    @return map.get(var.$easings, $keyword);
+  }
+
+  @warn "Unknown easing key: #{$keyword}.";
+  @return null;
+}

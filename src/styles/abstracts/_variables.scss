@@ -1,0 +1,121 @@
+:root {
+  --vh: 100%;
+
+  --color-black: #000;
+  --color-white: #fff;
+
+  // gray scale
+  --color-gray-100: #f5f7fa;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+
+  // text
+  --text-color-1: #111827;
+  --text-color-2: #4b5563;
+  --text-color-3: #6b7280;
+  --text-color-4: #9ca3af;
+
+  // line
+  --line-color-1: #1f2937;
+  --line-color-2: #d1d5db;
+  --line-color-3: #e5e7eb;
+  --line-color-4: #f3f4f6;
+
+  // background
+  --bg-color-1: #ffffff;
+  --bg-color-2: #f9fafb;
+  --bg-color-3: #f3f4f6;
+  --bg-color-4: #e5e7eb;
+
+  // brand
+  --color-primary-bright: #dcfce7;
+  --color-primary: #1ca673;
+  --color-primary-dark: #014029;
+
+  --color-secondary-bright: #ffe4e6;
+  --color-secondary: #d92b2b;
+
+  --color-point-bright: #fef9c3;
+  --color-point: #f29b30;
+
+  // status
+  --color-error: #dc2626;
+  --color-error-soft: #fee2e2;
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+  --color-info: #0284c7;
+  --color-info-soft: #e0f2fe;
+
+  // accessibility
+  --focus-color: var(--color-primary);
+}
+
+$root-font-size: 10px;
+$m-side-padding: 2rem !default;
+$icon-path: "" !default;
+
+$font-weights: (
+  "thin": 100,
+  "extra-light": 200,
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semi-bold": 600,
+  "bold": 700,
+  "extra-bold": 800,
+  "black": 900,
+) !default;
+
+$breakpoints: (
+  "mobile": 768px,
+  "before-tablet": 799px,
+  "tablet": 800px,
+  "before-desktop": 1327px,
+  "desktop": 1328px,
+) !default;
+
+$z-index: (
+  "loader": 9999,
+  "overlay-layer": 1030,
+  "overlay-dimmed": 1020,
+  "layer": 1010,
+  "dimmed": 200,
+  "tooltip": 20,
+  "sticky": 10,
+  "default": 1,
+  "below": -1,
+) !default;
+
+$easings: (
+  "in-sine": cubic-bezier(0.47, 0, 0.745, 0.715),
+  "out-sine": cubic-bezier(0.39, 0.575, 0.565, 1),
+  "inout-sine": cubic-bezier(0.39, 0.575, 0.565, 1),
+  "in-quad": cubic-bezier(0.55, 0.085, 0.68, 0.53),
+  "out-quad": cubic-bezier(0.25, 0.46, 0.45, 0.94),
+  "inout-quad": cubic-bezier(0.25, 0.46, 0.45, 0.94),
+  "in-cubic": cubic-bezier(0.55, 0.055, 0.675, 0.19),
+  "out-cubic": cubic-bezier(0.215, 0.61, 0.355, 1),
+  "inout-cubic": cubic-bezier(0.215, 0.61, 0.355, 1),
+  "in-quart": cubic-bezier(0.895, 0.03, 0.685, 0.22),
+  "out-quart": cubic-bezier(0.165, 0.84, 0.44, 1),
+  "inout-quart": cubic-bezier(0.165, 0.84, 0.44, 1),
+  "in-quint": cubic-bezier(0.755, 0.05, 0.855, 0.06),
+  "out-quint": cubic-bezier(0.23, 1, 0.32, 1),
+  "inout-quint": cubic-bezier(0.23, 1, 0.32, 1),
+  "in-expo": cubic-bezier(0.95, 0.05, 0.795, 0.035),
+  "out-expo": cubic-bezier(0.19, 1, 0.22, 1),
+  "inout-expo": cubic-bezier(0.19, 1, 0.22, 1),
+  "in-circ": cubic-bezier(0.6, 0.04, 0.98, 0.335),
+  "out-circ": cubic-bezier(0.075, 0.82, 0.165, 1),
+  "inout-circ": cubic-bezier(0.075, 0.82, 0.165, 1),
+  "in-back": cubic-bezier(0.6, -0.28, 0.735, 0.045),
+  "out-back": cubic-bezier(0.175, 0.885, 0.32, 1.275),
+  "inout-back": cubic-bezier(0.68, -0.55, 0.265, 1.55),
+) !default;

@@ -1,0 +1,190 @@
+$fontSrc: "/fonts";
+
+//Pretendard
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local("Pretendard Black"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Black.subset.woff2) format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Black.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local("Pretendard ExtraBold"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-ExtraBold.subset.woff2)
+      format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-ExtraBold.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Pretendard Bold"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Bold.subset.woff2) format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Bold.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local("Pretendard SemiBold"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-SemiBold.subset.woff2)
+      format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-SemiBold.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Pretendard Medium"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Medium.subset.woff2) format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Medium.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("Pretendard Regular"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Regular.subset.woff2)
+      format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Regular.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local("Pretendard Light"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Light.subset.woff2) format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Light.subset.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local("Pretendard ExtraLight"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-ExtraLight.subset.woff2)
+      format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-ExtraLight.subset.woff)
+      format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 100;
+  font-display: swap;
+  src:
+    local("Pretendard Thin"),
+    url(#{$fontSrc}/woff2-subset/Pretendard-Thin.subset.woff2) format("woff2"),
+    url(#{$fontSrc}/woff-subset/Pretendard-Thin.subset.woff) format("woff");
+}
+
+//Noto Sans
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Thin.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Thin.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-ExtraLight.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-ExtraLight.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Light.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Light.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Regular.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Regular.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Medium.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Medium.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-SemiBold.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-SemiBold.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Bold.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Bold.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-ExtraBold.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-ExtraBold.woff) format("woff");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local("☺"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Black.woff2) format("woff2"),
+    url(#{$fontSrc}/notosans-subset/NotoSans-Black.woff) format("woff");
+}

@@ -1,0 +1,163 @@
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "./variables" as var;
+@use "./functions" as func;
+
+@mixin debug($color: coral) {
+  background-color: $color;
+}
+
+@mixin debug2($color: coral) {
+  border: 1px solid $color;
+}
+
+@mixin icon(
+  $icon,
+  $size: 24px,
+  $color: var(--color-black),
+  $icon-path: var.$icon-path
+) {
+  width: $size;
+  height: $size;
+  fill: $color;
+  background-image: url("#{$icon-path}#{$icon}");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+@mixin a11y-hidden {
+  overflow: hidden;
+  position: absolute;
+  clip-path: circle(0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+@mixin size($w: null, $h: $w) {
+  width: $w;
+  height: $h;
+}
+
+@mixin size-half($w: null, $h: $w) {
+  @if $w != null {
+    width: math.div($w, 2);
+  }
+
+  @if $h != null {
+    height: math.div($h, 2);
+  }
+}
+
+@mixin background(
+  $name,
+  $repeat: no-repeat,
+  $x: center,
+  $y: center,
+  $color: null,
+  $size: cover
+) {
+  background: $color url($name) $repeat $x $y;
+  background-size: $size;
+}
+
+@mixin position(
+  $position,
+  $top: auto,
+  $right: auto,
+  $bottom: auto,
+  $left: auto,
+  $z-index: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+
+  @if $z-index != null {
+    z-index: $z-index;
+  }
+}
+
+@mixin relative($args...) {
+  @include position(relative, $args...);
+}
+
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+@mixin ellipsis($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @if ($line==1) {
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  }
+}
+
+@mixin respond-to($size) {
+  @if meta.type-of($size) == number {
+    @media (min-width: $size) {
+      @content;
+    }
+  } @else {
+    $breakpoint: map.get(var.$breakpoints, $size);
+    @if $breakpoint {
+      @media (min-width: $breakpoint) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin respond-to-range($min: null, $max: null) {
+  $min: if(
+    map.has-key(var.$breakpoints, $min),
+    map.get(var.$breakpoints, $min),
+    $min
+  );
+  $max: if(
+    map.has-key(var.$breakpoints, $max),
+    map.get(var.$breakpoints, $max),
+    $max
+  );
+
+  @if $min and $max {
+    @media (min-width: #{$min}) and (max-width: #{$max}) {
+      @content;
+    }
+  } @else if $min {
+    @media (min-width: #{$min}) {
+      @content;
+    }
+  } @else if $max {
+    @media (max-width: #{$max}) {
+      @content;
+    }
+  }
+}
+
+@mixin typo($font-size-mo, $font-size-pc, $font-weight, $line-height: 1.4) {
+  font-weight: func.get-font-weight($font-weight);
+  line-height: $line-height;
+
+  font-size: $font-size-mo;
+
+  @include respond-to("desktop") {
+    font-size: $font-size-pc;
+  }
+}

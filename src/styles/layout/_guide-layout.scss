@@ -1,0 +1,284 @@
+@use "../abstracts/mixins" as mix;
+
+.guideLayout {
+  min-height: 100%;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(28, 166, 115, 0.16),
+      transparent 28%
+    ),
+    linear-gradient(180deg, #f6fbf9 0%, #ffffff 22%, #f7fafc 100%);
+
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(18px);
+    height: 8rem;
+  }
+
+  &__headerInner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1.6rem;
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 1.6rem 2rem;
+
+    @include mix.respond-to("tablet") {
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  &__homeButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    min-width: 4rem;
+    min-height: 4rem;
+    height: 4rem;
+    width: 4rem;
+    padding: 0 1.2rem;
+    border: 1px solid rgba(1, 64, 41, 0.12);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffffff 0%, #eefbf5 100%);
+    color: var(--color-primary-dark);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+
+    @include mix.respond-to("tablet") {
+      min-width: 9.6rem;
+      padding: 0 1.8rem;
+      width: auto;
+      height: auto;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 1rem 2rem rgba(1, 64, 41, 0.08);
+      border-color: rgba(1, 64, 41, 0.18);
+    }
+  }
+
+  &__homeIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    flex: 0 0 auto;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__homeText {
+    display: none;
+
+    @include mix.respond-to("tablet") {
+      display: inline;
+    }
+  }
+
+  &__headerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  &__headerTitle {
+    color: var(--text-color-1);
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 3.2rem;
+    max-width: 144rem;
+    margin: 0 auto;
+    padding: 3.2rem 2rem 6rem;
+    flex-direction: column;
+
+    @include mix.respond-to("tablet") {
+      flex-direction: row;
+    }
+  }
+
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 2.4rem;
+    border: 1px solid rgba(17, 24, 39, 0.06);
+    border-radius: 2.4rem;
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(28, 166, 115, 0.18),
+        transparent 30%
+      ),
+      linear-gradient(
+        160deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(240, 251, 245, 0.96) 100%
+      );
+    box-shadow: 0 2.4rem 5rem rgba(17, 24, 39, 0.08);
+
+    @include mix.respond-to("tablet") {
+      padding: 3.2rem;
+      border-radius: 3.2rem;
+    }
+  }
+
+  &__heroLabel {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 3rem;
+    padding: 0 1.2rem;
+    border-radius: 999px;
+    background: rgba(1, 64, 41, 0.08);
+    color: var(--color-primary-dark);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    color: var(--text-color-1);
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+
+    @include mix.respond-to("tablet") {
+      font-size: 4.8rem;
+    }
+  }
+
+  &__description {
+    max-width: 72rem;
+    color: var(--text-color-2);
+    font-size: 1.6rem;
+    line-height: 1.7;
+
+    @include mix.respond-to("tablet") {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2.4rem;
+  }
+
+  &__aside {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+
+    @include mix.respond-to("tablet") {
+      flex: 0 0 28rem;
+      width: auto;
+    }
+  }
+
+  &__asideCard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 2rem;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 2.4rem;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.08);
+  }
+
+  &__asideLabel {
+    color: var(--text-color-3);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-height: 30rem;
+    overflow-y: auto;
+    @include mix.respond-to("tablet") {
+      max-height: none;
+      overflow-y: initial;
+    }
+  }
+
+  &__navLink {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid transparent;
+    border-radius: 1.8rem;
+    color: var(--text-color-2);
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateX(-2px);
+      border-color: rgba(1, 64, 41, 0.12);
+      background: rgba(240, 251, 245, 0.72);
+    }
+
+    &--current {
+      border-color: rgba(1, 64, 41, 0.14);
+      background: linear-gradient(
+        135deg,
+        rgba(240, 251, 245, 0.98) 0%,
+        rgba(220, 252, 231, 0.78) 100%
+      );
+      box-shadow: inset 0 0 0 1px rgba(1, 64, 41, 0.04);
+    }
+  }
+
+  &__navTitle {
+    color: var(--text-color-1);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__navDescription {
+    color: var(--text-color-3);
+    font-size: 1.3rem;
+    line-height: 1.5;
+  }
+}
