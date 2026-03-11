@@ -20,8 +20,8 @@ $module: "button";
   width: 100%;
   min-height: 5.6rem;
   overflow-wrap: initial;
-  border-radius: 1.6rem;
   box-shadow: var(--btnShadow);
+  border-radius: 0.5rem;
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
@@ -128,24 +128,39 @@ $module: "button";
       --btnTextColor: var(--text-color-3);
     }
   }
-}
 
-.#{$module}--line:not([disabled]):hover {
-  background-color: rgba(17, 24, 39, 0.04);
-}
+  &--line:not([disabled]):hover {
+    background-color: rgba(17, 24, 39, 0.04);
+  }
 
-.#{$module}--line:not([disabled]):active {
-  background-color: rgba(17, 24, 39, 0.08);
-}
+  &--line:not([disabled]):active {
+    background-color: rgba(17, 24, 39, 0.08);
+  }
 
-.#{$module}--text:not([disabled]):hover {
-  opacity: 0.72;
-  transform: none;
-}
+  &--text:not([disabled]):hover {
+    opacity: 0.72;
+    transform: none;
+  }
 
-.#{$module}--text:not([disabled]):active {
-  opacity: 0.56;
-  transform: none;
+  &--text:not([disabled]):active {
+    opacity: 0.56;
+    transform: none;
+  }
+}
+.#{$module}--icon {
+  min-height: auto;
+  min-width: auto;
+  height: 5.6rem;
+  width: 5.6rem;
+
+  &.#{$module}--medium {
+    height: 4.8rem;
+    width: 4.8rem;
+  }
+  &.#{$module}--small {
+    height: 3.6rem;
+    width: 3.6rem;
+  }
 }
 
 $buttonGroup: "buttonGroup";
@@ -153,18 +168,13 @@ $buttonGroup: "buttonGroup";
   width: 100%;
   &__wrap {
     display: flex;
-    margin-left: -0.4rem;
-    margin-right: -0.4rem;
-  }
-  &--wrap &__wrap {
-    flex-wrap: wrap;
+    gap: 0.8rem;
   }
   &__item {
     flex-basis: calc(50% - 0.8rem);
     flex-grow: 1;
-    margin: 0 0.4rem;
   }
-  &__item > .button {
+  &__item > .#{$module} {
     width: 100%;
   }
   &__item--wAuto {
@@ -173,275 +183,4 @@ $buttonGroup: "buttonGroup";
     width: fit-content;
     max-width: 100%;
   }
-
-  // column
-  &--column &__wrap {
-    flex-direction: column;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  &--column &__item {
-    margin: 0.4rem 0;
-  }
-  &--column &__item:first-child {
-    margin-top: 0;
-  }
-  &--column &__item:last-child {
-    margin-bottom: 0;
-  }
-
-  &--center &__wrap {
-    justify-content: center;
-  }
-  &--lineBox {
-    padding: 0 4rem;
-    border: 1px solid var(--line-color-2);
-    border-radius: 1.2rem;
-    .#{$buttonGroup}__wrap {
-      flex-direction: column;
-      @include mix.respond-to("desktop") {
-        flex-direction: row;
-      }
-    }
-    .#{$buttonGroup}__item + .#{$buttonGroup}__item {
-      @include mix.respond-to("desktop") {
-        position: relative;
-        &::before {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: -0.5rem;
-          transform: translateY(-50%);
-          width: 1px;
-          height: 1.6rem;
-          background: var(--line-color-2);
-        }
-      }
-    }
-  }
 }
-
-// @use "../abstracts/mixins" as mix;
-
-// .button {
-//   display: inline-flex;
-//   align-items: center;
-//   justify-content: center;
-//   min-width: 12rem;
-//   min-height: 5.6rem;
-//   padding: 0 2.4rem;
-//   border: 1px solid transparent;
-//   border-radius: 1.6rem;
-//   background: var(--text-color-1);
-//   color: var(--color-white);
-//   box-shadow: 0 1rem 2rem rgba(17, 24, 39, 0.12);
-//   white-space: nowrap;
-//   text-align: center;
-//   vertical-align: top;
-//   user-select: none;
-//   transition:
-//     background-color 0.2s ease,
-//     border-color 0.2s ease,
-//     color 0.2s ease,
-//     box-shadow 0.2s ease,
-//     opacity 0.2s ease,
-//     transform 0.2s ease;
-//   @include mix.typo(1.6rem, 1.6rem, "semi-bold", 1.2);
-
-//   &:focus-visible {
-//     outline-offset: 0.4rem;
-//   }
-
-//   &:disabled,
-//   &[aria-disabled="true"] {
-//     cursor: not-allowed;
-//     pointer-events: none;
-//     opacity: 0.45;
-//     box-shadow: none;
-//   }
-
-//   &[data-readonly="true"] {
-//     cursor: default;
-//   }
-
-//   &__wrap {
-//     display: inline-flex;
-//     align-items: center;
-//     justify-content: center;
-//     gap: 0.8rem;
-//     width: 100%;
-//   }
-
-//   &--black {
-//     background: var(--text-color-1);
-//     color: var(--color-white);
-//   }
-
-//   &--primary {
-//     background: var(--color-primary);
-//     color: var(--color-white);
-//   }
-
-//   &--secondary {
-//     background: var(--color-secondary);
-//     color: var(--color-white);
-//   }
-
-//   &--point {
-//     background: var(--color-point);
-//     color: var(--color-white);
-//   }
-
-//   &--medium {
-//     min-height: 4.8rem;
-//     padding: 0 2rem;
-//     border-radius: 1.4rem;
-//     font-size: 1.5rem;
-//   }
-
-//   &--small {
-//     min-height: 4rem;
-//     min-width: 9.6rem;
-//     padding: 0 1.6rem;
-//     border-radius: 1.2rem;
-//     font-size: 1.4rem;
-//   }
-
-//   &--round {
-//     border-radius: 999px;
-//   }
-
-//   &--line {
-//     background: transparent;
-//     border-color: currentColor;
-//     box-shadow: none;
-//   }
-
-//   &--text {
-//     min-width: auto;
-//     min-height: auto;
-//     padding: 0.4rem 0.2rem;
-//     border-color: transparent;
-//     background: transparent;
-//     box-shadow: none;
-//   }
-
-// }
-
-// .button:not(.button--line):not(.button--text):not(:disabled):not(
-//     [aria-disabled="true"]
-//   ):not([data-readonly="true"]):hover {
-//   box-shadow: 0 1.2rem 2.4rem rgba(17, 24, 39, 0.16);
-// }
-
-// .button:not(.button--line):not(.button--text):not(:disabled):not(
-//     [aria-disabled="true"]
-//   ):not([data-readonly="true"]):active {
-//   transform: translateY(1px);
-//   box-shadow: 0 0.6rem 1.4rem rgba(17, 24, 39, 0.18);
-// }
-
-// .button--black:not(.button--line):not(.button--text):hover {
-//   background: var(--color-gray-800);
-// }
-
-// .button--primary:not(.button--line):not(.button--text):hover {
-//   background: var(--color-primary-700);
-// }
-
-// .button--secondary:not(.button--line):not(.button--text):hover {
-//   background: var(--color-secondary-700);
-// }
-
-// .button--point:not(.button--line):not(.button--text):hover {
-//   background: var(--color-point-700);
-// }
-
-// .button--line.button--black {
-//   color: var(--text-color-1);
-// }
-
-// .button--line.button--primary {
-//   color: var(--color-primary);
-// }
-
-// .button--line.button--secondary {
-//   color: var(--color-secondary);
-// }
-
-// .button--line.button--point {
-//   color: var(--color-point);
-// }
-
-// .button--line:not(:disabled):not([aria-disabled="true"]):not(
-//     [data-readonly="true"]
-//   ):hover {
-//   background: var(--bg-color-2);
-// }
-
-// .button--line:not(:disabled):not([aria-disabled="true"]):not(
-//     [data-readonly="true"]
-//   ):active {
-//   background: var(--bg-color-3);
-// }
-
-// .button--text.button--black {
-//   color: var(--text-color-1);
-// }
-
-// .button--text.button--primary {
-//   color: var(--color-primary);
-// }
-
-// .button--text.button--secondary {
-//   color: var(--color-secondary);
-// }
-
-// .button--text.button--point {
-//   color: var(--color-point);
-// }
-
-// .button--text:not(:disabled):not([aria-disabled="true"]):not(
-//     [data-readonly="true"]
-//   ):hover {
-//   opacity: 0.72;
-// }
-
-// .button[data-readonly="true"]:not(.button--text):not(.button--line) {
-//   background: var(--bg-color-3);
-//   border-color: var(--line-color-3);
-//   color: var(--text-color-2);
-// }
-
-// .button[data-readonly="true"].button--line {
-//   border-color: var(--line-color-2);
-//   color: var(--text-color-3);
-// }
-
-// .button[data-readonly="true"].button--text {
-//   color: var(--text-color-3);
-// }
-
-// .buttonGroup {
-//   width: 100%;
-
-//   &__wrap {
-//     display: flex;
-//     flex-wrap: wrap;
-//     gap: 1.2rem;
-//     width: 100%;
-//   }
-
-//   &__item {
-//     flex: 1 1 0;
-//     min-width: 0;
-//   }
-// }
-
-// .buttonGroup__item--wAuto {
-//   flex: 0 0 auto;
-// }
-
-// .buttonGroup__item > .button {
-//   width: 100%;
-// }

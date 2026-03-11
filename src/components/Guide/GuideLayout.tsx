@@ -2,6 +2,7 @@ import cn from "classnames";
 import Link from "next/link";
 import React from "react";
 
+import { HomeIcon } from "../Icon";
 import { guideNavigation } from "./guideNavigation";
 
 const nameBlock = "guideLayout";
@@ -21,25 +22,6 @@ export default function GuideLayout({
   children,
   className,
 }: GuideLayoutProps) {
-  const homeIcon = (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M4.5 10.5 12 4l7.5 6.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M7.5 9.5V20h9V9.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-
   return (
     <div className={cn(nameBlock, className)}>
       <header className={cn(`${nameBlock}__header`)}>
@@ -49,7 +31,9 @@ export default function GuideLayout({
             className={cn(`${nameBlock}__homeButton`)}
             aria-label="Go to home"
           >
-            <span className={cn(`${nameBlock}__homeIcon`)}>{homeIcon}</span>
+            <span className={cn(`${nameBlock}__homeIcon`)}>
+              <HomeIcon />
+            </span>
             <span className={cn(`${nameBlock}__homeText`)}>Home</span>
           </Link>
 

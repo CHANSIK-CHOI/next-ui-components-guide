@@ -8,6 +8,6 @@ export const guideNavigation: GuideNavigationItem[] = [
   {
     href: "/button",
     label: "Button",
-    description: "Button / ButtonGroup",
+    description: "Button / ButtonLink / ButtonGroup",
   },
 ];

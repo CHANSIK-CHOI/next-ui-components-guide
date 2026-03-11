@@ -1,13 +1,14 @@
 import {
   Button,
   ButtonGroup,
+  ButtonLink,
   GuideLayout,
   GuideProp,
   GuideSection,
+  IconButton,
 } from "@/components";
+import { HomeIcon, PlusIcon } from "@/components/Icon";
 import Head from "next/head";
-
-const plusIcon = <span aria-hidden="true">+</span>;
 
 export default function ButtonGuidePage() {
   return (
@@ -16,15 +17,15 @@ export default function ButtonGuidePage() {
         <title>Button Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="Button과 ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지"
+          content="Button, ButtonLink, IconButton, ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <GuideLayout
         currentPath="/button"
-        title="Button & ButtonGroup"
-        description="Button과 ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+        title="Button / ButtonLink / ButtonGroup"
+        description="Button, ButtonLink, IconButton, ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
       >
         <GuideProp
           name="size"
@@ -81,19 +82,19 @@ export default function ButtonGuidePage() {
           typeLabel="React.ReactNode"
           description="아이콘을 버튼 텍스트 앞에 배치할 수 있습니다."
         >
-          <Button icon={plusIcon}>Add Item</Button>
-          <Button icon={plusIcon} color="primary" shape="round">
+          <Button icon={<PlusIcon />}>Add Item</Button>
+          <Button icon={<PlusIcon />} color="primary" shape="round">
             Create
           </Button>
-          <Button icon={plusIcon} variant="line" color="secondary">
+          <Button icon={<PlusIcon />} variant="line" color="secondary">
             More
           </Button>
         </GuideProp>
 
         <GuideSection
           label="Prop Spreading"
-          title="props 위임"
-          description="Button 컴포넌트에 지정 된 props 외의 속성들은 button 태그로 위임됩니다."
+          title="Button 컴포넌트의 props 위임"
+          description="Button의 디자인 props를 공유하면서 button 태그의 props를 그대로 전달합니다."
         >
           <GuideProp name="disabled" typeLabel="boolean" defaultValue="false">
             <Button disabled>Disabled</Button>
@@ -118,7 +119,71 @@ export default function ButtonGuidePage() {
             typeLabel={`"button" | "submit" | "reset" | undefined`}
             defaultValue="(e: MouseEvent<HTMLButtonElement, MouseEvent>) => void"
           >
-            <Button onClick={(e) => console.log(e)}>Click Me !!</Button>
+            <Button shape="round" color="point" onClick={(e) => console.log(e)}>
+              Click Me !!
+            </Button>
+          </GuideProp>
+        </GuideSection>
+
+        <GuideSection
+          label="Link"
+          title="ButtonLink / props 위임"
+          description="ButtonLink는 Button과 동일한 디자인 props를 공유하면서 Next Link의 native props를 그대로 전달합니다."
+        >
+          <GuideProp
+            name="href"
+            typeLabel="Url"
+            description="ButtonLink에서 필수로 전달해야 하는 이동 경로입니다."
+          >
+            <ButtonLink href="/" icon={<HomeIcon />}>
+              홈으로 이동
+            </ButtonLink>
+          </GuideProp>
+
+          <GuideProp
+            name="native link props"
+            typeLabel="target | rel | prefetch | replace ..."
+            description="정의하지 않은 링크 관련 props는 Next Link로 위임됩니다."
+          >
+            <ButtonLink
+              href="https://nextjs.org"
+              target="_blank"
+              rel="noreferrer"
+              shape="round"
+              color="point"
+            >
+              Next.js Docs 새창 열기
+            </ButtonLink>
+          </GuideProp>
+        </GuideSection>
+
+        <GuideSection
+          label="IconButton"
+          title="IconButton / props 위임"
+          description="IconButton는 Button의 디자인 props를 공유하면서 button 태그의 props를 그대로 전달합니다."
+        >
+          <GuideProp
+            name="children"
+            typeLabel="React.ReactNode"
+            description="children으로 Icon 컴포넌트 전달 / icon, variant=text props 사용 불가"
+            isWide
+          >
+            <IconButton>
+              <PlusIcon />
+            </IconButton>
+
+            <IconButton size="medium" color="primary">
+              <PlusIcon />
+            </IconButton>
+
+            <IconButton
+              size="small"
+              variant="line"
+              color="secondary"
+              shape="round"
+            >
+              <PlusIcon />
+            </IconButton>
           </GuideProp>
         </GuideSection>
 
@@ -136,10 +201,12 @@ export default function ButtonGuidePage() {
           >
             <ButtonGroup>
               <ButtonGroup.Item isAutoWidth>
-                <Button variant="line">Back</Button>
+                <IconButton variant="line">
+                  <PlusIcon />
+                </IconButton>
               </ButtonGroup.Item>
               <ButtonGroup.Item>
-                <Button color="primary">Save Changes</Button>
+                <Button color="primary">Button</Button>
               </ButtonGroup.Item>
             </ButtonGroup>
           </GuideProp>

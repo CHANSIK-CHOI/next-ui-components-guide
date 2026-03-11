@@ -3,28 +3,16 @@ import React from "react";
 
 const nameBlock = "button";
 
-// type ButtonAsLinkProps = ButtonBaseProps &
-//   ButtonDesignProps &
-//   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-//     as: "link";
-//     href: LinkProps["href"];
-//   };
+export type ButtonSize = "large" | "medium" | "small";
+export type ButtonColor = "black" | "primary" | "secondary" | "point";
+export type ButtonVariant = "solid" | "line" | "text";
+export type ButtonShape = "round" | "square";
 
-// type ButtonLinkRestProps = Omit<
-//   ButtonAsLinkProps,
-//   "children" | "className" | "size" | "color" | "variant" | "shape" | "as"
-// >;
-
-// type ButtonNativeRestProps = Omit<
-//   ButtonAsButtonProps,
-//   "children" | "className" | "size" | "color" | "variant" | "shape" | "as"
-// >;
-
-type ButtonDesignProps =
+export type ButtonDesignProps =
   | {
-      variant?: "solid" | "line";
-      shape?: "round" | "square";
-      size?: "large" | "medium" | "small";
+      variant?: Exclude<ButtonVariant, "text">;
+      shape?: ButtonShape;
+      size?: ButtonSize;
     }
   | {
       variant: "text";
@@ -32,26 +20,26 @@ type ButtonDesignProps =
       size?: never;
     };
 
-type ButtonBaseProps = {
+export type ButtonBaseProps = {
   children: React.ReactNode;
   icon?: React.ReactNode;
   className?: string;
-  color?: "black" | "primary" | "secondary" | "point";
+  color?: ButtonColor;
 };
 
-type ButtonProps = ButtonBaseProps &
+export type ButtonProps = ButtonBaseProps &
   ButtonDesignProps &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-type ButtonClassNameParams = {
+export type ButtonClassNameParams = {
   className?: string;
-  size?: "large" | "medium" | "small";
-  color?: "black" | "primary" | "secondary" | "point";
-  variant?: "solid" | "line" | "text";
-  shape?: "round" | "square";
+  size?: ButtonSize;
+  color?: ButtonColor;
+  variant?: ButtonVariant;
+  shape?: ButtonShape;
 };
 
-function getButtonClassName({
+export function getButtonClassName({
   className,
   size = "large",
   color = "black",
@@ -62,9 +50,23 @@ function getButtonClassName({
     nameBlock,
     color !== "black" && `${nameBlock}--${color}`,
     variant !== "solid" && `${nameBlock}--${variant}`,
-    variant !== "text" && shape === "round" && `${nameBlock}--${shape}`,
+    variant !== "text" && shape !== "square" && `${nameBlock}--${shape}`,
     size !== "large" && `${nameBlock}--${size}`,
     className,
+  );
+}
+
+type ButtonWrapElParams = {
+  icon: ButtonBaseProps["icon"];
+  children: ButtonBaseProps["children"];
+};
+export function setButtonWrapEl({ icon, children }: ButtonWrapElParams) {
+  return (
+    <span className={cn(`${nameBlock}__wrap`)}>
+      {icon && <span className={cn(`${nameBlock}__icon`)}>{icon}</span>}
+
+      {children}
+    </span>
   );
 }
 
@@ -75,28 +77,22 @@ export default function Button({
   size = "large",
   color = "black",
   variant = "solid",
-  shape,
+  shape = "square",
   ...rest
 }: ButtonProps) {
-  const buttonClassName = getButtonClassName({
+  const buttonClassNameParams: ButtonClassNameParams = {
     className,
     size,
     color,
     variant,
     shape,
-  });
-
-  const contentEl = (
-    <span className={cn(`${nameBlock}__wrap`)}>
-      {icon && <span className={cn(`${nameBlock}__icon`)}>{icon}</span>}
-
-      {children}
-    </span>
-  );
+  };
+  const buttonClassName = getButtonClassName(buttonClassNameParams);
+  const buttonWrapEl = setButtonWrapEl({ icon, children });
 
   return (
     <button type="button" {...rest} className={buttonClassName}>
-      {contentEl}
+      {buttonWrapEl}
     </button>
   );
 }

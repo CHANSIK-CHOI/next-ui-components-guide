@@ -10,6 +10,7 @@ type GuidePropProps = {
   description?: string;
   children: React.ReactNode;
   className?: string;
+  isWide?: boolean;
 };
 
 export default function GuideProp({
@@ -19,11 +20,14 @@ export default function GuideProp({
   description,
   children,
   className,
+  isWide = false,
 }: GuidePropProps) {
   const previewItems = React.Children.toArray(children);
 
   return (
-    <section className={cn(nameBlock, className)}>
+    <section
+      className={cn(nameBlock, className, isWide && `${nameBlock}--wide`)}
+    >
       <div className={cn(`${nameBlock}__head`)}>
         <span className={cn(`${nameBlock}__label`)}>Prop</span>
 
