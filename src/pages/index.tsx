@@ -25,7 +25,7 @@ export default function Home() {
         description="Next.js 환경에서 제가 처음부터 끝까지 직접 구현한 UI 컴포넌트 가이드입니다."
       >
         <GuideSection
-          label="Link to Guide Page"
+          label="View Guide Page"
           title="컴포넌트 가이드 페이지로 이동"
           description={
             <>
@@ -39,7 +39,7 @@ export default function Home() {
             href="/button"
             label="Link"
             title="Button"
-            description="Button과 ButtonGroup의 기본 조합"
+            description="Button, ButtonLink, IconButton, ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
           />
         </GuideSection>
 

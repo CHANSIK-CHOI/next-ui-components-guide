@@ -83,7 +83,9 @@ export default function GuideLayout({
 
         <main className={cn(`${nameBlock}__main`)}>
           <section className={cn(`${nameBlock}__hero`)}>
-            <span className={cn(`${nameBlock}__heroLabel`)}>Guide Page</span>
+            <span className={cn(`${nameBlock}__heroLabel`)}>
+              Project Information
+            </span>
             <h1 className={cn(`${nameBlock}__title`)}>{title}</h1>
             <p className={cn(`${nameBlock}__description`)}>{description}</p>
           </section>

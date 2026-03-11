@@ -126,7 +126,7 @@ export default function ButtonGuidePage() {
         </GuideSection>
 
         <GuideSection
-          label="Link"
+          label="ButtonLink"
           title="ButtonLink / props 위임"
           description="ButtonLink는 Button과 동일한 디자인 props를 공유하면서 Next Link의 native props를 그대로 전달합니다."
         >
@@ -188,7 +188,7 @@ export default function ButtonGuidePage() {
         </GuideSection>
 
         <GuideSection
-          label="Compound"
+          label="Button Layout"
           title="ButtonGroup.Item"
           description="ButtonGroup은 각 아이템의 폭과 정렬 패턴을 정리할 때 사용합니다."
         >
