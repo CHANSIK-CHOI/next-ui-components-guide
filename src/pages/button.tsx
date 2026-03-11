@@ -24,7 +24,7 @@ export default function ButtonGuidePage() {
 
       <GuideLayout
         currentPath="/button"
-        title="Button / ButtonLink / ButtonGroup"
+        title="Button / ButtonLink / IconButton / ButtonGroup"
         description="Button, ButtonLink, IconButton, ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
       >
         <GuideProp
@@ -116,8 +116,8 @@ export default function ButtonGuidePage() {
 
           <GuideProp
             name="onClick"
-            typeLabel={`"button" | "submit" | "reset" | undefined`}
-            defaultValue="(e: MouseEvent<HTMLButtonElement, MouseEvent>) => void"
+            typeLabel="React.MouseEventHandler<HTMLButtonElement>"
+            defaultValue="undefined"
           >
             <Button shape="round" color="point" onClick={(e) => console.log(e)}>
               Click Me !!
@@ -132,7 +132,7 @@ export default function ButtonGuidePage() {
         >
           <GuideProp
             name="href"
-            typeLabel="Url"
+            typeLabel="string | UrlObject"
             description="ButtonLink에서 필수로 전달해야 하는 이동 경로입니다."
           >
             <ButtonLink href="/" icon={<HomeIcon />}>
@@ -160,23 +160,26 @@ export default function ButtonGuidePage() {
         <GuideSection
           label="IconButton"
           title="IconButton / props 위임"
-          description="IconButton는 Button의 디자인 props를 공유하면서 button 태그의 props를 그대로 전달합니다."
+          description="IconButton은 Button의 디자인 props를 공유하면서 button 태그의 props를 그대로 전달합니다."
         >
           <GuideProp
             name="children"
             typeLabel="React.ReactNode"
-            description="children으로 Icon 컴포넌트 전달 / icon, variant=text props 사용 불가"
+            description={
+              '아이콘 노드를 children으로 전달합니다. icon prop과 variant="text"는 사용할 수 없습니다.'
+            }
             isWide
           >
-            <IconButton>
+            <IconButton aria-label="항목 추가">
               <PlusIcon />
             </IconButton>
 
-            <IconButton size="medium" color="primary">
+            <IconButton aria-label="항목 추가" size="medium" color="primary">
               <PlusIcon />
             </IconButton>
 
             <IconButton
+              aria-label="항목 추가"
               size="small"
               variant="line"
               color="secondary"
@@ -185,15 +188,47 @@ export default function ButtonGuidePage() {
               <PlusIcon />
             </IconButton>
           </GuideProp>
+
+          <GuideProp
+            name="aria-label"
+            typeLabel="string"
+            defaultValue="undefined"
+            description="텍스트 없이 아이콘만 보이는 버튼에서는 접근성 이름을 반드시 지정합니다."
+            isWide
+          >
+            <IconButton aria-label="홈으로 이동" variant="line">
+              <HomeIcon />
+            </IconButton>
+
+            <IconButton aria-label="항목 추가" color="primary" shape="round">
+              <PlusIcon />
+            </IconButton>
+          </GuideProp>
         </GuideSection>
 
         <GuideSection
-          label="Button Layout"
-          title="ButtonGroup.Item"
-          description="ButtonGroup은 각 아이템의 폭과 정렬 패턴을 정리할 때 사용합니다."
+          label="ButtonGroup"
+          title="ButtonGroup / ButtonGroup.Item"
+          description="ButtonGroup은 버튼 배열과 각 아이템의 폭 패턴을 정리할 때 사용합니다."
         >
           <GuideProp
-            className="guideProp--wide"
+            name="children"
+            typeLabel="React.ReactNode"
+            description="기본 레이아웃에서는 각 항목이 가능한 영역을 균등하게 나눠 가집니다."
+            isWide
+          >
+            <ButtonGroup>
+              <ButtonGroup.Item>
+                <Button variant="line">취소</Button>
+              </ButtonGroup.Item>
+              <ButtonGroup.Item>
+                <Button color="primary">확인</Button>
+              </ButtonGroup.Item>
+            </ButtonGroup>
+          </GuideProp>
+
+          <GuideProp
+            isWide
             name="isAutoWidth"
             typeLabel="boolean"
             defaultValue="false"
@@ -201,12 +236,12 @@ export default function ButtonGuidePage() {
           >
             <ButtonGroup>
               <ButtonGroup.Item isAutoWidth>
-                <IconButton variant="line">
+                <IconButton aria-label="새 항목 추가" variant="line">
                   <PlusIcon />
                 </IconButton>
               </ButtonGroup.Item>
               <ButtonGroup.Item>
-                <Button color="primary">Button</Button>
+                <Button color="primary">다음으로</Button>
               </ButtonGroup.Item>
             </ButtonGroup>
           </GuideProp>
