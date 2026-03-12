@@ -5,6 +5,7 @@ export default function TextfieldGuideContent() {
   return (
     <>
       <TextfieldControlledSection />
+      <hr />
       <TextfieldRHFSection />
     </>
   );

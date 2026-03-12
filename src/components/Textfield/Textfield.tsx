@@ -5,11 +5,20 @@ import Message from "./Message";
 
 const nameBlock = "textfield";
 
+type TextfieldInputType =
+  | "text"
+  | "password"
+  | "email"
+  | "tel"
+  | "url"
+  | "number";
+
 type TextfieldBaseProps = {
   children?: React.ReactNode;
   id?: string;
   className?: string;
   placeholder?: string;
+  type?: TextfieldInputType;
   value?: React.InputHTMLAttributes<HTMLInputElement>["value"];
   readOnly?: boolean;
   disabled?: boolean;
@@ -23,7 +32,14 @@ type TextfieldBaseProps = {
 export type TextfieldProps = TextfieldBaseProps &
   Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "placeholder" | "id" | "value" | "readOnly" | "disabled"
+    | "aria-invalid"
+    | "defaultValue"
+    | "disabled"
+    | "id"
+    | "placeholder"
+    | "readOnly"
+    | "type"
+    | "value"
   >;
 
 const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(

@@ -1,3 +1,4 @@
+import { type ChangeEvent } from "react";
 import {
   type FieldPath,
   type FieldValues,
@@ -6,6 +7,10 @@ import {
 } from "react-hook-form";
 import Textfield, { type TextfieldProps } from "./Textfield";
 
+type RHFTextfieldBaseProps = {
+  formatValue?: (value: string) => string;
+};
+
 export type RHFTextfieldProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
@@ -13,6 +18,7 @@ export type RHFTextfieldProps<
   TextfieldProps,
   "name" | "value" | "defaultValue" | "onChange" | "onBlur"
 > &
+  RHFTextfieldBaseProps &
   UseControllerProps<TFieldValues, TName>;
 
 export default function RHFTextfield<
@@ -26,6 +32,7 @@ export default function RHFTextfield<
   shouldUnregister,
   disabled = false,
   errorMsg,
+  formatValue,
   onClear,
   ...restTextfieldProps
 }: RHFTextfieldProps<TFieldValues, TName>) {
@@ -39,8 +46,16 @@ export default function RHFTextfield<
   });
   const { ref, ...fieldProps } = field;
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const nextValue = formatValue
+      ? formatValue(event.target.value)
+      : event.target.value;
+    field.onChange(nextValue);
+  };
+
   const handleClear = () => {
-    field.onChange("");
+    const nextValue = formatValue ? formatValue("") : "";
+    field.onChange(nextValue);
     onClear?.();
   };
 
@@ -51,6 +66,7 @@ export default function RHFTextfield<
       ref={ref}
       value={field.value ?? ""}
       disabled={disabled}
+      onChange={handleChange}
       onClear={handleClear}
       errorMsg={fieldState.error?.message ?? errorMsg}
     />

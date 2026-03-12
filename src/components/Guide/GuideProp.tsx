@@ -7,7 +7,7 @@ type GuidePropProps = {
   name: string;
   typeLabel: string;
   defaultValue?: string;
-  description?: string;
+  description?: string | React.ReactNode;
   children: React.ReactNode;
   className?: string;
   isWide?: boolean;

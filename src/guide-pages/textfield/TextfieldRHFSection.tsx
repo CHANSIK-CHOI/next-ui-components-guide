@@ -1,5 +1,6 @@
 import { Button, RHFTextfield } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
+import { formatPhoneNumber, normalizePhoneNumber } from "@/utils/phoneNumber";
 import { useForm } from "react-hook-form";
 
 const demoStackStyle = {
@@ -18,6 +19,15 @@ type RHFValidationDemoValues = {
 
 type RHFNativePropsDemoValues = {
   amount: string;
+};
+
+type RHFPatternDemoValues = {
+  numericOnly: string;
+  email: string;
+};
+
+type RHFFormatValueDemoValues = {
+  phone: string;
 };
 
 export default function TextfieldRHFSection() {
@@ -54,6 +64,29 @@ export default function TextfieldRHFSection() {
     },
   });
 
+  const {
+    control: patternControl,
+    handleSubmit: handlePatternSubmit,
+    formState: { isSubmitting: isPatternSubmitting },
+  } = useForm<RHFPatternDemoValues>({
+    mode: "onSubmit",
+    defaultValues: {
+      numericOnly: "",
+      email: "",
+    },
+  });
+
+  const {
+    control: formatValueControl,
+    handleSubmit: handleFormatValueSubmit,
+    formState: { isSubmitting: isFormatValueSubmitting },
+  } = useForm<RHFFormatValueDemoValues>({
+    mode: "onSubmit",
+    defaultValues: {
+      phone: "",
+    },
+  });
+
   const handleBasicFormSubmit = async (values: RHFBasicDemoValues) => {
     console.log(values);
   };
@@ -68,6 +101,21 @@ export default function TextfieldRHFSection() {
     values: RHFNativePropsDemoValues,
   ) => {
     console.log(values);
+  };
+
+  const handlePatternFormSubmit = async (values: RHFPatternDemoValues) => {
+    console.log(values);
+  };
+
+  const handleFormatValueFormSubmit = async (
+    values: RHFFormatValueDemoValues,
+  ) => {
+    const normalizedValues = {
+      ...values,
+      phone: normalizePhoneNumber(values.phone),
+    };
+
+    console.log(normalizedValues);
   };
 
   return (
@@ -122,6 +170,97 @@ export default function TextfieldRHFSection() {
               disabled={isValidationSubmitting}
             >
               Validate
+            </Button>
+          </div>
+        </form>
+      </GuideProp>
+
+      <GuideProp
+        isWide
+        name="rules.pattern"
+        typeLabel="RegExp"
+        description="pattern 검증을 사용하면 숫자, 이메일처럼 정규식 기반 형식을 RHF에서 검증할 수 있습니다."
+      >
+        <form onSubmit={handlePatternSubmit(handlePatternFormSubmit)}>
+          <div style={demoStackStyle}>
+            <RHFTextfield
+              name="numericOnly"
+              control={patternControl}
+              placeholder="숫자만 입력"
+              inputMode="numeric"
+              isClearable
+              rules={{
+                required: "숫자를 입력해주세요.",
+                pattern: {
+                  value: /^\d+$/,
+                  message: "숫자만 입력할 수 있습니다.",
+                },
+              }}
+            />
+            <RHFTextfield
+              name="email"
+              control={patternControl}
+              placeholder="sample@email.com"
+              type="email"
+              inputMode="email"
+              isClearable
+              rules={{
+                required: "이메일을 입력해주세요.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "올바른 이메일 형식이 아닙니다.",
+                },
+              }}
+            />
+            <Button
+              color="primary"
+              type="submit"
+              disabled={isPatternSubmitting}
+            >
+              Validate Pattern
+            </Button>
+          </div>
+        </form>
+      </GuideProp>
+
+      <GuideProp
+        isWide
+        name="formatValue"
+        typeLabel="(value: string) => string"
+        description={
+          <>
+            formatValue를 전달하면 RHFTextfield 내부 onChange에서 값을 가공한 뒤
+            field.onChange로 전달할 수 있습니다.
+            <br /> 아래 예시는 휴대전화 입력 중 하이픈을 자동으로 추가하고,
+            submit 시에는 숫자만 남겨 payload를 정리합니다.
+          </>
+        }
+      >
+        <form onSubmit={handleFormatValueSubmit(handleFormatValueFormSubmit)}>
+          <div style={demoStackStyle}>
+            <RHFTextfield
+              name="phone"
+              control={formatValueControl}
+              placeholder="01012345678"
+              inputMode="tel"
+              maxLength={13}
+              formatValue={formatPhoneNumber}
+              isClearable
+              infoMsg="입력 중에는 하이픈이 자동으로 추가되고, submit 시에는 숫자만 남겨서 처리할 수 있습니다."
+              rules={{
+                required: "휴대전화 번호를 입력해주세요.",
+                pattern: {
+                  value: /^01[016789]-\d{3,4}-\d{4}$/,
+                  message: "올바른 휴대전화 번호 형식이 아닙니다.",
+                },
+              }}
+            />
+            <Button
+              color="primary"
+              type="submit"
+              disabled={isFormatValueSubmitting}
+            >
+              Submit Formatted Value
             </Button>
           </div>
         </form>
