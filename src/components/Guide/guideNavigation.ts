@@ -15,4 +15,14 @@ export const guideNavigation: GuideNavigationItem[] = [
     label: "Textfield",
     description: "Textfield / RHFTextfield",
   },
+  {
+    href: "/search",
+    label: "Search",
+    description: "Search / RHFSearch",
+  },
+  {
+    href: "/password",
+    label: "Password",
+    description: "Password / RHFPassword",
+  },
 ];

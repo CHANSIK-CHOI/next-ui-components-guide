@@ -56,6 +56,16 @@ export default function Home() {
             title="Textfield"
             description="controlled Textfield와 RHFTextfield 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
           />
+          <GuideCardLink
+            href="/search"
+            title="Search"
+            description="Textfield props를 확장한 Search와 RHFSearch 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          />
+          <GuideCardLink
+            href="/password"
+            title="Password"
+            description="Textfield props를 확장한 Password와 RHFPassword 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          />
         </GuideSection>
 
         <GuideSection

@@ -4,3 +4,7 @@ export { default as IconButton } from "./Button/IconButton";
 export { default as ButtonLink } from "./Button/ButtonLink";
 export { default as Textfield } from "./Textfield/Textfield";
 export { default as RHFTextfield } from "./Textfield/RHFTextfield";
+export { default as Search } from "./Textfield/Search";
+export { default as Password } from "./Textfield/Password";
+export { default as RHFSearch } from "./Textfield/RHFSearch";
+export { default as RHFPassword } from "./Textfield/RHFPassword";

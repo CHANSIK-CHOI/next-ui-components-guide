@@ -185,8 +185,8 @@ export default function TextfieldControlledSection() {
       <ClearableGuideProp />
       <UnitGuideProp />
       <MessageGuideProp />
-      <StateGuideProp />
       <NativeInputGuideProp />
+      <StateGuideProp />
     </GuideSection>
   );
 }
