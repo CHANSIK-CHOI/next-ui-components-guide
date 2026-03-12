@@ -2,9 +2,10 @@ import { forwardRef } from "react";
 import Textfield, { type TextfieldProps } from "./Textfield";
 import TextfieldBtn from "./TextfieldBtn";
 
-type SearchProps = Omit<TextfieldProps, "children" | "type"> & {
+export type SearchProps = Omit<TextfieldProps, "children" | "type"> & {
   onSearch?: () => void;
   searchButtonTitle?: string;
+  searchButtonType?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };
 
 const Search = forwardRef<HTMLInputElement, SearchProps>(
@@ -12,11 +13,15 @@ const Search = forwardRef<HTMLInputElement, SearchProps>(
     {
       onSearch,
       searchButtonTitle = "검색",
+      searchButtonType,
       disabled = false,
       ...restTextfieldProps
     },
     ref,
   ) => {
+    const resolvedSearchButtonType =
+      searchButtonType ?? (onSearch ? "button" : "submit");
+
     return (
       <Textfield
         {...restTextfieldProps}
@@ -27,6 +32,7 @@ const Search = forwardRef<HTMLInputElement, SearchProps>(
         <TextfieldBtn
           icon="search"
           title={searchButtonTitle}
+          type={resolvedSearchButtonType}
           onClick={onSearch}
           disabled={disabled}
         />

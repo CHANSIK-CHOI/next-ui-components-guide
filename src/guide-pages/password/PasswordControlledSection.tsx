@@ -17,6 +17,8 @@ const PasswordPropsGuideProp = memo(function PasswordPropsGuideProp() {
           Textfield props를 그대로 사용할 수 있습니다.
           <br /> - children과 type은 내부에서 비밀번호 토글 버튼과
           password/text 전환으로 관리합니다.
+          <br /> - clear 버튼을 누르면 입력값을 비우고 다시 숨김 상태로
+          돌아갑니다.
         </>
       }
     >
@@ -40,7 +42,7 @@ const PasswordToggleGuideProp = memo(function PasswordToggleGuideProp() {
       isWide
       name="defaultPasswordVisible | hidePasswordTitle | showPasswordTitle"
       typeLabel="boolean | string"
-      description="초기 표시 상태와 비밀번호 토글 버튼의 접근성 텍스트를 제어합니다."
+      description="초기 표시 상태와 비밀번호 토글 버튼의 접근성 텍스트를 제어합니다. clear 버튼을 누르면 다시 숨김 상태로 돌아갑니다."
     >
       <Password
         value={visiblePassword}

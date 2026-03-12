@@ -11,6 +11,7 @@ export type RHFSearchProps<
 > = Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & {
   onSearch?: () => void;
   searchButtonTitle?: string;
+  searchButtonType?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };
 
 export default function RHFSearch<
@@ -19,9 +20,13 @@ export default function RHFSearch<
 >({
   onSearch,
   searchButtonTitle = "검색",
+  searchButtonType,
   disabled = false,
   ...restTextfieldProps
 }: RHFSearchProps<TFieldValues, TName>) {
+  const resolvedSearchButtonType =
+    searchButtonType ?? (onSearch ? "button" : "submit");
+
   return (
     <RHFTextfield
       {...restTextfieldProps}
@@ -31,6 +36,7 @@ export default function RHFSearch<
       <TextfieldBtn
         icon="search"
         title={searchButtonTitle}
+        type={resolvedSearchButtonType}
         onClick={onSearch}
         disabled={disabled}
       />

@@ -12,6 +12,7 @@ type TextfieldBtnProps = {
   icon: "clear" | "showPw" | "hidePw" | "search" | "date";
   title: string;
   className?: string;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
   onClick?: () => void;
   disabled?: boolean;
 };
@@ -21,6 +22,7 @@ export default function TextfieldBtn({
   icon,
   title,
   className,
+  type = "button",
   onClick,
   disabled,
 }: TextfieldBtnProps) {
@@ -46,7 +48,7 @@ export default function TextfieldBtn({
 
   return (
     <button
-      type="button"
+      type={type}
       className={cn(`${nameBlock}__btn`, className)}
       disabled={disabled}
       onMouseDown={(e) => e.preventDefault()}

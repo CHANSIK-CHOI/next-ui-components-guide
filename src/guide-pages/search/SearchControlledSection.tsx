@@ -9,7 +9,7 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
     <GuideProp
       isWide
       name="Textfield props extension"
-      typeLabel='Omit<TextfieldProps, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; }'
+      typeLabel='Omit<TextfieldProps, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; searchButtonType?: "button" | "submit" | "reset"; }'
       description={
         <>
           - Search는 Textfield props를 확장한 래퍼 컴포넌트입니다.
@@ -17,6 +17,8 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
           Textfield props를 그대로 사용할 수 있습니다.
           <br /> - children과 type은 내부에서 검색 버튼과 text 타입으로
           고정합니다.
+          <br /> - searchButtonType을 지정하지 않으면 onSearch가 있을 때는
+          button, 없을 때는 submit으로 동작합니다.
         </>
       }
     >
@@ -35,13 +37,14 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
 const SearchActionGuideProp = memo(function SearchActionGuideProp() {
   const [keyword, setKeyword] = useState("react components");
   const [customTitleKeyword, setCustomTitleKeyword] = useState("");
+  const [submitKeyword, setSubmitKeyword] = useState("");
 
   return (
     <GuideProp
       isWide
-      name="onSearch | searchButtonTitle"
-      typeLabel="() => void | string"
-      description="검색 버튼 클릭 시 실행할 동작과 접근성 텍스트를 설정합니다."
+      name="onSearch | searchButtonTitle | searchButtonType"
+      typeLabel='() => void | string | "button" | "submit" | "reset"'
+      description="검색 버튼 클릭 동작, 접근성 텍스트, 버튼 type을 설정합니다. form 내부에서는 submit 버튼처럼 사용할 수도 있습니다."
     >
       <Search
         value={keyword}
@@ -58,6 +61,20 @@ const SearchActionGuideProp = memo(function SearchActionGuideProp() {
         onClear={() => setCustomTitleKeyword("")}
         onSearch={() => console.log(customTitleKeyword)}
       />
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          console.log(submitKeyword);
+        }}
+      >
+        <Search
+          value={submitKeyword}
+          placeholder="submit 버튼처럼 동작하는 Search"
+          searchButtonType="submit"
+          onChange={(event) => setSubmitKeyword(event.target.value)}
+          onClear={() => setSubmitKeyword("")}
+        />
+      </form>
     </GuideProp>
   );
 });

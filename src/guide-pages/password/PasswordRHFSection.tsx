@@ -50,6 +50,8 @@ const RHFPasswordPropsGuideProp = memo(function RHFPasswordPropsGuideProp() {
           있습니다.
           <br /> - children과 type은 내부에서 비밀번호 토글 버튼과
           password/text 전환으로 관리합니다.
+          <br /> - clear 버튼을 누르면 RHF 값이 비워지고 다시 숨김 상태로
+          돌아갑니다.
         </>
       }
     >
@@ -91,7 +93,7 @@ const RHFPasswordRulesGuideProp = memo(function RHFPasswordRulesGuideProp() {
       isWide
       name="rules"
       typeLabel="required | minLength | validate ..."
-      description="비밀번호 필드 검증은 RHF rules로 연결하고, 토글 상태는 RHFPassword 내부 UI 상태로 처리합니다."
+      description="비밀번호 필드 검증은 RHF rules로 연결하고, 토글 상태는 RHFPassword 내부 UI 상태로 처리합니다. clear 시에는 다시 숨김 상태로 돌아갑니다."
     >
       <form onSubmit={handleSubmit(handleSubmitRules)}>
         <div style={demoStackStyle}>

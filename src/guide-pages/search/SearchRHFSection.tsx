@@ -17,6 +17,10 @@ type SearchValidationValues = {
   query: string;
 };
 
+type SearchSubmitValues = {
+  submitKeyword: string;
+};
+
 type SearchNativeValues = {
   emailKeyword: string;
 };
@@ -42,7 +46,7 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
     <GuideProp
       isWide
       name="RHFTextfield props extension"
-      typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; }'
+      typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; searchButtonType?: "button" | "submit" | "reset"; }'
       description={
         <>
           - RHFSearch는 RHFTextfield props를 확장합니다.
@@ -51,6 +55,8 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
           있습니다.
           <br /> - children과 type은 내부에서 검색 버튼과 text 타입으로
           고정합니다.
+          <br /> - searchButtonType을 지정하지 않으면 onSearch가 있을 때는
+          button, 없을 때는 submit으로 동작합니다.
         </>
       }
     >
@@ -119,6 +125,47 @@ const RHFSearchRulesGuideProp = memo(function RHFSearchRulesGuideProp() {
   );
 });
 
+const RHFSearchButtonTypeGuideProp = memo(function RHFSearchButtonTypeGuideProp() {
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SearchSubmitValues>({
+    mode: "onSubmit",
+    defaultValues: {
+      submitKeyword: "",
+    },
+  });
+
+  const handleSubmitBySearchButton = async (values: SearchSubmitValues) => {
+    console.log(values);
+  };
+
+  return (
+    <GuideProp
+      isWide
+      name="searchButtonType"
+      typeLabel='"button" | "submit" | "reset"'
+      description="form 내부에서 검색 버튼을 submit 버튼처럼 쓰고 싶다면 searchButtonType을 지정할 수 있습니다."
+    >
+      <form onSubmit={handleSubmit(handleSubmitBySearchButton)}>
+        <div style={demoStackStyle}>
+          <RHFSearch
+            name="submitKeyword"
+            control={control}
+            placeholder="검색 버튼으로 form submit"
+            searchButtonType="submit"
+            isClearable
+          />
+          <Button color="primary" type="submit" disabled={isSubmitting}>
+            Submit
+          </Button>
+        </div>
+      </form>
+    </GuideProp>
+  );
+});
+
 const RHFSearchNativeGuideProp = memo(function RHFSearchNativeGuideProp() {
   const {
     control,
@@ -171,6 +218,7 @@ export default function SearchRHFSection() {
     >
       <RHFSearchPropsGuideProp />
       <RHFSearchRulesGuideProp />
+      <RHFSearchButtonTypeGuideProp />
       <RHFSearchNativeGuideProp />
     </GuideSection>
   );
