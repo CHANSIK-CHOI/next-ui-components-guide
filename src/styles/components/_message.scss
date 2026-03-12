@@ -1,0 +1,27 @@
+@use "@/styles/abstracts/mixins.scss" as mix;
+@use "@/styles/abstracts/functions" as func;
+
+$module: "message";
+
+.#{$module} {
+  margin-top: 0.8rem;
+  padding-left: 0.8rem;
+
+  &__msg {
+    color: var(--text-color-2);
+    display: block;
+    @include mix.typo(1.3rem, 1.3rem, "regular");
+  }
+  &__msg--error {
+    color: var(--color-error);
+    display: flex;
+    align-items: center;
+  }
+  &__error-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    display: block;
+    margin-right: 0.4rem;
+    --iconColor: var(--color-error);
+  }
+}

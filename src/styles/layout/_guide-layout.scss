@@ -1,4 +1,5 @@
 @use "../abstracts/mixins" as mix;
+@use "../abstracts/variables" as var;
 
 .guideLayout {
   min-height: 100%;
@@ -11,13 +12,15 @@
     linear-gradient(180deg, #f6fbf9 0%, #ffffff 22%, #f7fafc 100%);
 
   &__header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 10;
     border-bottom: 1px solid rgba(17, 24, 39, 0.08);
     background: rgba(255, 255, 255, 0.86);
     backdrop-filter: blur(18px);
-    height: 8rem;
+    height: var.$header-height;
   }
 
   &__headerInner {
@@ -115,6 +118,7 @@
     margin: 0 auto;
     padding: 3.2rem 2rem 6rem;
     flex-direction: column;
+    margin-top: var.$header-height;
 
     @include mix.respond-to("tablet") {
       flex-direction: row;
@@ -124,6 +128,7 @@
   &__main {
     flex: 1 1 auto;
     min-width: 0;
+    width: 100%;
   }
 
   &__hero {
@@ -205,6 +210,9 @@
     @include mix.respond-to("tablet") {
       flex: 0 0 28rem;
       width: auto;
+
+      position: sticky;
+      top: calc(var.$header-height + 3.2rem);
     }
   }
 
@@ -217,6 +225,7 @@
     border-radius: 2.4rem;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.08);
+    max-height: calc(100vh - (var.$header-height + 6.4rem));
   }
 
   &__asideLabel {
@@ -233,9 +242,9 @@
     gap: 0.8rem;
     max-height: 30rem;
     overflow-y: auto;
+    overscroll-behavior: contain;
     @include mix.respond-to("tablet") {
-      max-height: none;
-      overflow-y: initial;
+      max-height: 100%;
     }
   }
 

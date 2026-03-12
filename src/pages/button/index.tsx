@@ -2,11 +2,9 @@ import {
   Button,
   ButtonGroup,
   ButtonLink,
-  GuideLayout,
-  GuideProp,
-  GuideSection,
   IconButton,
 } from "@/components";
+import { GuideLayout, GuideProp, GuideSection } from "@/components/Guide";
 import { HomeIcon, PlusIcon } from "@/components/Icon";
 import Head from "next/head";
 

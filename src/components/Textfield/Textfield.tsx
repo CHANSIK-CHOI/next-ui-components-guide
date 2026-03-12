@@ -1,0 +1,98 @@
+import { useId, forwardRef } from "react";
+import TextfieldBtn from "./TextfieldBtn";
+import cn from "classnames";
+import Message from "./Message";
+
+const nameBlock = "textfield";
+
+type TextfieldBaseProps = {
+  children?: React.ReactNode;
+  id?: string;
+  className?: string;
+  placeholder?: string;
+  value?: React.InputHTMLAttributes<HTMLInputElement>["value"];
+  readOnly?: boolean;
+  disabled?: boolean;
+  infoMsg?: string;
+  errorMsg?: string;
+  unit?: string;
+  isClearable?: boolean;
+  onClear?: () => void;
+};
+
+export type TextfieldProps = TextfieldBaseProps &
+  Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "placeholder" | "id" | "value" | "readOnly" | "disabled"
+  >;
+
+const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
+  (
+    {
+      children,
+      id,
+      className,
+      placeholder = "내용을 입력해주세요",
+      value,
+      readOnly = false,
+      disabled = false,
+      infoMsg = "",
+      errorMsg = "",
+      unit = "",
+      isClearable = false,
+      onClear,
+      ...rest
+    },
+    ref,
+  ) => {
+    const RANDOM_ID = useId();
+    const ID = id ? id : RANDOM_ID;
+    const hasValue = value != null && String(value).length > 0;
+
+    return (
+      <div
+        className={cn(nameBlock, className, {
+          "is-disabled": disabled,
+          "is-error": Boolean(errorMsg),
+          "is-readonly": readOnly,
+          [`${nameBlock}--text-right`]: unit,
+        })}
+      >
+        <div className={cn(`${nameBlock}__wrap`)}>
+          <div className={cn(`${nameBlock}__input-box`)}>
+            <input
+              autoComplete="off"
+              {...rest}
+              ref={ref}
+              id={ID}
+              className={cn(`${nameBlock}__input`)}
+              value={value}
+              placeholder={placeholder}
+              disabled={disabled}
+              readOnly={readOnly}
+              aria-invalid={errorMsg ? true : undefined}
+            />
+          </div>
+          <div className={cn(`${nameBlock}__actions`)}>
+            {isClearable && hasValue && !readOnly && !disabled && (
+              <TextfieldBtn
+                icon="clear"
+                title="내용 지우기"
+                onClick={onClear}
+                disabled={disabled}
+                className={cn(`${nameBlock}__clear`)}
+              />
+            )}
+            {children}
+            {unit && <span className={cn(`${nameBlock}__unit`)}>{unit}</span>}
+          </div>
+        </div>
+        <Message infoMsg={infoMsg} errorMsg={errorMsg} />
+      </div>
+    );
+  },
+);
+
+Textfield.displayName = "Textfield";
+
+export default Textfield;

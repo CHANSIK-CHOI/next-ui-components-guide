@@ -1,13 +1,30 @@
-import {
-  Button,
-  ButtonGroup,
-  GuideCardLink,
-  GuideLayout,
-  GuideSection,
-} from "@/components";
+import { Button, ButtonGroup, RHFTextfield, Textfield } from "@/components";
+import { GuideCardLink, GuideLayout, GuideSection } from "@/components/Guide";
 import Head from "next/head";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
+type SAMPLE_FORM_TYPE = {
+  sampleText: string;
+};
+const SAMPLE_FORM: SAMPLE_FORM_TYPE = {
+  sampleText: "",
+};
 export default function Home() {
+  const [sampleTextfieldValue, setSampleTextfieldValue] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SAMPLE_FORM_TYPE>({
+    mode: "onSubmit",
+    defaultValues: SAMPLE_FORM,
+  });
+
+  const onSubmit = async (value: SAMPLE_FORM_TYPE) => {
+    console.log(value);
+  };
+
   return (
     <>
       <Head>
@@ -27,19 +44,17 @@ export default function Home() {
         <GuideSection
           label="View Guide Page"
           title="컴포넌트 가이드 페이지로 이동"
-          description={
-            <>
-              제작 된 컴포넌트 가이드 페이지로 이동하여 확인해보세요.
-              <br />
-              먼저 Button 컴포넌트 가이드 페이지로 이동됩니다.
-            </>
-          }
+          description="제작 된 컴포넌트들을 가이드 페이지로 이동하여 확인해보세요."
         >
           <GuideCardLink
             href="/button"
-            label="Link"
             title="Button"
             description="Button, ButtonLink, IconButton, ButtonGroup 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          />
+          <GuideCardLink
+            href="/textfield"
+            title="Textfield"
+            description="controlled Textfield와 RHFTextfield 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
           />
         </GuideSection>
 
@@ -56,6 +71,31 @@ export default function Home() {
               <Button color="primary">확인</Button>
             </ButtonGroup.Item>
           </ButtonGroup>
+
+          <Textfield
+            isClearable
+            onChange={(e) => setSampleTextfieldValue(e.target.value)}
+            value={sampleTextfieldValue}
+            onClear={() => setSampleTextfieldValue("")}
+            unit="원"
+          />
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <RHFTextfield
+              name="sampleText"
+              control={control}
+              rules={{
+                required: "필수 입력 값입니다.",
+                validate: (value) =>
+                  value.trim().length > 0 || "공백만 입력할 수 없습니다.",
+              }}
+              isClearable
+              infoMsg="Sample 입력란입니다."
+            />
+            <Button color="primary" type="submit" disabled={isSubmitting}>
+              Submit
+            </Button>
+          </form>
         </GuideSection>
       </GuideLayout>
     </>
