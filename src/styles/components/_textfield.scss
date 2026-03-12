@@ -16,7 +16,8 @@ $module: "textfield";
     transition:
       border-color 0.18s ease,
       background-color 0.18s ease,
-      box-shadow 0.18s ease;
+      box-shadow 0.18s ease,
+      border-width 0.18s ease;
   }
 
   &__input-box {
@@ -67,6 +68,11 @@ $module: "textfield";
     @include mix.typo(1.6rem, 1.6rem, "regular");
   }
 
+  &__input:focus,
+  &__input:focus-visible {
+    outline: none;
+  }
+
   &__input::placeholder {
     color: var(--text-color-3);
     @include mix.typo(1.6rem, 1.6rem, "regular");
@@ -89,6 +95,7 @@ $module: "textfield";
 
   &:not(.is-disabled):not(.is-readonly):focus-within &__wrap {
     border-color: var(--focus-color);
+    border-width: 2px;
     box-shadow: 0 0 0 0.4rem rgba(28, 166, 115, 0.14);
   }
 
