@@ -118,20 +118,20 @@ export default function Home() {
         <title>Next UI Components Guide</title>
         <meta
           name="description"
-          content="컴포넌트 페이지 단위로 정리하는 Next UI Components Guide"
+          content="Next 기반 UI 컴포넌트와 사용 예시를 정리한 가이드 프로젝트"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GuideLayout
         currentPath="/"
-        title="UI Components Guide"
-        description="Next.js 환경에서 제가 처음부터 끝까지 직접 구현한 UI 컴포넌트 가이드입니다."
+        title="프로젝트 개요"
+        description="컴포넌트별 구현 결과와 사용 예시를 한 곳에서 볼 수 있도록 정리했습니다."
       >
         <GuideSection
           label="Project Overview"
           title="프로젝트 소개"
-          description="Next 기반 환경에서 공용 UI 컴포넌트를 직접 구현하고, 실제 사용 패턴과 함께 문서화하는 가이드 프로젝트입니다."
+          description="프로젝트 목적과 사용 라이브러리를 간단히 정리했습니다."
         >
           <div className="homeOverview">
             <article className="homeOverview__hero">
@@ -142,9 +142,9 @@ export default function Home() {
                 </span>
               </div>
               <p className="homeOverview__heroDescription">
-                Button, Textfield, Search, Password, Datepicker 계열
-                컴포넌트를 직접 설계하고, controlled 사용 방식과 React Hook
-                Form 연동 방식을 함께 비교할 수 있도록 구성했습니다.
+                Button, Textfield, Search, Password, Datepicker 계열을 중심으로
+                공용 UI 컴포넌트를 구현했고, controlled 패턴과 React Hook Form
+                연동 방식을 함께 비교할 수 있도록 구성했습니다.
               </p>
             </article>
 
