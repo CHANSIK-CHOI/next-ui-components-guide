@@ -21,6 +21,7 @@ type TextfieldBaseProps = {
   type?: TextfieldInputType;
   value?: React.InputHTMLAttributes<HTMLInputElement>["value"];
   readOnly?: boolean;
+  isTextInputBlocked?: boolean;
   disabled?: boolean;
   infoMsg?: string;
   errorMsg?: string;
@@ -51,6 +52,7 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
       placeholder = "내용을 입력해주세요",
       value,
       readOnly = false,
+      isTextInputBlocked = false,
       disabled = false,
       infoMsg = "",
       errorMsg = "",
@@ -64,6 +66,8 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
     const RANDOM_ID = useId();
     const ID = id ? id : RANDOM_ID;
     const hasValue = value != null && String(value).length > 0;
+    const canClear =
+      isClearable && typeof onClear === "function" && hasValue && !readOnly && !disabled;
 
     return (
       <div
@@ -85,12 +89,12 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
               value={value}
               placeholder={placeholder}
               disabled={disabled}
-              readOnly={readOnly}
+              readOnly={readOnly || isTextInputBlocked}
               aria-invalid={errorMsg ? true : undefined}
             />
           </div>
           <div className={cn(`${nameBlock}__actions`)}>
-            {isClearable && hasValue && !readOnly && !disabled && (
+            {canClear && (
               <TextfieldBtn
                 icon="clear"
                 title="내용 지우기"

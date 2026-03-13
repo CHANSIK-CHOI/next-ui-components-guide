@@ -15,6 +15,8 @@ const PasswordPropsGuideProp = memo(function PasswordPropsGuideProp() {
           - Password는 Textfield props를 확장한 래퍼 컴포넌트입니다.
           <br /> - value, onChange, isClearable, infoMsg, errorMsg 같은
           Textfield props를 그대로 사용할 수 있습니다.
+          <br /> - controlled usage에서 clear 버튼은 onClear를 함께 전달했을 때
+          노출됩니다.
           <br /> - children과 type은 내부에서 비밀번호 토글 버튼과
           password/text 전환으로 관리합니다.
           <br /> - clear 버튼을 누르면 입력값을 비우고 다시 숨김 상태로

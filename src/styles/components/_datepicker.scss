@@ -1,0 +1,184 @@
+@use "../abstracts/mixins.scss" as mix;
+@use "../abstracts/functions" as func;
+
+$module: "datepicker";
+
+.#{$module} {
+  position: relative;
+  width: 100%;
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 0.8rem);
+    left: 0;
+    z-index: func.z("tooltip");
+    min-width: 31.2rem;
+    padding: 1.6rem;
+    border: 1px solid var(--line-color-3);
+    border-radius: 1.2rem;
+    background-color: var(--color-white);
+    box-shadow: 0 1.6rem 4rem rgba(17, 24, 39, 0.12);
+  }
+
+  &__daypicker {
+    --rdp-accent-color: var(--color-primary);
+    --rdp-accent-background-color: var(--color-primary-bright);
+    --rdp-day-width: 4rem;
+    --rdp-day-height: 4rem;
+    --rdp-day_button-width: 3.6rem;
+    --rdp-day_button-height: 3.6rem;
+    --rdp-day_button-border-radius: 1rem;
+    color: var(--text-color-1);
+  }
+
+  &__daypicker .rdp-root,
+  &__daypicker .rdp-root * {
+    box-sizing: border-box;
+  }
+
+  &__daypicker .rdp-months {
+    display: flex;
+  }
+
+  &__daypicker .rdp-month {
+    width: 100%;
+  }
+
+  &__daypicker .rdp-month_caption {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  &__daypicker .rdp-caption_label {
+    @include mix.typo(1.6rem, 1.6rem, "semi-bold");
+  }
+
+  &__daypicker .rdp-nav {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  &__daypicker .rdp-button_previous,
+  &__daypicker .rdp-button_next {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color-2);
+    pointer-events: auto;
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease,
+      opacity 0.18s ease;
+  }
+
+  &__daypicker .rdp-button_previous:hover,
+  &__daypicker .rdp-button_next:hover {
+    background-color: var(--bg-color-3);
+    color: var(--text-color-1);
+  }
+
+  &__daypicker .rdp-button_previous:disabled,
+  &__daypicker .rdp-button_next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &__daypicker .rdp-chevron {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: currentColor;
+  }
+
+  &__daypicker .rdp-month_grid {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__daypicker .rdp-weekday {
+    width: var(--rdp-day-width);
+    height: 3.2rem;
+    color: var(--text-color-3);
+    text-align: center;
+    @include mix.typo(1.2rem, 1.2rem, "semi-bold");
+  }
+
+  &__daypicker .rdp-day {
+    width: var(--rdp-day-width);
+    height: var(--rdp-day-height);
+    text-align: center;
+  }
+
+  &__daypicker .rdp-day_button {
+    width: var(--rdp-day_button-width);
+    height: var(--rdp-day_button-height);
+    margin: 0 auto;
+    border: 1px solid transparent;
+    border-radius: var(--rdp-day_button-border-radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: inherit;
+    transition:
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease;
+    @include mix.typo(1.4rem, 1.4rem, "medium");
+  }
+
+  &__daypicker
+    .rdp-day:not(.rdp-selected)
+    .rdp-day_button:hover:not(:disabled) {
+    background-color: var(--bg-color-3);
+  }
+
+  &__daypicker .rdp-day_button:focus-visible {
+    outline: none;
+    border-color: var(--focus-color);
+    box-shadow: 0 0 0 0.3rem rgba(28, 166, 115, 0.16);
+  }
+
+  &__daypicker .rdp-outside {
+    color: var(--text-color-4);
+  }
+
+  &__daypicker .rdp-disabled .rdp-day_button {
+    color: var(--text-color-4);
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &__daypicker .rdp-today:not(.rdp-selected) .rdp-day_button {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &__daypicker .rdp-selected .rdp-day_button,
+  &__daypicker .rdp-range_start .rdp-day_button,
+  &__daypicker .rdp-range_end .rdp-day_button {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  &__daypicker .rdp-range_middle {
+    background-color: var(--color-primary-bright);
+  }
+
+  &__daypicker .rdp-range_middle .rdp-day_button {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--text-color-1);
+  }
+}

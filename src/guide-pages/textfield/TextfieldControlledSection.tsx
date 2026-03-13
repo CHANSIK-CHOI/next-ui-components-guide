@@ -38,7 +38,7 @@ const ClearableGuideProp = memo(function ClearableGuideProp() {
       name="isClearable"
       typeLabel="boolean"
       defaultValue="false"
-      description="value가 존재할 때 clear 버튼을 노출합니다."
+      description="value가 존재하고 onClear가 제공되면 clear 버튼을 노출합니다."
     >
       <Textfield
         value={clearableText}
@@ -141,6 +141,7 @@ const MessageGuideProp = memo(function MessageGuideProp() {
       typeLabel="string"
       defaultValue='""'
       description="입력 필드 아래에 안내 메시지나 에러 메시지를 노출합니다."
+      isWide
     >
       <Textfield
         value={infoText}

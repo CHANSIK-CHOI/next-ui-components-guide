@@ -3,12 +3,6 @@ import { GuideProp, GuideSection } from "@/components/Guide";
 import { memo } from "react";
 import { useForm } from "react-hook-form";
 
-const demoStackStyle = {
-  display: "grid",
-  gap: "1.2rem",
-  width: "100%",
-} as const;
-
 type SearchBasicValues = {
   keyword: string;
 };
@@ -61,18 +55,16 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
       }
     >
       <form onSubmit={handleSubmit(handleSubmitBasic)}>
-        <div style={demoStackStyle}>
-          <RHFSearch
-            name="keyword"
-            control={control}
-            isClearable
-            infoMsg="RHF 연결과 검색 버튼을 동시에 사용할 수 있습니다."
-            onSearch={() => console.log(getValues("keyword"))}
-          />
-          <Button color="primary" type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
-        </div>
+        <RHFSearch
+          name="keyword"
+          control={control}
+          isClearable
+          infoMsg="RHF 연결과 검색 버튼을 동시에 사용할 수 있습니다."
+          onSearch={() => console.log(getValues("keyword"))}
+        />
+        <Button color="primary" type="submit" disabled={isSubmitting}>
+          Submit
+        </Button>
       </form>
     </GuideProp>
   );
@@ -103,23 +95,21 @@ const RHFSearchRulesGuideProp = memo(function RHFSearchRulesGuideProp() {
       description="검색 버튼 액션은 onSearch로 분리하고, 실제 필드 검증은 RHF rules로 연결합니다."
     >
       <form onSubmit={handleSubmit(handleSubmitValidation)}>
-        <div style={demoStackStyle}>
-          <RHFSearch
-            name="query"
-            control={control}
-            placeholder="검색어를 입력한 뒤 버튼을 눌러보세요"
-            isClearable
-            onSearch={() => console.log(getValues("query"))}
-            rules={{
-              required: "검색어를 입력해주세요.",
-              validate: (value) =>
-                value.trim().length > 0 || "공백만 입력할 수 없습니다.",
-            }}
-          />
-          <Button color="primary" type="submit" disabled={isSubmitting}>
-            Validate Search
-          </Button>
-        </div>
+        <RHFSearch
+          name="query"
+          control={control}
+          placeholder="검색어를 입력한 뒤 버튼을 눌러보세요"
+          isClearable
+          onSearch={() => console.log(getValues("query"))}
+          rules={{
+            required: "검색어를 입력해주세요.",
+            validate: (value) =>
+              value.trim().length > 0 || "공백만 입력할 수 없습니다.",
+          }}
+        />
+        <Button color="primary" type="submit" disabled={isSubmitting}>
+          Validate Search
+        </Button>
       </form>
     </GuideProp>
   );
@@ -149,18 +139,16 @@ const RHFSearchButtonTypeGuideProp = memo(function RHFSearchButtonTypeGuideProp(
       description="form 내부에서 검색 버튼을 submit 버튼처럼 쓰고 싶다면 searchButtonType을 지정할 수 있습니다."
     >
       <form onSubmit={handleSubmit(handleSubmitBySearchButton)}>
-        <div style={demoStackStyle}>
-          <RHFSearch
-            name="submitKeyword"
-            control={control}
-            placeholder="검색 버튼으로 form submit"
-            searchButtonType="submit"
-            isClearable
-          />
-          <Button color="primary" type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
-        </div>
+        <RHFSearch
+          name="submitKeyword"
+          control={control}
+          placeholder="검색 버튼으로 form submit"
+          searchButtonType="submit"
+          isClearable
+        />
+        <Button color="primary" type="submit" disabled={isSubmitting}>
+          Submit
+        </Button>
       </form>
     </GuideProp>
   );
@@ -190,20 +178,18 @@ const RHFSearchNativeGuideProp = memo(function RHFSearchNativeGuideProp() {
       description="RHFSearch에서도 RHFTextfield와 Textfield에서 허용하는 native input props를 그대로 전달할 수 있습니다."
     >
       <form onSubmit={handleSubmit(handleSubmitNative)}>
-        <div style={demoStackStyle}>
-          <RHFSearch
-            name="emailKeyword"
-            control={control}
-            inputMode="email"
-            autoComplete="email"
-            maxLength={40}
-            placeholder="이메일 키워드 검색"
-            isClearable
-          />
-          <Button color="primary" type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
-        </div>
+        <RHFSearch
+          name="emailKeyword"
+          control={control}
+          inputMode="email"
+          autoComplete="email"
+          maxLength={40}
+          placeholder="이메일 키워드 검색"
+          isClearable
+        />
+        <Button color="primary" type="submit" disabled={isSubmitting}>
+          Submit
+        </Button>
       </form>
     </GuideProp>
   );

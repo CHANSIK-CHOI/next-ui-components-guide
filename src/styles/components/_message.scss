@@ -22,6 +22,7 @@ $module: "message";
     height: 1.6rem;
     display: block;
     margin-right: 0.4rem;
+    flex-shrink: 0;
     --iconColor: var(--color-error);
   }
 }

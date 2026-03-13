@@ -25,4 +25,19 @@ export const guideNavigation: GuideNavigationItem[] = [
     label: "Password",
     description: "Password / RHFPassword",
   },
+  {
+    href: "/datepicker",
+    label: "Datepicker",
+    description: "Datepicker / RHFDatepicker",
+  },
+  {
+    href: "/date-range-picker",
+    label: "DateRangePicker",
+    description: "DateRangePicker / RHFDateRangePicker",
+  },
+  {
+    href: "/date-multiple-picker",
+    label: "DateMultiplePicker",
+    description: "DateMultiplePicker / RHFDateMultiplePicker",
+  },
 ];

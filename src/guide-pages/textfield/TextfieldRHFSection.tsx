@@ -3,12 +3,6 @@ import { GuideProp, GuideSection } from "@/components/Guide";
 import { formatPhoneNumber, normalizePhoneNumber } from "@/utils/phoneNumber";
 import { useForm } from "react-hook-form";
 
-const demoStackStyle = {
-  display: "grid",
-  gap: "1.2rem",
-  width: "100%",
-} as const;
-
 type RHFBasicDemoValues = {
   sampleText: string;
 };
@@ -131,17 +125,15 @@ export default function TextfieldRHFSection() {
         description="필드 이름과 control을 전달하면 RHF 상태와 연결되어 value, onChange, onBlur, ref가 자동으로 주입됩니다."
       >
         <form onSubmit={handleBasicSubmit(handleBasicFormSubmit)}>
-          <div style={demoStackStyle}>
-            <RHFTextfield
-              name="sampleText"
-              control={basicControl}
-              isClearable
-              infoMsg="name과 control을 전달하면 RHF 상태와 연결됩니다."
-            />
-            <Button color="primary" type="submit" disabled={isBasicSubmitting}>
-              Submit
-            </Button>
-          </div>
+          <RHFTextfield
+            name="sampleText"
+            control={basicControl}
+            isClearable
+            infoMsg="name과 control을 전달하면 RHF 상태와 연결됩니다."
+          />
+          <Button color="primary" type="submit" disabled={isBasicSubmitting}>
+            Submit
+          </Button>
         </form>
       </GuideProp>
 
@@ -152,26 +144,24 @@ export default function TextfieldRHFSection() {
         description="rules를 통해 필드 검증을 연결할 수 있습니다. 아래 예시는 공백만 입력한 경우도 에러로 처리합니다."
       >
         <form onSubmit={handleValidationSubmit(handleValidationFormSubmit)}>
-          <div style={demoStackStyle}>
-            <RHFTextfield
-              name="requiredText"
-              control={validationControl}
-              placeholder="공백만 입력한 뒤 Submit 해보세요"
-              isClearable
-              rules={{
-                required: "필수 입력 값입니다.",
-                validate: (value) =>
-                  value.trim().length > 0 || "공백만 입력할 수 없습니다.",
-              }}
-            />
-            <Button
-              color="primary"
-              type="submit"
-              disabled={isValidationSubmitting}
-            >
-              Validate
-            </Button>
-          </div>
+          <RHFTextfield
+            name="requiredText"
+            control={validationControl}
+            placeholder="공백만 입력한 뒤 Submit 해보세요"
+            isClearable
+            rules={{
+              required: "필수 입력 값입니다.",
+              validate: (value) =>
+                value.trim().length > 0 || "공백만 입력할 수 없습니다.",
+            }}
+          />
+          <Button
+            color="primary"
+            type="submit"
+            disabled={isValidationSubmitting}
+          >
+            Validate
+          </Button>
         </form>
       </GuideProp>
 
@@ -182,44 +172,38 @@ export default function TextfieldRHFSection() {
         description="pattern 검증을 사용하면 숫자, 이메일처럼 정규식 기반 형식을 RHF에서 검증할 수 있습니다."
       >
         <form onSubmit={handlePatternSubmit(handlePatternFormSubmit)}>
-          <div style={demoStackStyle}>
-            <RHFTextfield
-              name="numericOnly"
-              control={patternControl}
-              placeholder="숫자만 입력"
-              inputMode="numeric"
-              isClearable
-              rules={{
-                required: "숫자를 입력해주세요.",
-                pattern: {
-                  value: /^\d+$/,
-                  message: "숫자만 입력할 수 있습니다.",
-                },
-              }}
-            />
-            <RHFTextfield
-              name="email"
-              control={patternControl}
-              placeholder="sample@email.com"
-              type="email"
-              inputMode="email"
-              isClearable
-              rules={{
-                required: "이메일을 입력해주세요.",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "올바른 이메일 형식이 아닙니다.",
-                },
-              }}
-            />
-            <Button
-              color="primary"
-              type="submit"
-              disabled={isPatternSubmitting}
-            >
-              Validate Pattern
-            </Button>
-          </div>
+          <RHFTextfield
+            name="numericOnly"
+            control={patternControl}
+            placeholder="숫자만 입력"
+            inputMode="numeric"
+            isClearable
+            rules={{
+              required: "숫자를 입력해주세요.",
+              pattern: {
+                value: /^\d+$/,
+                message: "숫자만 입력할 수 있습니다.",
+              },
+            }}
+          />
+          <RHFTextfield
+            name="email"
+            control={patternControl}
+            placeholder="sample@email.com"
+            type="email"
+            inputMode="email"
+            isClearable
+            rules={{
+              required: "이메일을 입력해주세요.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "올바른 이메일 형식이 아닙니다.",
+              },
+            }}
+          />
+          <Button color="primary" type="submit" disabled={isPatternSubmitting}>
+            Validate Pattern
+          </Button>
         </form>
       </GuideProp>
 
@@ -237,32 +221,30 @@ export default function TextfieldRHFSection() {
         }
       >
         <form onSubmit={handleFormatValueSubmit(handleFormatValueFormSubmit)}>
-          <div style={demoStackStyle}>
-            <RHFTextfield
-              name="phone"
-              control={formatValueControl}
-              placeholder="01012345678"
-              inputMode="tel"
-              maxLength={13}
-              formatValue={formatPhoneNumber}
-              isClearable
-              infoMsg="입력 중에는 하이픈이 자동으로 추가되고, submit 시에는 숫자만 남겨서 처리할 수 있습니다."
-              rules={{
-                required: "휴대전화 번호를 입력해주세요.",
-                pattern: {
-                  value: /^01[016789]-\d{3,4}-\d{4}$/,
-                  message: "올바른 휴대전화 번호 형식이 아닙니다.",
-                },
-              }}
-            />
-            <Button
-              color="primary"
-              type="submit"
-              disabled={isFormatValueSubmitting}
-            >
-              Submit Formatted Value
-            </Button>
-          </div>
+          <RHFTextfield
+            name="phone"
+            control={formatValueControl}
+            placeholder="01012345678"
+            inputMode="tel"
+            maxLength={13}
+            formatValue={formatPhoneNumber}
+            isClearable
+            infoMsg="입력 중에는 하이픈이 자동으로 추가되고, submit 시에는 숫자만 남겨서 처리할 수 있습니다."
+            rules={{
+              required: "휴대전화 번호를 입력해주세요.",
+              pattern: {
+                value: /^01[016789]-\d{3,4}-\d{4}$/,
+                message: "올바른 휴대전화 번호 형식이 아닙니다.",
+              },
+            }}
+          />
+          <Button
+            color="primary"
+            type="submit"
+            disabled={isFormatValueSubmitting}
+          >
+            Submit Formatted Value
+          </Button>
         </form>
       </GuideProp>
 
@@ -273,25 +255,23 @@ export default function TextfieldRHFSection() {
         description="RHF 연결과 함께 input native props와 Textfield UI props를 함께 전달할 수 있습니다."
       >
         <form onSubmit={handleNativePropsSubmit(handleNativePropsFormSubmit)}>
-          <div style={demoStackStyle}>
-            <RHFTextfield
-              name="amount"
-              control={nativePropsControl}
-              placeholder="금액을 입력해주세요"
-              inputMode="numeric"
-              maxLength={8}
-              unit="원"
-              isClearable
-              infoMsg="native input props와 Textfield UI props를 함께 전달할 수 있습니다."
-            />
-            <Button
-              color="primary"
-              type="submit"
-              disabled={isNativePropsSubmitting}
-            >
-              Submit
-            </Button>
-          </div>
+          <RHFTextfield
+            name="amount"
+            control={nativePropsControl}
+            placeholder="금액을 입력해주세요"
+            inputMode="numeric"
+            maxLength={8}
+            unit="원"
+            isClearable
+            infoMsg="native input props와 Textfield UI props를 함께 전달할 수 있습니다."
+          />
+          <Button
+            color="primary"
+            type="submit"
+            disabled={isNativePropsSubmitting}
+          >
+            Submit
+          </Button>
         </form>
       </GuideProp>
     </GuideSection>
