@@ -120,9 +120,9 @@ export default function TextfieldRHFSection() {
     >
       <GuideProp
         isWide
-        name="name | control"
-        typeLabel="UseControllerProps<TFieldValues>"
-        description="필드 이름과 control을 전달하면 RHF 상태와 연결되어 value, onChange, onBlur, ref가 자동으로 주입됩니다."
+        name="Textfield props 확장 + RHFComponentProps"
+        typeLabel='RHFComponentProps<TFormValues, TFieldName, TextfieldProps, RHFValueInputManagedProps> & { formatValue?: (value: string) => string; }'
+        description="RHFTextfield는 Textfield props를 기반으로 하고, name/value/defaultValue/onBlur/onChange는 RHF가 관리합니다. 나머지 Textfield UI props와 native input props는 그대로 전달할 수 있으며, clear 버튼을 쓰면 RHF 값이 먼저 빈 문자열로 정리된 뒤 onClear가 호출됩니다. formatValue는 가공된 값을 RHF 상태에 반영합니다."
       >
         <form onSubmit={handleBasicSubmit(handleBasicFormSubmit)}>
           <div className="guideFormStack">

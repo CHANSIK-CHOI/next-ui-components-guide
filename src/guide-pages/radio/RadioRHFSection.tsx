@@ -1,5 +1,6 @@
 import { Button, Field, RHFRadio, RadioGroup } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type RadioBasicFormValues = {
@@ -11,10 +12,18 @@ type RadioValidationFormValues = {
 };
 
 type RadioStatePreviewFormValues = {
-  statePreview: string;
+  disabledPreview: string;
+  readOnlyPreview: string;
+  errorPreview: string;
+};
+
+type RadioConditionalFormValues = {
+  reminderWindow?: string;
 };
 
 export default function RadioRHFSection() {
+  const [showReminderWindow, setShowReminderWindow] = useState(true);
+  const [conditionalSubmitResult, setConditionalSubmitResult] = useState("");
   const {
     control: basicControl,
     handleSubmit: handleBasicSubmit,
@@ -40,7 +49,20 @@ export default function RadioRHFSection() {
   const { control: statePreviewControl } = useForm<RadioStatePreviewFormValues>({
     mode: "onSubmit",
     defaultValues: {
-      statePreview: "",
+      disabledPreview: "disabled",
+      readOnlyPreview: "readonly",
+      errorPreview: "",
+    },
+  });
+
+  const {
+    control: conditionalControl,
+    handleSubmit: handleConditionalSubmit,
+    formState: { isSubmitting: isConditionalSubmitting },
+  } = useForm<RadioConditionalFormValues>({
+    mode: "onSubmit",
+    defaultValues: {
+      reminderWindow: "morning",
     },
   });
 
@@ -54,6 +76,13 @@ export default function RadioRHFSection() {
     console.log(values);
   };
 
+  const handleConditionalFormSubmit = async (
+    values: RadioConditionalFormValues,
+  ) => {
+    console.log(values);
+    setConditionalSubmitResult(JSON.stringify(values));
+  };
+
   return (
     <GuideSection
       label="React Hook Form"
@@ -62,9 +91,9 @@ export default function RadioRHFSection() {
     >
       <GuideProp
         isWide
-        name="name | control | value | defaultValue"
-        typeLabel="UseControllerProps<TFormValues>"
-        description="여러 RHFRadio가 같은 name을 공유하고, 각 컴포넌트는 자신의 value를 선택값으로 전달합니다. 초기 선택값은 보통 useForm의 defaultValues로 두고, 필요한 경우 RHFRadio의 defaultValue로도 지정할 수 있습니다."
+        name="Radio props 확장 + RHFComponentProps"
+        typeLabel='RHFComponentProps<TFormValues, TFieldName, RadioProps, RHFCheckedInputManagedProps | "value"> & { value: NonNullable<RadioProps["value"]>; }'
+        description="RHFRadio는 Radio props를 기반으로 하고, checked/defaultChecked/defaultValue/name/onBlur/onChange는 RHF가 관리합니다. 각 옵션은 자신의 value를 필수로 전달하고, 같은 name을 공유한 여러 RHFRadio가 하나의 RHF 필드를 함께 사용합니다. 초기 선택값은 보통 useForm의 defaultValues로 둡니다."
       >
         <form onSubmit={handleBasicSubmit(handleBasicFormSubmit)}>
           <div className="guideFormStack">
@@ -105,30 +134,119 @@ export default function RadioRHFSection() {
 
       <GuideProp
         isWide
-        name="shouldUnregister | disabled | error"
+        name="shouldUnregister"
         typeLabel="boolean"
         defaultValue="false"
-        description="shouldUnregister는 라디오 그룹 전체가 조건부 렌더링으로 사라질 때 선택값을 폼 상태에서 제거하고 싶을 때 사용합니다. disabled와 error는 base Radio props를 그대로 상속합니다."
+        description="shouldUnregister는 라디오 그룹 전체가 조건부 렌더링으로 사라질 때 선택값을 폼 상태에서 제거하고 싶을 때 사용합니다. 같은 name을 공유하는 각 RHFRadio에 함께 지정해두는 패턴이 자연스럽습니다."
+      >
+        <form onSubmit={handleConditionalSubmit(handleConditionalFormSubmit)}>
+          <div className="guideFormStack">
+            <Button
+              variant="line"
+              type="button"
+              onClick={() => setShowReminderWindow((prev) => !prev)}
+            >
+              {showReminderWindow ? "알림 시간 숨기기" : "알림 시간 다시 보이기"}
+            </Button>
+            <Field>
+              {showReminderWindow ? (
+                <RadioGroup name="reminderWindow">
+                  <Field.Item>
+                    <RHFRadio
+                      name="reminderWindow"
+                      control={conditionalControl}
+                      value="morning"
+                      shouldUnregister
+                    />
+                    <Field.Label>오전 알림</Field.Label>
+                  </Field.Item>
+                  <Field.Item>
+                    <RHFRadio
+                      name="reminderWindow"
+                      control={conditionalControl}
+                      value="afternoon"
+                      shouldUnregister
+                    />
+                    <Field.Label>오후 알림</Field.Label>
+                  </Field.Item>
+                  <Field.Item>
+                    <RHFRadio
+                      name="reminderWindow"
+                      control={conditionalControl}
+                      value="evening"
+                      shouldUnregister
+                    />
+                    <Field.Label>저녁 알림</Field.Label>
+                  </Field.Item>
+                </RadioGroup>
+              ) : (
+                <Field.Description>
+                  알림 시간 라디오 그룹이 숨겨진 상태입니다.
+                </Field.Description>
+              )}
+              <Field.Description>
+                {showReminderWindow
+                  ? "라디오 그룹이 보이는 상태에서 선택값을 유지합니다."
+                  : "라디오 그룹을 숨긴 뒤 제출하면 reminderWindow 값이 제출 결과에서 제거됩니다."}
+              </Field.Description>
+              {conditionalSubmitResult && (
+                <Field.Description>
+                  최근 제출 결과: {conditionalSubmitResult}
+                </Field.Description>
+              )}
+            </Field>
+            <Button
+              color="primary"
+              type="submit"
+              disabled={isConditionalSubmitting}
+            >
+              제출
+            </Button>
+          </div>
+        </form>
+      </GuideProp>
+
+      <GuideProp
+        isWide
+        name="disabled | readOnly | error"
+        typeLabel="boolean"
+        defaultValue="false"
+        description="RHFRadio도 Radio 상태 props를 그대로 상속합니다. disabled는 입력 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. error는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
       >
         <Field>
-          <Field.Description>
-            RHFRadio는 같은 name을 가진 여러 옵션이 하나의 필드를 공유합니다.
-            그래서 shouldUnregister는 개별 옵션보다 라디오 그룹 전체가 보였다
-            사라지는 화면에서 사용하는 쪽이 더 자연스럽습니다.
-          </Field.Description>
-          <RadioGroup name="statePreview" error>
+          <RadioGroup name="disabledPreview">
             <Field.Item>
               <RHFRadio
-                name="statePreview"
+                name="disabledPreview"
                 control={statePreviewControl}
                 value="disabled"
                 disabled
               />
               <Field.Label>disabled 예시</Field.Label>
             </Field.Item>
+          </RadioGroup>
+        </Field>
+        <Field>
+          <RadioGroup name="readOnlyPreview">
             <Field.Item>
               <RHFRadio
-                name="statePreview"
+                name="readOnlyPreview"
+                control={statePreviewControl}
+                value="readonly"
+                readOnly
+              />
+              <Field.Label>readOnly 예시</Field.Label>
+            </Field.Item>
+          </RadioGroup>
+          <Field.Description>
+            readOnly에서는 현재 선택 상태를 유지한 채 변경만 막습니다.
+          </Field.Description>
+        </Field>
+        <Field>
+          <RadioGroup name="errorPreview" error>
+            <Field.Item>
+              <RHFRadio
+                name="errorPreview"
                 control={statePreviewControl}
                 value="error"
                 error
@@ -136,6 +254,7 @@ export default function RadioRHFSection() {
               <Field.Label>error 예시</Field.Label>
             </Field.Item>
           </RadioGroup>
+          <Field.Message errorMsg="시각 에러 상태를 강제로 표시한 예시입니다." />
         </Field>
       </GuideProp>
 

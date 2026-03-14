@@ -19,6 +19,11 @@ type SearchNativeValues = {
   emailKeyword: string;
 };
 
+type SearchStateValues = {
+  disabledKeyword: string;
+  readOnlyKeyword: string;
+};
+
 const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
   const {
     control,
@@ -47,6 +52,8 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
           <br /> - RHFTextfield는 Textfield UI props를 기반으로 하므로
           isClearable, infoMsg, errorMsg 같은 Textfield props도 함께 사용할 수
           있습니다.
+          <br /> - clear 버튼은 isClearable이 true이고 값이 있을 때 보이며,
+          클릭하면 RHF 값이 먼저 빈 문자열로 정리된 뒤 onClear가 호출됩니다.
           <br /> - children과 type은 내부에서 검색 버튼과 text 타입으로
           고정합니다.
           <br /> - searchButtonType을 지정하지 않으면 onSearch가 있을 때는
@@ -96,8 +103,8 @@ const RHFSearchRulesGuideProp = memo(function RHFSearchRulesGuideProp() {
     <GuideProp
       isWide
       name="rules | onSearch"
-      typeLabel="UseControllerProps + () => void"
-      description="검색 버튼 액션은 onSearch로 분리하고, 실제 필드 검증은 RHF rules로 연결합니다."
+      typeLabel='RHFSearchProps<TFormValues, TFieldName>["rules"] | (() => void)'
+      description="검색 버튼 액션은 onSearch로 분리하고, 실제 필드 검증은 RHFSearch가 상속한 RHFTextfield rules로 연결합니다."
     >
       <form onSubmit={handleSubmit(handleSubmitValidation)}>
         <div className="guideFormStack">
@@ -215,6 +222,46 @@ const RHFSearchNativeGuideProp = memo(function RHFSearchNativeGuideProp() {
   );
 });
 
+const RHFSearchStateGuideProp = memo(function RHFSearchStateGuideProp() {
+  const { control, getValues } = useForm<SearchStateValues>({
+    mode: "onSubmit",
+    defaultValues: {
+      disabledKeyword: "비활성화 상태",
+      readOnlyKeyword: "읽기 전용 상태",
+    },
+  });
+
+  return (
+    <GuideProp
+      isWide
+      name="disabled | readOnly"
+      typeLabel="boolean"
+      defaultValue="false"
+      description="RHFSearch도 Textfield 상태 props를 그대로 상속합니다. disabled는 입력과 검색 버튼을 모두 막고, readOnly는 직접 입력과 clear 버튼을 막지만 검색 버튼 액션은 유지합니다."
+    >
+      <Field>
+        <Field.Label>비활성화 검색</Field.Label>
+        <RHFSearch
+          name="disabledKeyword"
+          control={control}
+          disabled
+        />
+      </Field>
+      <Field>
+        <Field.Label>읽기 전용 검색</Field.Label>
+        <RHFSearch
+          name="readOnlyKeyword"
+          control={control}
+          readOnly
+          isClearable
+          onSearch={() => console.log(getValues("readOnlyKeyword"))}
+          infoMsg="readOnly에서도 검색 버튼 클릭 동작은 유지됩니다."
+        />
+      </Field>
+    </GuideProp>
+  );
+});
+
 export default function SearchRHFSection() {
   return (
     <GuideSection
@@ -225,6 +272,7 @@ export default function SearchRHFSection() {
       <RHFSearchPropsGuideProp />
       <RHFSearchRulesGuideProp />
       <RHFSearchButtonTypeGuideProp />
+      <RHFSearchStateGuideProp />
       <RHFSearchNativeGuideProp />
     </GuideSection>
   );

@@ -1,4 +1,4 @@
-import { Button, Datepicker } from "@/components";
+import { Datepicker } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -17,10 +17,13 @@ const DatepickerPropsGuideProp = memo(function DatepickerPropsGuideProp() {
       description={
         <>
           - Datepicker는 Textfield props를 확장한 단일 날짜 선택 컴포넌트입니다.
-          <br /> - placeholder, infoMsg, errorMsg, isClearable, readOnly,
-          disabled 같은 Textfield props를 그대로 사용할 수 있습니다.
+          <br /> - placeholder, infoMsg, errorMsg, isClearable, onClear,
+          readOnly, disabled 같은 Textfield props를 그대로 사용할 수 있습니다.
           <br /> - selected와 onSelectedChange로 날짜를 제어하고,
           dayPickerProps로 react-day-picker 옵션을 전달합니다.
+          <br /> - defaultCalendarOpen, getDefaultMonth,
+          shouldCloseOnSelect 같은 캘린더 제어 props도 함께 사용할 수
+          있습니다.
         </>
       }
     >
@@ -55,6 +58,44 @@ const DatepickerValueGuideProp = memo(function DatepickerValueGuideProp() {
           selected
             ? `선택된 날짜: ${format(selected, "yyyy.MM.dd", { locale: ko })}`
             : "아직 날짜가 선택되지 않았습니다."
+        }
+      />
+    </GuideProp>
+  );
+});
+
+const DatepickerClearGuideProp = memo(function DatepickerClearGuideProp() {
+  const [selected, setSelected] = useState<Date | undefined>(
+    new Date(2026, 2, 22),
+  );
+  const [lastAction, setLastAction] = useState("초기 선택값 유지");
+
+  return (
+    <GuideProp
+      isWide
+      name="isClearable | onClear"
+      typeLabel="boolean | () => void"
+      description="clear 버튼은 isClearable이 true이고, selected 값이 있으며, onClear가 제공되고, dayPickerProps.required/readOnly/disabled가 아닐 때만 노출됩니다. 클릭하면 onSelectedChange(undefined)가 먼저 호출되고, 그 다음 onClear가 실행됩니다."
+    >
+      <Datepicker
+        selected={selected}
+        onSelectedChange={(nextSelected) => {
+          setSelected(nextSelected);
+
+          if (nextSelected) {
+            setLastAction(
+              `마지막 동작: ${format(nextSelected, "yyyy.MM.dd", {
+                locale: ko,
+              })} 선택`,
+            );
+          }
+        }}
+        isClearable
+        onClear={() => setLastAction("마지막 동작: clear")}
+        infoMsg={
+          selected
+            ? `${lastAction} / clear 버튼으로 값을 비울 수 있습니다.`
+            : `${lastAction} / 현재 선택된 날짜가 없습니다.`
         }
       />
     </GuideProp>
@@ -165,37 +206,62 @@ const DatepickerCalendarStateGuideProp = memo(
     const [selected, setSelected] = useState<Date | undefined>(
       new Date(2026, 2, 15),
     );
-    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
     return (
       <GuideProp
         isWide
-        name="defaultCalendarOpen | isCalendarOpen | onCalendarOpenChange | closeOnSelect | calendarButtonTitle"
-        typeLabel="boolean | (isOpen: boolean) => void | string"
-        description="캘린더 열림 상태와 닫힘 시점, 버튼 title을 제어합니다. closeOnSelect를 false로 두면 단일 날짜 선택 후에도 캘린더를 유지할 수 있습니다."
+        name="defaultCalendarOpen | closeOnSelect | calendarButtonTitle | dropdownClassName"
+        typeLabel="boolean | string"
+        description="defaultCalendarOpen은 내부 열림 상태의 초기값입니다. closeOnSelect를 false로 두면 단일 날짜 선택 후에도 캘린더를 유지할 수 있고, calendarButtonTitle과 dropdownClassName으로 버튼 title과 캘린더 래퍼를 제어할 수 있습니다."
       >
         <Datepicker
           selected={selected}
           onSelectedChange={setSelected}
           defaultCalendarOpen
           calendarButtonTitle="기본 열림 예시"
-          infoMsg="defaultCalendarOpen으로 초기 렌더에서 캘린더를 열어둘 수 있습니다."
+          dropdownClassName="datepicker__dropdown--preview"
+          infoMsg="defaultCalendarOpen과 dropdownClassName을 함께 사용한 예시입니다."
         />
-        <Button
-          color="primary"
-          type="button"
-          onClick={() => setIsCalendarOpen((prev) => !prev)}
-        >
-          {isCalendarOpen ? "캘린더 닫기" : "캘린더 열기"}
-        </Button>
         <Datepicker
           selected={selected}
           onSelectedChange={setSelected}
-          isCalendarOpen={isCalendarOpen}
-          onCalendarOpenChange={setIsCalendarOpen}
           closeOnSelect={false}
-          calendarButtonTitle="외부 제어 캘린더"
-          infoMsg="isCalendarOpen과 onCalendarOpenChange로 열림 상태를 외부에서 제어합니다."
+          calendarButtonTitle="선택 후 유지 캘린더"
+          infoMsg="closeOnSelect=false로 선택 후에도 캘린더를 유지합니다."
+        />
+      </GuideProp>
+    );
+  },
+);
+
+const DatepickerAdvancedCalendarGuideProp = memo(
+  function DatepickerAdvancedCalendarGuideProp() {
+    const [defaultMonthDate, setDefaultMonthDate] = useState<Date | undefined>();
+    const [customCloseDate, setCustomCloseDate] = useState<Date | undefined>();
+
+    return (
+      <GuideProp
+        isWide
+        name="getDefaultMonth | shouldCloseOnSelect"
+        typeLabel='({ selected }) => Date | undefined | ({ closeOnSelect, nextSelected }) => boolean'
+        description="getDefaultMonth는 선택값이 없을 때 처음 보여줄 월을 계산하고, shouldCloseOnSelect는 날짜 선택 후 캘린더를 닫을지 직접 결정합니다."
+      >
+        <Datepicker
+          selected={defaultMonthDate}
+          onSelectedChange={setDefaultMonthDate}
+          defaultCalendarOpen
+          getDefaultMonth={({ selected }) => selected ?? new Date(2026, 6, 1)}
+          calendarButtonTitle="기본 월 커스텀 예시"
+          infoMsg="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 예시입니다."
+        />
+        <Datepicker
+          selected={customCloseDate}
+          onSelectedChange={setCustomCloseDate}
+          shouldCloseOnSelect={({ nextSelected }) =>
+            Boolean(nextSelected && nextSelected.getDate() >= 15)
+          }
+          calendarButtonTitle="15일 이후 선택 시 닫힘"
+          infoMsg="15일 미만 날짜를 선택하면 캘린더를 유지하고, 15일 이후 날짜를 선택하면 닫히도록 제어한 예시입니다."
         />
       </GuideProp>
     );
@@ -208,22 +274,21 @@ const DatepickerStateGuideProp = memo(function DatepickerStateGuideProp() {
 
   return (
     <GuideProp
-      name="readOnly | disabled | dropdownClassName"
-      typeLabel="boolean | string"
+      name="readOnly | disabled"
+      typeLabel="boolean"
       defaultValue="false"
-      description="readOnly일 때는 텍스트 입력과 캘린더 날짜 선택이 모두 막히고, disabled는 전체 상호작용을 비활성화합니다. dropdownClassName으로 캘린더 래퍼 class를 추가할 수 있습니다."
+      description="Datepicker는 기본적으로 직접 타이핑 입력이 막혀 있고, readOnly일 때는 캘린더 열기, 날짜 변경, clear 버튼까지 모두 막힙니다. disabled는 전체 상호작용을 비활성화합니다."
       isWide
     >
       <Datepicker
         selected={readOnlyDate}
         readOnly
         isClearable
-        infoMsg="readOnly 상태에서는 캘린더 선택도 막힙니다."
+        infoMsg="readOnly 상태에서는 표시만 유지되고 캘린더 선택과 clear가 막힙니다."
       />
       <Datepicker
         selected={disabledDate}
         disabled
-        dropdownClassName="datepicker__dropdown--preview"
         infoMsg="disabled 상태 예시"
       />
     </GuideProp>
@@ -234,14 +299,16 @@ export default function DatepickerControlledSection() {
   return (
     <GuideSection
       label="Datepicker"
-      title="Datepicker / 상태 제어 사용"
+      title="Datepicker / controlled usage"
       description="Datepicker는 단일 날짜 선택에 맞춘 Textfield 기반 캘린더 입력 컴포넌트입니다."
     >
       <DatepickerPropsGuideProp />
       <DatepickerValueGuideProp />
+      <DatepickerClearGuideProp />
       <DatepickerDisplayGuideProp />
       <DatepickerDayPickerPropsGuideProp />
       <DatepickerCalendarStateGuideProp />
+      <DatepickerAdvancedCalendarGuideProp />
       <DatepickerStateGuideProp />
     </GuideSection>
   );

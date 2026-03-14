@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { type Locale } from "date-fns";
+import { getDay, type Locale } from "date-fns";
 import { ko } from "date-fns/locale";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -76,11 +76,13 @@ export type DatepickerBaseProps<
   }) => boolean;
   calendarButtonTitle?: string;
   closeOnSelect?: boolean;
-  isCalendarOpen?: boolean;
   defaultCalendarOpen?: boolean;
-  onCalendarOpenChange?: (isOpen: boolean) => void;
   dropdownClassName?: string;
   inputRef?: Ref<HTMLInputElement>;
+};
+
+type DatepickerBaseInternalProps = {
+  onOpenStateChange?: (isOpen: boolean) => void;
 };
 
 export default function DatepickerBase<
@@ -97,9 +99,8 @@ export default function DatepickerBase<
   shouldCloseOnSelect,
   calendarButtonTitle,
   closeOnSelect,
-  isCalendarOpen,
   defaultCalendarOpen = false,
-  onCalendarOpenChange,
+  onOpenStateChange,
   dropdownClassName,
   inputRef,
   className,
@@ -112,13 +113,10 @@ export default function DatepickerBase<
   onFocus,
   onKeyDown,
   ...restTextfieldProps
-}: DatepickerBaseProps<TSelected, TDayPickerProps>) {
+}: DatepickerBaseProps<TSelected, TDayPickerProps> & DatepickerBaseInternalProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const dropdownId = useId();
-  const [uncontrolledIsCalendarOpen, setUncontrolledIsCalendarOpen] =
-    useState(defaultCalendarOpen);
-
-  const resolvedIsCalendarOpen = isCalendarOpen ?? uncontrolledIsCalendarOpen;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(defaultCalendarOpen);
 
   const resolvedLocale = (dayPickerProps?.locale as Locale | undefined) ?? ko;
   const resolvedDisplayValue = useMemo(
@@ -139,26 +137,39 @@ export default function DatepickerBase<
     dayPickerProps?.endMonth ?? new Date(currentYear + 20, 11, 1);
   const resolvedCalendarButtonTitle =
     calendarButtonTitle ??
-    (resolvedIsCalendarOpen ? "캘린더 닫기" : "날짜 선택하기");
+    (isDropdownOpen ? "캘린더 닫기" : "날짜 선택하기");
   const resolvedDayPickerDisabled = readOnly ? true : dayPickerProps?.disabled;
   const resolvedIsClearable = isClearable && !dayPickerProps?.required;
   const resolvedCaptionLayout = dayPickerProps?.captionLayout ?? "dropdown";
+  const resolvedModifiers = useMemo(
+    () => ({
+      saturday: (date: Date) => getDay(date) === 6,
+      sunday: (date: Date) => getDay(date) === 0,
+      ...dayPickerProps?.modifiers,
+    }),
+    [dayPickerProps?.modifiers],
+  );
+  const resolvedModifiersClassNames = useMemo(
+    () => ({
+      saturday: `${nameBlock}__day--saturday`,
+      sunday: `${nameBlock}__day--sunday`,
+      ...dayPickerProps?.modifiersClassNames,
+    }),
+    [dayPickerProps?.modifiersClassNames],
+  );
 
   const setCalendarOpen = useCallback(
     (nextIsOpen: boolean) => {
-      if (isCalendarOpen === undefined) {
-        setUncontrolledIsCalendarOpen(nextIsOpen);
-      }
-
-      onCalendarOpenChange?.(nextIsOpen);
+      setIsDropdownOpen(nextIsOpen);
+      onOpenStateChange?.(nextIsOpen);
     },
-    [isCalendarOpen, onCalendarOpenChange],
+    [onOpenStateChange],
   );
 
   const handleCalendarToggle = () => {
     if (disabled || readOnly) return;
 
-    setCalendarOpen(!resolvedIsCalendarOpen);
+    setCalendarOpen(!isDropdownOpen);
   };
 
   const handleInputClick: MouseEventHandler<HTMLInputElement> = (event) => {
@@ -226,9 +237,11 @@ export default function DatepickerBase<
   };
 
   useEffect(() => {
-    if (!resolvedIsCalendarOpen) return;
+    if (!isDropdownOpen) return;
 
-    const handleDocumentClick = (event: MouseEvent) => {
+    // Use pointerdown so an external button click that opens the calendar
+    // is not treated as an immediate outside click in the same interaction.
+    const handleDocumentPointerDown = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
         setCalendarOpen(false);
       }
@@ -240,20 +253,20 @@ export default function DatepickerBase<
       }
     };
 
-    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener("pointerdown", handleDocumentPointerDown);
     document.addEventListener("keydown", handleDocumentKeyDown);
 
     return () => {
-      document.removeEventListener("click", handleDocumentClick);
+      document.removeEventListener("pointerdown", handleDocumentPointerDown);
       document.removeEventListener("keydown", handleDocumentKeyDown);
     };
-  }, [resolvedIsCalendarOpen, setCalendarOpen]);
+  }, [isDropdownOpen, setCalendarOpen]);
 
   useEffect(() => {
-    if ((disabled || readOnly) && resolvedIsCalendarOpen) {
+    if ((disabled || readOnly) && isDropdownOpen) {
       setCalendarOpen(false);
     }
-  }, [disabled, readOnly, resolvedIsCalendarOpen, setCalendarOpen]);
+  }, [disabled, readOnly, isDropdownOpen, setCalendarOpen]);
 
   return (
     <div ref={rootRef} className={cn(nameBlock)}>
@@ -272,7 +285,7 @@ export default function DatepickerBase<
         onFocus={handleInputFocus}
         onKeyDown={handleInputKeyDown}
         aria-controls={dropdownId}
-        aria-expanded={resolvedIsCalendarOpen}
+        aria-expanded={isDropdownOpen}
         aria-haspopup="dialog"
       >
         <TextfieldBtn
@@ -284,7 +297,7 @@ export default function DatepickerBase<
       </Textfield>
 
       <AnimatePresence initial={false}>
-        {resolvedIsCalendarOpen && !disabled && (
+        {isDropdownOpen && !disabled && (
           <motion.div
             id={dropdownId}
             className={cn(`${nameBlock}__dropdown`, dropdownClassName)}
@@ -301,6 +314,8 @@ export default function DatepickerBase<
               required={dayPickerProps?.required}
               selected={selected as never}
               onSelect={handleDayPickerSelect as never}
+              modifiers={resolvedModifiers}
+              modifiersClassNames={resolvedModifiersClassNames}
               defaultMonth={resolvedDefaultMonth}
               startMonth={resolvedStartMonth}
               endMonth={resolvedEndMonth}

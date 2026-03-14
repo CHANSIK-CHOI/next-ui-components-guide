@@ -16,6 +16,12 @@ type CheckboxOptionalFormValues = {
   receiveSms: boolean;
 };
 
+type CheckboxStatePreviewFormValues = {
+  disabledConsent: boolean;
+  readOnlyConsent: boolean;
+  errorConsent: boolean;
+};
+
 export default function CheckboxRHFSection() {
   const [showSmsConsent, setShowSmsConsent] = useState(true);
   const [optionalSubmitResult, setOptionalSubmitResult] = useState("");
@@ -53,6 +59,17 @@ export default function CheckboxRHFSection() {
     },
   });
 
+  const { control: statePreviewControl } = useForm<CheckboxStatePreviewFormValues>(
+    {
+      mode: "onSubmit",
+      defaultValues: {
+        disabledConsent: true,
+        readOnlyConsent: true,
+        errorConsent: false,
+      },
+    },
+  );
+
   const handleBasicFormSubmit = async (values: CheckboxBasicFormValues) => {
     console.log(values);
   };
@@ -78,9 +95,9 @@ export default function CheckboxRHFSection() {
     >
       <GuideProp
         isWide
-        name="name | control | defaultValue"
-        typeLabel="UseControllerProps<TFormValues>"
-        description="단일 boolean 필드와 연결하면 checked, onChange, onBlur, ref가 RHF 상태로 자동 연결됩니다. 초기 선택값은 보통 useForm의 defaultValues로 두고, 필요한 경우 RHFCheckbox의 defaultValue로도 지정할 수 있습니다."
+        name="Checkbox props 확장 + RHFComponentProps"
+        typeLabel="RHFComponentProps<TFormValues, TFieldName, CheckboxProps, RHFCheckedInputManagedProps>"
+        description="RHFCheckbox는 Checkbox props를 기반으로 하고, checked/defaultChecked/defaultValue/name/onBlur/onChange는 RHF가 관리합니다. 단일 boolean 필드와 연결하면 ref와 checked 상태가 자동으로 연결되고, 초기값은 보통 useForm의 defaultValues로 두며 필요할 때만 RHFCheckbox의 defaultValue를 함께 사용할 수 있습니다."
       >
         <form onSubmit={handleBasicSubmit(handleBasicFormSubmit)}>
           <div className="guideFormStack">
@@ -155,6 +172,49 @@ export default function CheckboxRHFSection() {
             </Button>
           </div>
         </form>
+      </GuideProp>
+
+      <GuideProp
+        isWide
+        name="disabled | readOnly | error"
+        typeLabel="boolean"
+        defaultValue="false"
+        description="RHFCheckbox도 Checkbox 상태 props를 그대로 상속합니다. disabled는 RHF 필드 업데이트와 입력 상호작용을 막고, readOnly는 현재 값을 유지한 채 변경만 막습니다. error는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
+      >
+        <Field>
+          <Field.Item align="start">
+            <RHFCheckbox
+              name="disabledConsent"
+              control={statePreviewControl}
+              disabled
+            />
+            <Field.Label>disabled 예시</Field.Label>
+          </Field.Item>
+        </Field>
+        <Field>
+          <Field.Item align="start">
+            <RHFCheckbox
+              name="readOnlyConsent"
+              control={statePreviewControl}
+              readOnly
+            />
+            <Field.Label>readOnly 예시</Field.Label>
+          </Field.Item>
+          <Field.Description>
+            readOnly에서는 체크 상태를 유지한 채 변경만 막습니다.
+          </Field.Description>
+        </Field>
+        <Field>
+          <Field.Item align="start">
+            <RHFCheckbox
+              name="errorConsent"
+              control={statePreviewControl}
+              error
+            />
+            <Field.Label>error 예시</Field.Label>
+          </Field.Item>
+          <Field.Message errorMsg="시각 에러 상태를 강제로 표시한 예시입니다." />
+        </Field>
       </GuideProp>
 
       <GuideProp

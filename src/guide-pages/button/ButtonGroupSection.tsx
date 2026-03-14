@@ -7,12 +7,12 @@ export default function ButtonGroupSection() {
     <GuideSection
       label="ButtonGroup"
       title="ButtonGroup / ButtonGroup.Item"
-      description="ButtonGroup은 버튼 배열과 각 아이템의 폭 패턴을 정리할 때 사용합니다."
+      description="ButtonGroup은 버튼을 가로로 배치하고, ButtonGroup.Item 단위로 각 항목의 폭 패턴을 조정할 때 사용합니다."
     >
       <GuideProp
         name="children"
         typeLabel="React.ReactNode"
-        description="기본 레이아웃에서는 각 항목이 가능한 영역을 균등하게 나눠 가집니다."
+        description="버튼은 ButtonGroup.Item으로 감싸서 배치합니다. 기본 레이아웃에서는 각 item이 가능한 영역을 균등하게 나눠 가집니다."
         isWide
       >
         <ButtonGroup>
@@ -27,10 +27,10 @@ export default function ButtonGroupSection() {
 
       <GuideProp
         isWide
-        name="isAutoWidth"
+        name="ButtonGroup.Item / isAutoWidth"
         typeLabel="boolean"
         defaultValue="false"
-        description="항목이 가능한 영역을 꽉 채우는 대신, 콘텐츠 너비에 맞춰 고정되도록 만듭니다."
+        description="ButtonGroup.Item의 isAutoWidth가 true이면 해당 item은 가능한 영역을 꽉 채우지 않고, 콘텐츠 너비에 맞춰 고정됩니다."
       >
         <ButtonGroup>
           <ButtonGroup.Item isAutoWidth>

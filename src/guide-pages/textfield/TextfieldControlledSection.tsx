@@ -1,5 +1,6 @@
 import { Textfield } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
+import { CalendarIcon, SearchIcon } from "@/components/Icon";
 import { memo, useState } from "react";
 
 const ValueGuideProp = memo(function ValueGuideProp() {
@@ -35,10 +36,10 @@ const ClearableGuideProp = memo(function ClearableGuideProp() {
 
   return (
     <GuideProp
-      name="isClearable"
-      typeLabel="boolean"
+      name="isClearable | onClear"
+      typeLabel="boolean | () => void"
       defaultValue="false"
-      description="value가 존재하고 onClear가 제공되면 clear 버튼을 노출합니다."
+      description="clear 버튼은 isClearable이 true이고, value가 있으며, onClear가 제공되고, disabled/readOnly가 아닐 때만 노출됩니다."
     >
       <Textfield
         value={clearableText}
@@ -53,6 +54,60 @@ const ClearableGuideProp = memo(function ClearableGuideProp() {
         onChange={(event) => setClearableEmptyText(event.target.value)}
         onClear={() => setClearableEmptyText("")}
       />
+    </GuideProp>
+  );
+});
+
+const ActionSlotGuideProp = memo(function ActionSlotGuideProp() {
+  const [actionText, setActionText] = useState("오른쪽 액션 버튼이 붙은 입력");
+  const [blockedActionText] = useState("버튼으로 여는 조합형 입력");
+
+  return (
+    <GuideProp
+      isWide
+      name="children | isTextInputBlocked"
+      typeLabel="React.ReactNode | boolean"
+      description={
+        <>
+          - children은 입력 오른쪽 action 영역에 원하는 노드를 추가합니다.
+          <br /> - Search, Password 같은 파생 컴포넌트도 이 slot을 사용합니다.
+          <br /> - isTextInputBlocked는 직접 타이핑만 막고 액션 버튼 중심 흐름을
+          만들 때 사용합니다.
+        </>
+      }
+    >
+      <Textfield
+        value={actionText}
+        isClearable
+        onChange={(event) => setActionText(event.target.value)}
+        onClear={() => setActionText("")}
+      >
+        <button
+          type="button"
+          className="textfield__btn"
+          aria-label="검색 실행"
+          onClick={() => console.log(actionText)}
+        >
+          <SearchIcon />
+          <span className="a11y-hidden">검색 실행</span>
+        </button>
+      </Textfield>
+
+      <Textfield
+        value={blockedActionText}
+        isTextInputBlocked
+        infoMsg="텍스트 입력은 막고, trailing action으로 다른 UI를 열 수 있습니다."
+      >
+        <button
+          type="button"
+          className="textfield__btn"
+          aria-label="달력 열기"
+          onClick={() => console.log("calendar opened")}
+        >
+          <CalendarIcon />
+          <span className="a11y-hidden">달력 열기</span>
+        </button>
+      </Textfield>
     </GuideProp>
   );
 });
@@ -184,6 +239,7 @@ export default function TextfieldControlledSection() {
     >
       <ValueGuideProp />
       <ClearableGuideProp />
+      <ActionSlotGuideProp />
       <UnitGuideProp />
       <MessageGuideProp />
       <NativeInputGuideProp />

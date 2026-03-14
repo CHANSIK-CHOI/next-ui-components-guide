@@ -5,6 +5,8 @@ import { useState } from "react";
 export default function CheckboxControlledSection() {
   const [consentChecked, setConsentChecked] = useState(true);
   const [fieldChecked, setFieldChecked] = useState(false);
+  const [disabledChecked] = useState(true);
+  const [readOnlyChecked] = useState(true);
   const [marketingChannels, setMarketingChannels] = useState<string[]>([
     "email",
   ]);
@@ -20,13 +22,13 @@ export default function CheckboxControlledSection() {
   return (
     <GuideSection
       label="Checkbox"
-      title="Checkbox / 상태 제어 사용"
+      title="Checkbox / controlled usage"
       description="Checkbox는 checked와 onChange를 외부 상태로 관리하는 단일 체크박스 컴포넌트입니다."
     >
       <GuideProp
-        name="checked"
-        typeLabel="boolean"
-        description="현재 선택 여부를 외부 상태로 제어합니다."
+        name="checked | onChange"
+        typeLabel="boolean | React.ChangeEventHandler<HTMLInputElement>"
+        description="controlled usage에서는 checked와 onChange를 함께 사용해 현재 선택 여부를 외부 상태로 제어합니다."
       >
         <Field.Item>
           <Checkbox
@@ -64,13 +66,22 @@ export default function CheckboxControlledSection() {
         name="disabled | readOnly | error"
         typeLabel="boolean"
         defaultValue="false"
+        description="disabled는 상호작용을 막고, readOnly는 현재 체크 상태를 유지한 채 변경만 막습니다. error는 시각 상태와 aria-invalid를 적용합니다."
       >
         <Field.Item>
-          <Checkbox defaultChecked disabled />
+          <Checkbox
+            checked={disabledChecked}
+            disabled
+            onChange={() => undefined}
+          />
           <Field.Label>disabled 상태</Field.Label>
         </Field.Item>
         <Field.Item>
-          <Checkbox defaultChecked readOnly />
+          <Checkbox
+            checked={readOnlyChecked}
+            readOnly
+            onChange={() => undefined}
+          />
           <Field.Label>readOnly 상태</Field.Label>
         </Field.Item>
         <Field>
@@ -86,7 +97,7 @@ export default function CheckboxControlledSection() {
         isWide
         name="CheckboxGroup"
         typeLabel="name | direction | disabled | readOnly | error"
-        description="CheckboxGroup은 여러 Checkbox에 공통 name, disabled, readOnly, error 상태를 내려주는 그룹 레이아웃입니다."
+        description="CheckboxGroup은 여러 Checkbox에 공통 name, direction, disabled, readOnly, error 상태를 내려주는 그룹 레이아웃입니다. direction으로 row/column 배치를 바꿀 수 있습니다."
       >
         <CheckboxGroup
           name="marketingChannels"

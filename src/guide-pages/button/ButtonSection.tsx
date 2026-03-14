@@ -7,7 +7,7 @@ export default function ButtonSection() {
     <>
       <GuideSection
         label="Button"
-        title="Button / design props"
+        title="Button / 디자인 props"
         description="Button은 size, color, variant, shape 같은 디자인 props를 조합해 다양한 액션 버튼을 구성합니다."
       >
         <GuideProp
@@ -35,7 +35,7 @@ export default function ButtonSection() {
           name="variant"
           typeLabel={`"solid" | "line" | "text"`}
           defaultValue={`"solid"`}
-          description="solid와 line은 shape와 조합할 수 있고, text는 단독으로 사용합니다."
+          description="solid와 line은 size, color, shape와 함께 사용할 수 있고, text는 color만 조합할 수 있습니다. text variant에서는 size와 shape를 받지 않습니다."
         >
           <Button>Solid Button</Button>
           <Button variant="line" color="primary">
@@ -50,6 +50,7 @@ export default function ButtonSection() {
           name="shape"
           typeLabel={`"round" | "square"`}
           defaultValue={`"square"`}
+          description='shape는 solid 또는 line variant에서만 사용합니다. text variant에서는 적용되지 않습니다.'
         >
           <Button>Square Button</Button>
           <Button shape="round" color="primary">

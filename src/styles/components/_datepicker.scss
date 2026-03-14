@@ -65,10 +65,26 @@ $module: "datepicker";
     gap: 0.8rem;
   }
 
+  &__daypicker .rdp-dropdown {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    appearance: none;
+  }
+
   &__daypicker .rdp-dropdown_root {
     min-width: 8.8rem;
     min-height: 3.6rem;
     padding: 0 1.2rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
     border: 1px solid var(--line-color-3);
     border-radius: 1rem;
     background-color: var(--bg-color-1);
@@ -87,9 +103,17 @@ $module: "datepicker";
     background-color: var(--bg-color-2);
   }
 
+  &__daypicker .rdp-dropdown:focus-visible + .rdp-caption_label {
+    outline: none;
+    box-shadow: 0 0 0 0.3rem rgba(28, 166, 115, 0.16);
+    border-radius: 0.8rem;
+  }
+
   &__daypicker .rdp-dropdown_root .rdp-caption_label {
     gap: 0.6rem;
     width: 100%;
+    display: inline-flex;
+    align-items: center;
     justify-content: space-between;
     @include mix.typo(1.4rem, 1.4rem, "semi-bold");
   }
@@ -187,6 +211,22 @@ $module: "datepicker";
     box-shadow: 0 0 0 0.3rem rgba(28, 166, 115, 0.16);
   }
 
+  &__daypicker
+    .#{$module}__day--saturday:not(.rdp-disabled):not(.rdp-selected):not(
+      .rdp-range_start
+    ):not(.rdp-range_end)
+    .rdp-day_button {
+    color: blue;
+  }
+
+  &__daypicker
+    .#{$module}__day--sunday:not(.rdp-disabled):not(.rdp-selected):not(
+      .rdp-range_start
+    ):not(.rdp-range_end)
+    .rdp-day_button {
+    color: red;
+  }
+
   &__daypicker .rdp-outside {
     color: var(--text-color-4);
   }
@@ -198,8 +238,8 @@ $module: "datepicker";
   }
 
   &__daypicker .rdp-today:not(.rdp-selected) .rdp-day_button {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
   }
 
   &__daypicker .rdp-selected .rdp-day_button,
