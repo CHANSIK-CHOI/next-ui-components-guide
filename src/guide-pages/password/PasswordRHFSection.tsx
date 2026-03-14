@@ -39,7 +39,7 @@ const RHFPasswordPropsGuideProp = memo(function RHFPasswordPropsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="RHFTextfield props extension"
+      name="RHFTextfield props 확장"
       typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { defaultPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
       description={
         <>
@@ -216,8 +216,8 @@ export default function PasswordRHFSection() {
   return (
     <GuideSection
       label="React Hook Form"
-      title="RHFPassword / form binding"
-      description="RHFPassword는 RHFTextfield를 기반으로 Password UI를 react-hook-form 필드와 연결하는 래퍼 컴포넌트입니다."
+      title="RHFPassword / 폼 연동"
+      description="RHFPassword는 RHFTextfield를 기반으로 Password UI를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
     >
       <RHFPasswordPropsGuideProp />
       <RHFPasswordRulesGuideProp />

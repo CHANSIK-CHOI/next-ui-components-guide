@@ -69,7 +69,7 @@ const PROJECT_LIBRARIES: LibraryItem[] = [
 ];
 
 const UI_LIBRARIES: LibraryItem[] = [
-  { label: "react-hook-form", icon: siReacthookform },
+  { label: "React Hook Form", icon: siReacthookform },
   { label: "react-day-picker", isCalendar: true },
   { label: "date-fns", icon: siDatefns },
   { label: "classnames", monogram: "cn" },

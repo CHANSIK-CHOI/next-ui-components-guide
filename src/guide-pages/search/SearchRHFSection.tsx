@@ -44,7 +44,7 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="RHFTextfield props extension"
+      name="RHFTextfield props 확장"
       typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; searchButtonType?: "button" | "submit" | "reset"; }'
       description={
         <>
@@ -266,8 +266,8 @@ export default function SearchRHFSection() {
   return (
     <GuideSection
       label="React Hook Form"
-      title="RHFSearch / form binding"
-      description="RHFSearch는 RHFTextfield를 기반으로 Search UI를 react-hook-form 필드와 연결하는 래퍼 컴포넌트입니다."
+      title="RHFSearch / 폼 연동"
+      description="RHFSearch는 RHFTextfield를 기반으로 Search UI를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
     >
       <RHFSearchPropsGuideProp />
       <RHFSearchRulesGuideProp />

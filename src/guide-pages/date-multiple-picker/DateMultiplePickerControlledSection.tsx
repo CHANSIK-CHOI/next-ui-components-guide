@@ -281,19 +281,19 @@ const DateMultiplePickerStateGuideProp = memo(
 
     return (
       <GuideProp
-        name="readOnly | disabled"
+        name="disabled | readOnly"
         typeLabel="boolean"
         defaultValue="false"
-        description="DateMultiplePicker도 기본적으로 직접 타이핑 입력이 막혀 있고, readOnly는 캘린더 열기, 날짜 변경, clear 버튼까지 막습니다. disabled는 전체 상호작용을 비활성화합니다."
+        description="DateMultiplePicker도 기본적으로 직접 타이핑 입력이 막혀 있고, disabled는 전체 상호작용을 비활성화합니다. readOnly는 현재 선택만 표시하면서 캘린더 열기, 날짜 변경, clear 버튼을 막습니다."
         isWide
       >
+        <DateMultiplePicker selected={disabledDates} disabled />
         <DateMultiplePicker
           selected={readOnlyDates}
           readOnly
           isClearable
           infoMsg="readOnly 상태에서는 현재 선택만 표시되고 캘린더 선택과 clear가 막힙니다."
         />
-        <DateMultiplePicker selected={disabledDates} disabled />
       </GuideProp>
     );
   },

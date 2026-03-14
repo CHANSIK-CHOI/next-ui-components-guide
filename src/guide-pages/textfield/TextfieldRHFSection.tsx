@@ -32,7 +32,7 @@ export default function TextfieldRHFSection() {
   } = useForm<RHFBasicDemoValues>({
     mode: "onSubmit",
     defaultValues: {
-      sampleText: "react-hook-form",
+      sampleText: "React Hook Form",
     },
   });
 
@@ -115,8 +115,8 @@ export default function TextfieldRHFSection() {
   return (
     <GuideSection
       label="React Hook Form"
-      title="RHFTextfield / form binding"
-      description="RHFTextfield는 useController를 사용해 Textfield를 react-hook-form 필드와 연결하는 래퍼 컴포넌트입니다."
+      title="RHFTextfield / 폼 연동"
+      description="RHFTextfield는 useController를 사용해 Textfield를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide

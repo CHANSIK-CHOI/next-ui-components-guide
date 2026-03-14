@@ -8,7 +8,7 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="Textfield props extension"
+      name="Textfield props 확장"
       typeLabel='Omit<TextfieldProps, "children" | "type"> & { onSearch?: () => void; searchButtonTitle?: string; searchButtonType?: "button" | "submit" | "reset"; }'
       description={
         <>

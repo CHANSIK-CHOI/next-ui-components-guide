@@ -123,9 +123,9 @@ export default function DateMultiplePickerRHFSection() {
 
   return (
     <GuideSection
-      label="리액트 훅 폼"
+      label="React Hook Form"
       title="RHFDateMultiplePicker / 폼 연동"
-      description="RHFDateMultiplePicker는 DateMultiplePicker props를 유지하면서 Date[] 필드를 react-hook-form에 연결합니다."
+      description="RHFDateMultiplePicker는 DateMultiplePicker props를 유지하면서 Date[] 필드를 React Hook Form에 연결합니다."
     >
       <GuideProp
         isWide
@@ -243,11 +243,20 @@ export default function DateMultiplePickerRHFSection() {
 
       <GuideProp
         isWide
-        name="readOnly | disabled"
+        name="disabled | readOnly"
         typeLabel="boolean"
-        description="RHFDateMultiplePicker도 DateMultiplePicker 상태 props를 그대로 상속합니다. readOnly는 현재 선택만 표시하면서 캘린더 열기, 날짜 변경, clear를 막고, disabled는 RHF controller와 UI를 함께 비활성화합니다."
+        description="RHFDateMultiplePicker도 DateMultiplePicker 상태 props를 그대로 상속합니다. disabled는 RHF controller와 UI를 함께 비활성화하고, readOnly는 현재 선택만 표시하면서 캘린더 열기, 날짜 변경, clear를 막습니다."
       >
         <div className="guideFormStack">
+          <Field>
+            <Field.Label>disabled 복수 날짜</Field.Label>
+            <RHFDateMultiplePicker
+              name="disabledDates"
+              control={stateControl}
+              disabled
+              infoMsg="disabled는 RHF field와 UI를 함께 비활성화합니다."
+            />
+          </Field>
           <Field>
             <Field.Label>readOnly 복수 날짜</Field.Label>
             <RHFDateMultiplePicker
@@ -256,15 +265,6 @@ export default function DateMultiplePickerRHFSection() {
               readOnly
               isClearable
               infoMsg="readOnly 상태에서는 현재 선택만 표시되고 캘린더와 clear 버튼이 비활성화됩니다."
-            />
-          </Field>
-          <Field>
-            <Field.Label>disabled 복수 날짜</Field.Label>
-            <RHFDateMultiplePicker
-              name="disabledDates"
-              control={stateControl}
-              disabled
-              infoMsg="disabled는 RHF field와 UI를 함께 비활성화합니다."
             />
           </Field>
         </div>

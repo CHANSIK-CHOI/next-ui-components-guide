@@ -8,7 +8,7 @@ const PasswordPropsGuideProp = memo(function PasswordPropsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="Textfield props extension"
+      name="Textfield props 확장"
       typeLabel='Omit<TextfieldProps, "children" | "type"> & { defaultPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
       description={
         <>

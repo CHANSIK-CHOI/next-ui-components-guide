@@ -91,7 +91,7 @@ export default function CheckboxRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFCheckbox / 폼 연동"
-      description="RHFCheckbox는 react-hook-form의 boolean 필드와 Checkbox를 연결하는 래퍼 컴포넌트입니다."
+      description="RHFCheckbox는 React Hook Form의 boolean 필드와 Checkbox를 연결하는 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide
