@@ -6,24 +6,24 @@ import RHFTextfield, { type RHFTextfieldProps } from "./RHFTextfield";
 import TextfieldBtn from "./TextfieldBtn";
 
 export type RHFSearchProps<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & {
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
+> = Omit<RHFTextfieldProps<TFormValues, TFieldName>, "children" | "type"> & {
   onSearch?: () => void;
   searchButtonTitle?: string;
   searchButtonType?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
 };
 
 export default function RHFSearch<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
 >({
   onSearch,
   searchButtonTitle = "검색",
   searchButtonType,
   disabled = false,
   ...restTextfieldProps
-}: RHFSearchProps<TFieldValues, TName>) {
+}: RHFSearchProps<TFormValues, TFieldName>) {
   const resolvedSearchButtonType =
     searchButtonType ?? (onSearch ? "button" : "submit");
 

@@ -1,22 +1,26 @@
 import {
   type FieldPath,
   type FieldValues,
-  type UseControllerProps,
   useController,
 } from "react-hook-form";
+import { type RHFComponentProps } from "@/types/rhf";
 import DateMultiplePicker, {
   type DateMultiplePickerProps,
 } from "./DateMultiplePicker";
 
 export type RHFDateMultiplePickerProps<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = Omit<DateMultiplePickerProps, "selected"> &
-  UseControllerProps<TFieldValues, TName>;
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
+> = RHFComponentProps<
+  TFormValues,
+  TFieldName,
+  DateMultiplePickerProps,
+  "selected"
+>;
 
 export default function RHFDateMultiplePicker<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
 >({
   name,
   control,
@@ -27,7 +31,7 @@ export default function RHFDateMultiplePicker<
   errorMsg,
   onSelectedChange,
   ...restDatepickerProps
-}: RHFDateMultiplePickerProps<TFieldValues, TName>) {
+}: RHFDateMultiplePickerProps<TFormValues, TFieldName>) {
   const { field, fieldState } = useController({
     name,
     control,

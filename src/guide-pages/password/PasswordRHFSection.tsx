@@ -1,4 +1,4 @@
-import { Button, RHFPassword } from "@/components";
+import { Button, Field, RHFPassword } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
 import { memo } from "react";
 import { useForm } from "react-hook-form";
@@ -50,15 +50,20 @@ const RHFPasswordPropsGuideProp = memo(function RHFPasswordPropsGuideProp() {
       }
     >
       <form onSubmit={handleSubmit(handleSubmitBasic)}>
-        <RHFPassword
-          name="password"
-          control={control}
-          isClearable
-          infoMsg="RHF 연결과 비밀번호 토글을 동시에 사용할 수 있습니다."
-        />
-        <Button color="primary" type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
+        <div className="guideFormStack">
+          <Field>
+            <Field.Label>비밀번호</Field.Label>
+            <RHFPassword
+              name="password"
+              control={control}
+              isClearable
+              infoMsg="RHF 연결과 비밀번호 토글을 동시에 사용할 수 있습니다."
+            />
+          </Field>
+          <Button color="primary" type="submit" disabled={isSubmitting}>
+            제출
+          </Button>
+        </div>
       </form>
     </GuideProp>
   );
@@ -88,22 +93,27 @@ const RHFPasswordRulesGuideProp = memo(function RHFPasswordRulesGuideProp() {
       description="비밀번호 필드 검증은 RHF rules로 연결하고, 토글 상태는 RHFPassword 내부 UI 상태로 처리합니다. clear 시에는 다시 숨김 상태로 돌아갑니다."
     >
       <form onSubmit={handleSubmit(handleSubmitRules)}>
-        <RHFPassword
-          name="accountPassword"
-          control={control}
-          placeholder="8자 이상 비밀번호"
-          isClearable
-          rules={{
-            required: "비밀번호를 입력해주세요.",
-            minLength: {
-              value: 8,
-              message: "8자 이상 입력해주세요.",
-            },
-          }}
-        />
-        <Button color="primary" type="submit" disabled={isSubmitting}>
-          Validate Password
-        </Button>
+        <div className="guideFormStack">
+          <Field>
+            <Field.Label>계정 비밀번호</Field.Label>
+            <RHFPassword
+              name="accountPassword"
+              control={control}
+              placeholder="8자 이상 비밀번호"
+              isClearable
+              rules={{
+                required: "비밀번호를 입력해주세요.",
+                minLength: {
+                  value: 8,
+                  message: "8자 이상 입력해주세요.",
+                },
+              }}
+            />
+          </Field>
+          <Button color="primary" type="submit" disabled={isSubmitting}>
+            비밀번호 검증
+          </Button>
+        </div>
       </form>
     </GuideProp>
   );
@@ -133,20 +143,25 @@ const RHFPasswordNativeGuideProp = memo(function RHFPasswordNativeGuideProp() {
       description="RHFPassword에서도 초기 표시 상태와 Textfield 기반 native input props를 함께 설정할 수 있습니다."
     >
       <form onSubmit={handleSubmit(handleSubmitNative)}>
-        <RHFPassword
-          name="currentPassword"
-          control={control}
-          defaultPasswordVisible
-          autoComplete="current-password"
-          maxLength={20}
-          placeholder="현재 비밀번호"
-          isClearable
-          hidePasswordTitle="비밀번호 감추기"
-          showPasswordTitle="비밀번호 보이기"
-        />
-        <Button color="primary" type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
+        <div className="guideFormStack">
+          <Field>
+            <Field.Label>현재 비밀번호</Field.Label>
+            <RHFPassword
+              name="currentPassword"
+              control={control}
+              defaultPasswordVisible
+              autoComplete="current-password"
+              maxLength={20}
+              placeholder="현재 비밀번호"
+              isClearable
+              hidePasswordTitle="비밀번호 감추기"
+              showPasswordTitle="비밀번호 보이기"
+            />
+          </Field>
+          <Button color="primary" type="submit" disabled={isSubmitting}>
+            제출
+          </Button>
+        </div>
       </form>
     </GuideProp>
   );

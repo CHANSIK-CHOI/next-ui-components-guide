@@ -4,17 +4,17 @@ import RHFTextfield, { type RHFTextfieldProps } from "./RHFTextfield";
 import TextfieldBtn from "./TextfieldBtn";
 
 export type RHFPasswordProps<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & {
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
+> = Omit<RHFTextfieldProps<TFormValues, TFieldName>, "children" | "type"> & {
   defaultPasswordVisible?: boolean;
   hidePasswordTitle?: string;
   showPasswordTitle?: string;
 };
 
 export default function RHFPassword<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
 >({
   defaultPasswordVisible = false,
   hidePasswordTitle = "비밀번호 숨기기",
@@ -22,7 +22,7 @@ export default function RHFPassword<
   onClear,
   disabled = false,
   ...restTextfieldProps
-}: RHFPasswordProps<TFieldValues, TName>) {
+}: RHFPasswordProps<TFormValues, TFieldName>) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(
     defaultPasswordVisible,
   );

@@ -132,11 +132,17 @@ export default function DatepickerBase<
   );
   const resolvedDefaultMonth =
     dayPickerProps?.defaultMonth ?? getDefaultMonth({ selected });
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+  const resolvedStartMonth =
+    dayPickerProps?.startMonth ?? new Date(currentYear - 100, 0, 1);
+  const resolvedEndMonth =
+    dayPickerProps?.endMonth ?? new Date(currentYear + 20, 11, 1);
   const resolvedCalendarButtonTitle =
     calendarButtonTitle ??
     (resolvedIsCalendarOpen ? "캘린더 닫기" : "날짜 선택하기");
   const resolvedDayPickerDisabled = readOnly ? true : dayPickerProps?.disabled;
   const resolvedIsClearable = isClearable && !dayPickerProps?.required;
+  const resolvedCaptionLayout = dayPickerProps?.captionLayout ?? "dropdown";
 
   const setCalendarOpen = useCallback(
     (nextIsOpen: boolean) => {
@@ -296,8 +302,11 @@ export default function DatepickerBase<
               selected={selected as never}
               onSelect={handleDayPickerSelect as never}
               defaultMonth={resolvedDefaultMonth}
+              startMonth={resolvedStartMonth}
+              endMonth={resolvedEndMonth}
               disabled={resolvedDayPickerDisabled}
               showOutsideDays={dayPickerProps?.showOutsideDays ?? true}
+              captionLayout={resolvedCaptionLayout}
               navLayout={dayPickerProps?.navLayout ?? "after"}
               locale={resolvedLocale}
               className={cn(

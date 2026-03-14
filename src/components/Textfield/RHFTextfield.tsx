@@ -2,9 +2,12 @@ import { type ChangeEvent } from "react";
 import {
   type FieldPath,
   type FieldValues,
-  type UseControllerProps,
   useController,
 } from "react-hook-form";
+import {
+  type RHFComponentProps,
+  type RHFValueInputManagedProps,
+} from "@/types/rhf";
 import Textfield, { type TextfieldProps } from "./Textfield";
 
 type RHFTextfieldBaseProps = {
@@ -12,18 +15,20 @@ type RHFTextfieldBaseProps = {
 };
 
 export type RHFTextfieldProps<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
-> = Omit<
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
+> = RHFComponentProps<
+  TFormValues,
+  TFieldName,
   TextfieldProps,
-  "name" | "value" | "defaultValue" | "onChange" | "onBlur"
+  RHFValueInputManagedProps
 > &
   RHFTextfieldBaseProps &
-  UseControllerProps<TFieldValues, TName>;
+  {};
 
 export default function RHFTextfield<
-  TFieldValues extends FieldValues,
-  TName extends FieldPath<TFieldValues>,
+  TFormValues extends FieldValues,
+  TFieldName extends FieldPath<TFormValues>,
 >({
   name,
   control,
@@ -35,7 +40,7 @@ export default function RHFTextfield<
   formatValue,
   onClear,
   ...restTextfieldProps
-}: RHFTextfieldProps<TFieldValues, TName>) {
+}: RHFTextfieldProps<TFormValues, TFieldName>) {
   const { field, fieldState } = useController({
     name,
     control,

@@ -42,27 +42,65 @@ $module: "datepicker";
 
   &__daypicker .rdp-month {
     width: 100%;
+    position: relative;
   }
 
   &__daypicker .rdp-month_caption {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 4rem;
+    justify-content: flex-start;
+    min-height: 4rem;
     margin-bottom: 1rem;
+    padding-right: 7.6rem;
   }
 
   &__daypicker .rdp-caption_label {
     @include mix.typo(1.6rem, 1.6rem, "semi-bold");
   }
 
+  &__daypicker .rdp-dropdowns {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  &__daypicker .rdp-dropdown_root {
+    min-width: 8.8rem;
+    min-height: 3.6rem;
+    padding: 0 1.2rem;
+    border: 1px solid var(--line-color-3);
+    border-radius: 1rem;
+    background-color: var(--bg-color-1);
+    color: var(--text-color-1);
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease;
+
+    &[data-disabled="true"] {
+      opacity: 0.45;
+    }
+  }
+
+  &__daypicker .rdp-dropdown_root:hover {
+    border-color: var(--line-color-2);
+    background-color: var(--bg-color-2);
+  }
+
+  &__daypicker .rdp-dropdown_root .rdp-caption_label {
+    gap: 0.6rem;
+    width: 100%;
+    justify-content: space-between;
+    @include mix.typo(1.4rem, 1.4rem, "semi-bold");
+  }
+
   &__daypicker .rdp-nav {
     position: absolute;
-    inset: 0;
+    top: 0.4rem;
+    right: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 0.4rem;
     pointer-events: none;
   }
 

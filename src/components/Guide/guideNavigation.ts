@@ -26,6 +26,16 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Password / RHFPassword",
   },
   {
+    href: "/checkbox",
+    label: "Checkbox",
+    description: "Checkbox / RHFCheckbox / CheckboxGroup",
+  },
+  {
+    href: "/radio",
+    label: "Radio",
+    description: "Radio / RHFRadio / RadioGroup",
+  },
+  {
     href: "/datepicker",
     label: "Datepicker",
     description: "Datepicker / RHFDatepicker",

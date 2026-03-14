@@ -2,6 +2,7 @@ import { useId, forwardRef } from "react";
 import TextfieldBtn from "./TextfieldBtn";
 import cn from "classnames";
 import Message from "./Message";
+import { useFieldContext } from "../Field/Field.context";
 
 const nameBlock = "textfield";
 
@@ -63,11 +64,16 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
     },
     ref,
   ) => {
-    const RANDOM_ID = useId();
-    const ID = id ? id : RANDOM_ID;
+    const { inputId: fieldContextId } = useFieldContext();
+    const generatedId = useId();
+    const ID = id ?? fieldContextId ?? generatedId;
     const hasValue = value != null && String(value).length > 0;
     const canClear =
-      isClearable && typeof onClear === "function" && hasValue && !readOnly && !disabled;
+      isClearable &&
+      typeof onClear === "function" &&
+      hasValue &&
+      !readOnly &&
+      !disabled;
 
     return (
       <div

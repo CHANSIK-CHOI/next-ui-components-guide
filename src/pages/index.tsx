@@ -1,13 +1,18 @@
 import {
   Button,
   ButtonGroup,
-  Datepicker,
+  Field,
+  RHFCheckbox,
   RHFDatepicker,
+  RHFPassword,
+  RHFRadio,
+  RHFSearch,
   RHFTextfield,
-  Textfield,
+  RadioGroup,
 } from "@/components";
 import { GuideLayout, GuideSection } from "@/components/Guide";
 import { CalendarIcon } from "@/components/Icon";
+import { format } from "date-fns";
 import Head from "next/head";
 import { type CSSProperties, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,13 +26,26 @@ import {
   siTypescript,
 } from "simple-icons";
 
-type SAMPLE_FORM_TYPE = {
-  sampleText: string;
-  sampleDate: Date | undefined;
+type SIGNUP_FORM_TYPE = {
+  fullName: string;
+  email: string;
+  password: string;
+  profileKeyword: string;
+  birthDate: Date | undefined;
+  notificationCycle: string;
+  receiveEvent: boolean;
+  agreeTerms: boolean;
 };
-const SAMPLE_FORM: SAMPLE_FORM_TYPE = {
-  sampleText: "",
-  sampleDate: undefined,
+
+const SIGNUP_FORM: SIGNUP_FORM_TYPE = {
+  fullName: "",
+  email: "",
+  password: "",
+  profileKeyword: "",
+  birthDate: undefined,
+  notificationCycle: "weekly",
+  receiveEvent: true,
+  agreeTerms: false,
 };
 
 type LogoIcon = {
@@ -60,6 +78,12 @@ const UI_LIBRARIES: LibraryItem[] = [
 const MOTION_LIBRARIES: LibraryItem[] = [
   { label: "framer-motion", icon: siFramer },
 ];
+
+const NOTIFICATION_CYCLE_LABEL: Record<string, string> = {
+  daily: "매일 받기",
+  weekly: "주 1회 받기",
+  monthly: "월 1회 받기",
+};
 
 function LibraryLogo({ item }: { item: LibraryItem }) {
   const style = item.icon
@@ -95,21 +119,33 @@ function LibraryList({ items }: { items: LibraryItem[] }) {
 }
 
 export default function Home() {
-  const [sampleTextfieldValue, setSampleTextfieldValue] = useState("");
-  const [sampleDatepickerValue, setSampleDatepickerValue] = useState<
-    Date | undefined
-  >(new Date());
+  const [lastSearchKeyword, setLastSearchKeyword] = useState("");
+  const [submittedSignupForm, setSubmittedSignupForm] =
+    useState<SIGNUP_FORM_TYPE | null>(null);
   const {
     control,
+    getValues,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<SAMPLE_FORM_TYPE>({
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<SIGNUP_FORM_TYPE>({
     mode: "onSubmit",
-    defaultValues: SAMPLE_FORM,
+    defaultValues: SIGNUP_FORM,
   });
 
-  const onSubmit = async (value: SAMPLE_FORM_TYPE) => {
+  const handleSearchKeyword = () => {
+    setLastSearchKeyword(getValues("profileKeyword").trim());
+  };
+
+  const handleReset = () => {
+    reset(SIGNUP_FORM);
+    setLastSearchKeyword("");
+    setSubmittedSignupForm(null);
+  };
+
+  const onSubmit = async (value: SIGNUP_FORM_TYPE) => {
     console.log(value);
+    setSubmittedSignupForm(value);
   };
 
   return (
@@ -126,7 +162,7 @@ export default function Home() {
       <GuideLayout
         currentPath="/"
         title="프로젝트 개요"
-        description="컴포넌트별 구현 결과와 사용 예시를 한 곳에서 볼 수 있도록 정리했습니다."
+        description="Next 환경에서 사용 가능한 공용 UI를 한눈에 확인할 수 있도록 가이드 형태로 제작한 프로젝트입니다."
       >
         <GuideSection
           label="Project Overview"
@@ -142,9 +178,10 @@ export default function Home() {
                 </span>
               </div>
               <p className="homeOverview__heroDescription">
-                Button, Textfield, Search, Password, Datepicker 계열을 중심으로
-                공용 UI 컴포넌트를 구현했고, controlled 패턴과 React Hook Form
-                연동 방식을 함께 비교할 수 있도록 구성했습니다.
+                공용 UI 컴포넌트를 설계하고 확장해가는 과정을 정리한
+                포트폴리오로, 기본 인터랙션 컴포넌트부터 폼 입력, 오버레이, 복합
+                컴포넌트까지 범위를 넓혀가며 controlled 패턴과 React Hook Form
+                연동 방식도 함께 다룹니다.
               </p>
             </article>
 
@@ -155,9 +192,7 @@ export default function Home() {
               </article>
 
               <article className="homeOverview__card">
-                <h3 className="homeOverview__cardTitle">
-                  UI 구현 라이브러리
-                </h3>
+                <h3 className="homeOverview__cardTitle">UI 구현 라이브러리</h3>
                 <LibraryList items={UI_LIBRARIES} />
               </article>
 
@@ -172,58 +207,224 @@ export default function Home() {
         </GuideSection>
 
         <GuideSection
-          label="Preview"
-          title="미리보기"
-          description="제작된 컴포넌트들의 구성을 미리 확인해보세요!"
+          label="Sample Form"
+          title="회원가입 폼 예시"
+          description="지금까지 만든 폼 계열 컴포넌트를 실제 가입 흐름처럼 조합한 예시입니다."
         >
-          <ButtonGroup>
-            <ButtonGroup.Item isAutoWidth>
-              <Button variant="line">취소</Button>
-            </ButtonGroup.Item>
-            <ButtonGroup.Item>
-              <Button color="primary">확인</Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
+          <div className="homeForm">
+            <form onSubmit={handleSubmit(onSubmit)} className="homeForm__form">
+              <div className="guideFormStack">
+                <Field>
+                  <Field.Label>이름</Field.Label>
+                  <RHFTextfield
+                    name="fullName"
+                    control={control}
+                    placeholder="이름을 입력해주세요"
+                    isClearable
+                    rules={{
+                      required: "이름을 입력해주세요.",
+                      validate: (value) =>
+                        value.trim().length > 0 || "공백만 입력할 수 없습니다.",
+                    }}
+                  />
+                </Field>
 
-          <Textfield
-            isClearable
-            onChange={(e) => setSampleTextfieldValue(e.target.value)}
-            value={sampleTextfieldValue}
-            onClear={() => setSampleTextfieldValue("")}
-            unit="원"
-          />
+                <Field>
+                  <Field.Label>이메일</Field.Label>
+                  <RHFTextfield
+                    name="email"
+                    control={control}
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    placeholder="example@domain.com"
+                    isClearable
+                    rules={{
+                      required: "이메일을 입력해주세요.",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "올바른 이메일 형식이 아닙니다.",
+                      },
+                    }}
+                  />
+                </Field>
 
-          <Datepicker
-            selected={sampleDatepickerValue}
-            onSelectedChange={(nextSelected) =>
-              setSampleDatepickerValue(nextSelected as Date | undefined)
-            }
-            isClearable
-            infoMsg="Textfield 기반 Datepicker preview"
-          />
+                <Field>
+                  <Field.Label>비밀번호</Field.Label>
+                  <RHFPassword
+                    name="password"
+                    control={control}
+                    autoComplete="new-password"
+                    placeholder="8자 이상 입력해주세요"
+                    isClearable
+                    rules={{
+                      required: "비밀번호를 입력해주세요.",
+                      validate: (value) =>
+                        value.length >= 8 ||
+                        "비밀번호는 8자 이상이어야 합니다.",
+                    }}
+                  />
+                </Field>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <RHFTextfield
-              name="sampleText"
-              control={control}
-              rules={{
-                required: "필수 입력 값입니다.",
-                validate: (value) =>
-                  value.trim().length > 0 || "공백만 입력할 수 없습니다.",
-              }}
-              isClearable
-              infoMsg="Sample 입력란입니다."
-            />
-            <RHFDatepicker
-              name="sampleDate"
-              control={control}
-              isClearable
-              infoMsg="react-hook-form으로 연결된 Datepicker preview"
-            />
-            <Button color="primary" type="submit" disabled={isSubmitting}>
-              Submit
-            </Button>
-          </form>
+                <Field>
+                  <Field.Label>관심 키워드</Field.Label>
+                  <RHFSearch
+                    name="profileKeyword"
+                    control={control}
+                    placeholder="관심 있는 키워드를 검색해보세요"
+                    isClearable
+                    onSearch={handleSearchKeyword}
+                    infoMsg={lastSearchKeyword ? `"${lastSearchKeyword}"` : ""}
+                  />
+                </Field>
+
+                <Field>
+                  <Field.Label>생년월일</Field.Label>
+                  <RHFDatepicker
+                    name="birthDate"
+                    control={control}
+                    isClearable
+                    placeholder="날짜를 선택해주세요"
+                    rules={{
+                      validate: (value) =>
+                        Boolean(value) || "생년월일을 선택해주세요.",
+                    }}
+                    dayPickerProps={{
+                      endMonth: new Date(),
+                      disabled: { after: new Date() },
+                    }}
+                  />
+                </Field>
+
+                <Field>
+                  <p className="homeForm__groupLabel">알림 주기</p>
+                  <RadioGroup
+                    name="notificationCycle"
+                    error={Boolean(errors.notificationCycle)}
+                  >
+                    <Field.Item>
+                      <RHFRadio
+                        name="notificationCycle"
+                        control={control}
+                        value="daily"
+                        rules={{ required: "알림 주기를 선택해주세요." }}
+                      />
+                      <Field.Label>매일 받기</Field.Label>
+                    </Field.Item>
+                    <Field.Item>
+                      <RHFRadio
+                        name="notificationCycle"
+                        control={control}
+                        value="weekly"
+                        rules={{ required: "알림 주기를 선택해주세요." }}
+                      />
+                      <Field.Label>주 1회 받기</Field.Label>
+                    </Field.Item>
+                    <Field.Item>
+                      <RHFRadio
+                        name="notificationCycle"
+                        control={control}
+                        value="monthly"
+                        rules={{ required: "알림 주기를 선택해주세요." }}
+                      />
+                      <Field.Label>월 1회 받기</Field.Label>
+                    </Field.Item>
+                  </RadioGroup>
+                  <Field.Message errorMsg={errors.notificationCycle?.message} />
+                </Field>
+
+                <Field>
+                  <Field.Item align="start">
+                    <RHFCheckbox name="receiveEvent" control={control} />
+                    <Field.Label>
+                      이벤트 및 업데이트 알림을 받겠습니다.
+                    </Field.Label>
+                  </Field.Item>
+                  <Field.Item align="start">
+                    <RHFCheckbox
+                      name="agreeTerms"
+                      control={control}
+                      rules={{
+                        validate: (value) =>
+                          value || "서비스 이용약관 동의는 필수입니다.",
+                      }}
+                    />
+                    <Field.Label>
+                      서비스 이용약관 및 개인정보 처리방침에 동의합니다.
+                    </Field.Label>
+                  </Field.Item>
+                  <Field.Message errorMsg={errors.agreeTerms?.message} />
+                </Field>
+
+                <ButtonGroup>
+                  <ButtonGroup.Item isAutoWidth>
+                    <Button variant="line" type="button" onClick={handleReset}>
+                      초기화
+                    </Button>
+                  </ButtonGroup.Item>
+                  <ButtonGroup.Item>
+                    <Button
+                      color="primary"
+                      type="submit"
+                      disabled={isSubmitting}
+                    >
+                      가입하기
+                    </Button>
+                  </ButtonGroup.Item>
+                </ButtonGroup>
+              </div>
+            </form>
+
+            <div className="homeForm__summary">
+              <strong className="homeForm__summaryTitle">제출 결과</strong>
+              {submittedSignupForm ? (
+                <ul className="homeForm__summaryList">
+                  <li>
+                    <span>이름</span>
+                    <strong>{submittedSignupForm.fullName}</strong>
+                  </li>
+                  <li>
+                    <span>이메일</span>
+                    <strong>{submittedSignupForm.email}</strong>
+                  </li>
+                  <li>
+                    <span>관심 키워드</span>
+                    <strong>
+                      {submittedSignupForm.profileKeyword || "입력 안 함"}
+                    </strong>
+                  </li>
+                  <li>
+                    <span>생년월일</span>
+                    <strong>
+                      {submittedSignupForm.birthDate
+                        ? format(submittedSignupForm.birthDate, "yyyy.MM.dd")
+                        : "선택 안 함"}
+                    </strong>
+                  </li>
+                  <li>
+                    <span>알림 주기</span>
+                    <strong>
+                      {
+                        NOTIFICATION_CYCLE_LABEL[
+                          submittedSignupForm.notificationCycle
+                        ]
+                      }
+                    </strong>
+                  </li>
+                  <li>
+                    <span>이벤트 수신</span>
+                    <strong>
+                      {submittedSignupForm.receiveEvent ? "동의" : "미동의"}
+                    </strong>
+                  </li>
+                </ul>
+              ) : (
+                <p className="homeForm__summaryDescription">
+                  폼을 제출하면 입력한 값이 이 영역에 정리됩니다.
+                </p>
+              )}
+            </div>
+          </div>
         </GuideSection>
       </GuideLayout>
     </>
