@@ -9,7 +9,7 @@ export default function TextfieldGuidePage() {
         <title>Textfield Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="Textfield와 RHFTextfield 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          content="controlled usage와 react-hook-form 연동 기준으로 Textfield와 RHFTextfield의 props와 예시를 정리한 가이드 페이지입니다."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -17,7 +17,7 @@ export default function TextfieldGuidePage() {
       <GuideLayout
         currentPath="/textfield"
         title="Textfield / RHFTextfield"
-        description="controlled usage를 전제로 한 Textfield와 react-hook-form 연결용 RHFTextfield의 props와 예시를 정리한 가이드 페이지입니다."
+        description="controlled usage와 react-hook-form 연동 기준으로 Textfield와 RHFTextfield의 props와 예시를 정리한 가이드 페이지입니다."
       >
         <TextfieldGuideContent />
       </GuideLayout>

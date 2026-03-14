@@ -304,7 +304,7 @@ export default function DateMultiplePickerControlledSection() {
     <GuideSection
       label="DateMultiplePicker"
       title="DateMultiplePicker / controlled usage"
-      description="DateMultiplePicker는 여러 날짜를 배열 형태로 선택하는 복수 선택 전용 컴포넌트입니다."
+      description="DateMultiplePicker는 selected와 onSelectedChange를 외부 상태로 관리하는 controlled usage를 기준으로, 여러 날짜를 배열 형태로 선택하는 복수 선택 전용 컴포넌트입니다."
     >
       <DateMultiplePickerPropsGuideProp />
       <DateMultiplePickerValueGuideProp />

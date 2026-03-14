@@ -9,7 +9,7 @@ export default function DateRangePickerGuidePage() {
         <title>DateRangePicker Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="DateRangePicker와 RHFDateRangePicker 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          content="controlled usage와 react-hook-form 연동 기준으로 DateRangePicker와 RHFDateRangePicker의 props와 예시를 정리한 가이드 페이지입니다."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -17,7 +17,7 @@ export default function DateRangePickerGuidePage() {
       <GuideLayout
         currentPath="/date-range-picker"
         title="DateRangePicker / RHFDateRangePicker"
-        description="기간 선택에 맞춘 DateRangePicker와 RHFDateRangePicker의 props와 예시를 정리한 가이드 페이지입니다."
+        description="controlled usage와 react-hook-form 연동 기준으로 DateRangePicker와 RHFDateRangePicker의 props와 예시를 정리한 가이드 페이지입니다."
       >
         <DateRangePickerGuideContent />
       </GuideLayout>

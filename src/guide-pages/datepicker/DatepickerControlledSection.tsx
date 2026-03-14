@@ -300,7 +300,7 @@ export default function DatepickerControlledSection() {
     <GuideSection
       label="Datepicker"
       title="Datepicker / controlled usage"
-      description="Datepicker는 단일 날짜 선택에 맞춘 Textfield 기반 캘린더 입력 컴포넌트입니다."
+      description="Datepicker는 selected와 onSelectedChange를 외부 상태로 관리하는 controlled usage를 기준으로, 단일 날짜 선택에 맞춘 Textfield 기반 캘린더 입력 컴포넌트입니다."
     >
       <DatepickerPropsGuideProp />
       <DatepickerValueGuideProp />

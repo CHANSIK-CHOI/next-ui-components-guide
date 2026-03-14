@@ -330,7 +330,7 @@ export default function DateRangePickerControlledSection() {
     <GuideSection
       label="DateRangePicker"
       title="DateRangePicker / controlled usage"
-      description="DateRangePicker는 시작일과 종료일을 함께 선택하는 기간 선택 전용 컴포넌트입니다. 종료일까지 선택되어야 최종 값이 반영됩니다."
+      description="DateRangePicker는 selected와 onSelectedChange를 외부 상태로 관리하는 controlled usage를 기준으로, 시작일과 종료일을 함께 선택하는 기간 선택 전용 컴포넌트입니다. 종료일까지 선택되어야 최종 값이 반영됩니다."
     >
       <DateRangePickerPropsGuideProp />
       <DateRangePickerValueGuideProp />

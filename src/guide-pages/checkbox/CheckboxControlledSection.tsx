@@ -23,7 +23,7 @@ export default function CheckboxControlledSection() {
     <GuideSection
       label="Checkbox"
       title="Checkbox / controlled usage"
-      description="Checkbox는 checked와 onChange를 외부 상태로 관리하는 단일 체크박스 컴포넌트입니다."
+      description="Checkbox는 checked와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 사용하는 단일 체크박스 컴포넌트입니다."
     >
       <GuideProp
         name="checked | onChange"

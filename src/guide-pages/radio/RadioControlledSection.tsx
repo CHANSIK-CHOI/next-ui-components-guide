@@ -12,7 +12,7 @@ export default function RadioControlledSection() {
     <GuideSection
       label="Radio"
       title="Radio / controlled usage"
-      description="Radio는 checked와 value를 외부 상태로 연결해 단일 선택을 제어하는 컴포넌트입니다."
+      description="Radio는 checked와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로, value로 선택 항목을 구분하는 단일 선택 컴포넌트입니다."
     >
       <GuideProp
         isWide

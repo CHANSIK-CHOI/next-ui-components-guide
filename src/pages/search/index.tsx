@@ -9,7 +9,7 @@ export default function SearchGuidePage() {
         <title>Search Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="Search와 RHFSearch 컴포넌트의 props와 예시를 정리한 가이드 페이지입니다."
+          content="controlled usage와 react-hook-form 연동 기준으로 Search와 RHFSearch의 props와 예시를 정리한 가이드 페이지입니다."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -17,7 +17,7 @@ export default function SearchGuidePage() {
       <GuideLayout
         currentPath="/search"
         title="Search / RHFSearch"
-        description="Textfield props를 확장한 Search와 RHFTextfield 기반 RHFSearch의 props와 예시를 정리한 가이드 페이지입니다."
+        description="controlled usage와 react-hook-form 연동 기준으로 Search와 RHFSearch의 props와 예시를 정리한 가이드 페이지입니다."
       >
         <SearchGuideContent />
       </GuideLayout>
