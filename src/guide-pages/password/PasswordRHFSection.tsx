@@ -40,12 +40,12 @@ const RHFPasswordPropsGuideProp = memo(function RHFPasswordPropsGuideProp() {
     <GuideProp
       isWide
       name="RHFTextfield props 확장"
-      typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { defaultPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
+      typeLabel='Omit<RHFTextfieldProps<TFieldValues, TName>, "children" | "type"> & { defaultIsPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
       description={
         <>
           - RHFPassword는 RHFTextfield props를 확장합니다.
           <br /> - RHFTextfield는 Textfield UI props를 기반으로 하므로
-          isClearable, infoMsg, errorMsg 같은 Textfield props도 함께 사용할 수
+          isClearable, infoMessage, errorMessage 같은 Textfield props도 함께 사용할 수
           있습니다.
           <br /> - clear 버튼은 isClearable이 true이고 값이 있을 때 보이며,
           클릭하면 RHF 값이 먼저 빈 문자열로 정리된 뒤 표시 상태가 다시 숨김으로
@@ -63,7 +63,7 @@ const RHFPasswordPropsGuideProp = memo(function RHFPasswordPropsGuideProp() {
               name="password"
               control={control}
               isClearable
-              infoMsg="RHF 연결과 비밀번호 토글을 동시에 사용할 수 있습니다."
+              infoMessage="RHF 연결과 비밀번호 토글을 동시에 사용할 수 있습니다."
             />
           </Field>
           <Button color="primary" type="submit" disabled={isSubmitting}>
@@ -144,7 +144,7 @@ const RHFPasswordNativeGuideProp = memo(function RHFPasswordNativeGuideProp() {
   return (
     <GuideProp
       isWide
-      name="defaultPasswordVisible | native input props"
+      name="defaultIsPasswordVisible | native input props"
       typeLabel="boolean | autoComplete | maxLength | placeholder ..."
       description="RHFPassword에서도 초기 표시 상태와 Textfield 기반 native input props를 함께 설정할 수 있습니다."
     >
@@ -155,7 +155,7 @@ const RHFPasswordNativeGuideProp = memo(function RHFPasswordNativeGuideProp() {
             <RHFPassword
               name="currentPassword"
               control={control}
-              defaultPasswordVisible
+              defaultIsPasswordVisible
               autoComplete="current-password"
               maxLength={20}
               placeholder="현재 비밀번호"
@@ -205,7 +205,7 @@ const RHFPasswordStateGuideProp = memo(function RHFPasswordStateGuideProp() {
           control={control}
           readOnly
           isClearable
-          infoMsg="readOnly에서도 비밀번호 보기/숨기기 토글은 유지됩니다."
+          infoMessage="readOnly에서도 비밀번호 보기/숨기기 토글은 유지됩니다."
         />
       </Field>
     </GuideProp>

@@ -11,6 +11,16 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Button / ButtonLink / IconButton / ButtonGroup",
   },
   {
+    href: "/checkbox",
+    label: "Checkbox",
+    description: "Checkbox / RHFCheckbox / CheckboxGroup",
+  },
+  {
+    href: "/radio",
+    label: "Radio",
+    description: "Radio / RHFRadio / RadioGroup",
+  },
+  {
     href: "/textfield",
     label: "Textfield",
     description: "Textfield / RHFTextfield",
@@ -26,21 +36,6 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Password / RHFPassword",
   },
   {
-    href: "/popup",
-    label: "Popup",
-    description: "Popup / Alert",
-  },
-  {
-    href: "/checkbox",
-    label: "Checkbox",
-    description: "Checkbox / RHFCheckbox / CheckboxGroup",
-  },
-  {
-    href: "/radio",
-    label: "Radio",
-    description: "Radio / RHFRadio / RadioGroup",
-  },
-  {
     href: "/datepicker",
     label: "Datepicker",
     description: "Datepicker / RHFDatepicker",
@@ -54,5 +49,10 @@ export const guideNavigation: GuideNavigationItem[] = [
     href: "/date-multiple-picker",
     label: "DateMultiplePicker",
     description: "DateMultiplePicker / RHFDateMultiplePicker",
+  },
+  {
+    href: "/alert",
+    label: "Alert",
+    description: "Alert / useAlert",
   },
 ];

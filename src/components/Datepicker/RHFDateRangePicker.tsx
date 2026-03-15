@@ -28,7 +28,7 @@ export default function RHFDateRangePicker<
   defaultValue,
   shouldUnregister,
   disabled = false,
-  errorMsg,
+  errorMessage,
   onSelectedChange,
   ...restDatepickerProps
 }: RHFDateRangePickerProps<TFormValues, TFieldName>) {
@@ -57,7 +57,7 @@ export default function RHFDateRangePicker<
       selected={field.value as DateRangePickerProps["selected"]}
       onSelectedChange={handleSelectedChange}
       disabled={disabled}
-      errorMsg={fieldState.error?.message ?? errorMsg}
+      errorMessage={fieldState.error?.message ?? errorMessage}
     />
   );
 }

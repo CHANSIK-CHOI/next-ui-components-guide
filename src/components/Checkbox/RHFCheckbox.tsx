@@ -30,7 +30,7 @@ export default function RHFCheckbox<
   defaultValue,
   shouldUnregister,
   disabled = false,
-  error = false,
+  isError = false,
   ...restCheckboxProps
 }: RHFCheckboxProps<TFormValues, TFieldName>) {
   const { field, fieldState } = useController({
@@ -53,7 +53,7 @@ export default function RHFCheckbox<
       name={field.name}
       checked={Boolean(field.value)}
       disabled={disabled}
-      error={Boolean(fieldState.error) || error}
+      isError={Boolean(fieldState.error) || isError}
       onBlur={field.onBlur}
       onChange={handleChange}
     />

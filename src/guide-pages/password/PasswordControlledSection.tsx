@@ -9,11 +9,11 @@ const PasswordPropsGuideProp = memo(function PasswordPropsGuideProp() {
     <GuideProp
       isWide
       name="Textfield props 확장"
-      typeLabel='Omit<TextfieldProps, "children" | "type"> & { defaultPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
+      typeLabel='Omit<TextfieldProps, "children" | "type"> & { defaultIsPasswordVisible?: boolean; hidePasswordTitle?: string; showPasswordTitle?: string; }'
       description={
         <>
           - Password는 Textfield props를 확장한 래퍼 컴포넌트입니다.
-          <br /> - value, onChange, isClearable, infoMsg, errorMsg 같은
+          <br /> - value, onChange, isClearable, infoMessage, errorMessage 같은
           Textfield props를 그대로 사용할 수 있습니다.
           <br /> - controlled usage에서 clear 버튼은 isClearable이 true이고,
           value가 있으며, onClear가 제공되고, disabled/readOnly가 아닐 때만
@@ -28,7 +28,7 @@ const PasswordPropsGuideProp = memo(function PasswordPropsGuideProp() {
       <Password
         value={passwordValue}
         isClearable
-        infoMsg="Textfield props를 그대로 사용하면서 비밀번호 보기/숨기기 토글을 제공합니다."
+        infoMessage="Textfield props를 그대로 사용하면서 비밀번호 보기/숨기기 토글을 제공합니다."
         onChange={(event) => setPasswordValue(event.target.value)}
         onClear={() => setPasswordValue("")}
       />
@@ -43,13 +43,13 @@ const PasswordToggleGuideProp = memo(function PasswordToggleGuideProp() {
   return (
     <GuideProp
       isWide
-      name="defaultPasswordVisible | hidePasswordTitle | showPasswordTitle"
+      name="defaultIsPasswordVisible | hidePasswordTitle | showPasswordTitle"
       typeLabel="boolean | string"
       description="초기 표시 상태와 비밀번호 토글 버튼의 접근성 텍스트를 제어합니다. clear 버튼을 누르면 표시 상태는 다시 숨김으로 돌아갑니다."
     >
       <Password
         value={visiblePassword}
-        defaultPasswordVisible
+        defaultIsPasswordVisible
         isClearable
         onChange={(event) => setVisiblePassword(event.target.value)}
         onClear={() => setVisiblePassword("")}
@@ -93,7 +93,7 @@ const PasswordNativeInputGuideProp = memo(
           autoComplete="new-password"
           maxLength={20}
           placeholder="새 비밀번호"
-          errorMsg={
+          errorMessage={
             newPassword.length > 0 && newPassword.length < 8
               ? "8자 이상 입력해주세요."
               : ""
@@ -123,7 +123,7 @@ const PasswordStateGuideProp = memo(function PasswordStateGuideProp() {
         value={readOnlyValue}
         readOnly
         isClearable
-        infoMsg="readOnly에서도 비밀번호 보기/숨기기 토글은 유지됩니다."
+        infoMessage="readOnly에서도 비밀번호 보기/숨기기 토글은 유지됩니다."
       />
     </GuideProp>
   );

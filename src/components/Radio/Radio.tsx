@@ -9,7 +9,7 @@ const INTERACTION_KEYS = new Set([" ", "Enter"]);
 type RadioBaseProps = {
   id?: string;
   className?: string;
-  error?: boolean;
+  isError?: boolean;
   readOnly?: boolean;
 };
 
@@ -22,7 +22,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
       id,
       name,
       className,
-      error,
+      isError,
       readOnly,
       disabled,
       onClick,
@@ -39,7 +39,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
     const resolvedName = name ?? radioGroupContext.name;
     const resolvedDisabled = disabled ?? radioGroupContext.disabled ?? false;
     const resolvedReadOnly = readOnly ?? radioGroupContext.readOnly ?? false;
-    const resolvedError = error ?? radioGroupContext.error ?? false;
+    const resolvedIsError = isError ?? radioGroupContext.isError ?? false;
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {
       if (resolvedReadOnly) {
@@ -63,7 +63,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
       <span
         className={cn(nameBlock, className, {
           "is-disabled": resolvedDisabled,
-          "is-error": resolvedError,
+          "is-error": resolvedIsError,
           "is-readonly": resolvedReadOnly,
         })}
       >

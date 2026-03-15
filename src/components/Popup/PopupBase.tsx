@@ -55,10 +55,10 @@ export default function PopupBase({
   title,
   description,
   footer,
-  showCloseButton = true,
+  hasCloseButton = true,
   closeButtonLabel = "팝업 닫기",
-  closeOnBackdrop = true,
-  closeOnEscape = true,
+  shouldCloseOnBackdrop = true,
+  shouldCloseOnEscape = true,
   dialogLabel,
   onRequestClose,
   onClickClose,
@@ -67,13 +67,13 @@ export default function PopupBase({
   const generatedTitleId = useId();
   const generatedDescriptionId = useId();
   const panelMotion = getPanelMotion(variant);
-  const hasHeader = Boolean(title) || showCloseButton;
+  const hasHeader = Boolean(title) || hasCloseButton;
 
   const titleId = title ? generatedTitleId : undefined;
   const descriptionId = description ? generatedDescriptionId : undefined;
 
   useEffect(() => {
-    if (!open || !closeOnEscape) {
+    if (!open || !shouldCloseOnEscape) {
       return;
     }
 
@@ -90,10 +90,10 @@ export default function PopupBase({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [closeOnEscape, onRequestClose, open]);
+  }, [onRequestClose, open, shouldCloseOnEscape]);
 
   const handleBackdropClick = () => {
-    if (!closeOnBackdrop) {
+    if (!shouldCloseOnBackdrop) {
       return;
     }
 
@@ -119,7 +119,7 @@ export default function PopupBase({
         </div>
       )}
 
-      {showCloseButton && (
+      {hasCloseButton && (
         <button
           type="button"
           className={cn(`${nameBlock}__close`)}
@@ -133,7 +133,7 @@ export default function PopupBase({
   ) : null;
 
   return (
-    <AnimatePresence initial={false} onExitComplete={onExited}>
+    <AnimatePresence onExitComplete={onExited}>
       {open ? (
         <div
           id={id}

@@ -2,25 +2,32 @@ import cn from "classnames";
 import { AttentionIcon } from "@/components/Icon";
 
 const nameBlock = "message";
-type MessageProps = {
-  infoMsg?: string;
-  errorMsg?: string;
-};
-export default function Message({ infoMsg = "", errorMsg = "" }: MessageProps) {
-  const isInfoMsg = infoMsg.length > 0 && infoMsg;
-  const isErrorMsg = errorMsg.length > 0 && errorMsg;
 
-  if (!isInfoMsg && !isErrorMsg) return null;
+type MessageProps = {
+  infoMessage?: string;
+  errorMessage?: string;
+};
+
+export default function Message({
+  infoMessage = "",
+  errorMessage = "",
+}: MessageProps) {
+  const hasInfoMessage = Boolean(infoMessage);
+  const hasErrorMessage = Boolean(errorMessage);
+
+  if (!hasInfoMessage && !hasErrorMessage) return null;
 
   return (
     <div className={cn(`${nameBlock}`)}>
-      {infoMsg && <span className={cn(`${nameBlock}__msg`)}>{infoMsg}</span>}
-      {errorMsg && (
+      {hasInfoMessage && (
+        <span className={cn(`${nameBlock}__msg`)}>{infoMessage}</span>
+      )}
+      {hasErrorMessage && (
         <span className={cn(`${nameBlock}__msg ${nameBlock}__msg--error`)}>
           <span className={cn(`${nameBlock}__error-icon`)}>
             <AttentionIcon />
           </span>
-          {errorMsg}
+          {errorMessage}
         </span>
       )}
     </div>

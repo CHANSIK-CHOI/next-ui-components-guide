@@ -208,10 +208,10 @@ export default function RadioRHFSection() {
 
       <GuideProp
         isWide
-        name="disabled | readOnly | error"
+        name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
-        description="RHFRadio도 Radio 상태 props를 그대로 상속합니다. disabled는 입력 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. error는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
+        description="RHFRadio도 Radio 상태 props를 그대로 상속합니다. disabled는 입력 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. isError는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
       >
         <Field>
           <RadioGroup name="disabledPreview">
@@ -243,18 +243,18 @@ export default function RadioRHFSection() {
           </Field.Description>
         </Field>
         <Field>
-          <RadioGroup name="errorPreview" error>
+          <RadioGroup name="errorPreview" isError>
             <Field.Item>
               <RHFRadio
                 name="errorPreview"
                 control={statePreviewControl}
                 value="error"
-                error
+                isError
               />
-              <Field.Label>error 예시</Field.Label>
+              <Field.Label>isError 예시</Field.Label>
             </Field.Item>
           </RadioGroup>
-          <Field.Message errorMsg="시각 에러 상태를 강제로 표시한 예시입니다." />
+          <Field.Message errorMessage="시각 에러 상태를 강제로 표시한 예시입니다." />
         </Field>
       </GuideProp>
 
@@ -269,7 +269,7 @@ export default function RadioRHFSection() {
             <Field>
               <RadioGroup
                 name="paymentMethod"
-                error={Boolean(errors.paymentMethod)}
+                isError={Boolean(errors.paymentMethod)}
               >
                 <Field.Item>
                   <RHFRadio
@@ -299,7 +299,7 @@ export default function RadioRHFSection() {
                   <Field.Label>휴대폰 결제</Field.Label>
                 </Field.Item>
               </RadioGroup>
-              <Field.Message errorMsg={errors.paymentMethod?.message} />
+              <Field.Message errorMessage={errors.paymentMethod?.message} />
             </Field>
             <Button
               color="primary"

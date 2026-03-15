@@ -10,7 +10,7 @@ type ButtonGroupProps = {
 type ButtonGroupItemProps = {
   children: React.ReactNode;
   className?: string;
-  isAutoWidth?: boolean;
+  shouldAutoWidth?: boolean;
 };
 
 type ButtonGroupComponent = ((props: ButtonGroupProps) => React.ReactNode) & {
@@ -20,12 +20,12 @@ type ButtonGroupComponent = ((props: ButtonGroupProps) => React.ReactNode) & {
 function ButtonGroupItem({
   children,
   className,
-  isAutoWidth = false,
+  shouldAutoWidth = false,
 }: ButtonGroupItemProps) {
   return (
     <div
       className={cn(`${nameBlock}__item`, className, {
-        [`${nameBlock}__item--wAuto`]: isAutoWidth,
+        [`${nameBlock}__item--wAuto`]: shouldAutoWidth,
       })}
     >
       {children}

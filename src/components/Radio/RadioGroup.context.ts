@@ -4,7 +4,7 @@ type RadioGroupContextValue = {
   name?: string;
   disabled?: boolean;
   readOnly?: boolean;
-  error?: boolean;
+  isError?: boolean;
 };
 
 const RadioGroupContext = createContext<RadioGroupContextValue>({});

@@ -7,7 +7,7 @@ export type RHFPasswordProps<
   TFormValues extends FieldValues,
   TFieldName extends FieldPath<TFormValues>,
 > = Omit<RHFTextfieldProps<TFormValues, TFieldName>, "children" | "type"> & {
-  defaultPasswordVisible?: boolean;
+  defaultIsPasswordVisible?: boolean;
   hidePasswordTitle?: string;
   showPasswordTitle?: string;
 };
@@ -16,7 +16,7 @@ export default function RHFPassword<
   TFormValues extends FieldValues,
   TFieldName extends FieldPath<TFormValues>,
 >({
-  defaultPasswordVisible = false,
+  defaultIsPasswordVisible = false,
   hidePasswordTitle = "비밀번호 숨기기",
   showPasswordTitle = "비밀번호 보기",
   onClear,
@@ -24,10 +24,10 @@ export default function RHFPassword<
   ...restTextfieldProps
 }: RHFPasswordProps<TFormValues, TFieldName>) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(
-    defaultPasswordVisible,
+    defaultIsPasswordVisible,
   );
 
-  const togglePasswordVisible = () => {
+  const handleTogglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
 
@@ -46,7 +46,7 @@ export default function RHFPassword<
       <TextfieldBtn
         icon={isPasswordVisible ? "hidePw" : "showPw"}
         title={isPasswordVisible ? hidePasswordTitle : showPasswordTitle}
-        onClick={togglePasswordVisible}
+        onClick={handleTogglePasswordVisibility}
         disabled={disabled}
       />
     </RHFTextfield>

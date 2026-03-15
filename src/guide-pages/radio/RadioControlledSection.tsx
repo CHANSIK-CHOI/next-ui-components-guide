@@ -83,10 +83,10 @@ export default function RadioControlledSection() {
       </GuideProp>
 
       <GuideProp
-        name="disabled | readOnly | error"
+        name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
-        description="disabled는 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. error는 시각 상태를 강조할 때 사용합니다."
+        description="disabled는 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. isError는 시각 상태를 강조할 때 사용합니다."
       >
         <RadioGroup name="disabledPreview">
           <Field.Item>
@@ -112,10 +112,10 @@ export default function RadioControlledSection() {
         </RadioGroup>
         <Field>
           <Field.Item align="start">
-            <Radio error />
-            <Field.Label>error 상태</Field.Label>
+            <Radio isError />
+            <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMsg="하나의 옵션을 선택해주세요." />
+          <Field.Message errorMessage="하나의 옵션을 선택해주세요." />
         </Field>
       </GuideProp>
     </GuideSection>

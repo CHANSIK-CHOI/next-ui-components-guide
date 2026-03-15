@@ -16,10 +16,10 @@ export type PopupBaseProps = {
   title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
-  showCloseButton?: boolean;
+  hasCloseButton?: boolean;
   closeButtonLabel?: string;
-  closeOnBackdrop?: boolean;
-  closeOnEscape?: boolean;
+  shouldCloseOnBackdrop?: boolean;
+  shouldCloseOnEscape?: boolean;
   dialogLabel?: string;
   onRequestClose?: () => void;
   onClickClose?: () => void;

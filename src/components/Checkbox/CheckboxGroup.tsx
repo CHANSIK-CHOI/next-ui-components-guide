@@ -12,7 +12,7 @@ export type CheckboxGroupProps = Omit<
   direction?: "row" | "column";
   disabled?: boolean;
   readOnly?: boolean;
-  error?: boolean;
+  isError?: boolean;
 };
 
 export default function CheckboxGroup({
@@ -22,12 +22,12 @@ export default function CheckboxGroup({
   direction = "column",
   disabled,
   readOnly,
-  error,
+  isError,
   ...rest
 }: CheckboxGroupProps) {
   return (
     <CheckboxGroupContext.Provider
-      value={{ name, disabled, readOnly, error }}
+      value={{ name, disabled, readOnly, isError }}
     >
       <div
         {...rest}

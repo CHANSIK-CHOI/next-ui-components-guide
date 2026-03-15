@@ -70,19 +70,19 @@ export type DatepickerBaseProps<
   getDefaultMonth: (options: {
     selected: TSelected | undefined;
   }) => Date | undefined;
-  shouldCloseOnSelect: (options: {
-    closeOnSelect: boolean | undefined;
+  getShouldCloseOnSelect: (options: {
+    shouldCloseOnSelect: boolean | undefined;
     nextSelected: TSelected | undefined;
   }) => boolean;
   calendarButtonTitle?: string;
-  closeOnSelect?: boolean;
-  defaultCalendarOpen?: boolean;
+  shouldCloseOnSelect?: boolean;
+  defaultIsCalendarOpen?: boolean;
   dropdownClassName?: string;
   inputRef?: Ref<HTMLInputElement>;
 };
 
 type DatepickerBaseInternalProps = {
-  onOpenStateChange?: (isOpen: boolean) => void;
+  onCalendarOpenChange?: (isOpen: boolean) => void;
 };
 
 export default function DatepickerBase<
@@ -96,11 +96,11 @@ export default function DatepickerBase<
   displayFormat = "yyyy.MM.dd",
   formatDisplayValue,
   getDefaultMonth,
-  shouldCloseOnSelect,
+  getShouldCloseOnSelect,
   calendarButtonTitle,
-  closeOnSelect,
-  defaultCalendarOpen = false,
-  onOpenStateChange,
+  shouldCloseOnSelect,
+  defaultIsCalendarOpen = false,
+  onCalendarOpenChange,
   dropdownClassName,
   inputRef,
   className,
@@ -116,8 +116,8 @@ export default function DatepickerBase<
 }: DatepickerBaseProps<TSelected, TDayPickerProps> &
   DatepickerBaseInternalProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const dropdownId = useId();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(defaultCalendarOpen);
+  const calendarDropdownId = useId();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(defaultIsCalendarOpen);
 
   const resolvedLocale = (dayPickerProps?.locale as Locale | undefined) ?? ko;
   const resolvedDisplayValue = useMemo(
@@ -137,8 +137,8 @@ export default function DatepickerBase<
   const resolvedEndMonth =
     dayPickerProps?.endMonth ?? new Date(currentYear + 20, 11, 1);
   const resolvedCalendarButtonTitle =
-    calendarButtonTitle ?? (isDropdownOpen ? "캘린더 닫기" : "날짜 선택하기");
-  const resolvedDayPickerDisabled = readOnly ? true : dayPickerProps?.disabled;
+    calendarButtonTitle ?? (isCalendarOpen ? "캘린더 닫기" : "날짜 선택하기");
+  const isDayPickerDisabled = readOnly ? true : dayPickerProps?.disabled;
   const resolvedIsClearable = isClearable && !dayPickerProps?.required;
   const resolvedCaptionLayout = dayPickerProps?.captionLayout ?? "dropdown";
   const resolvedModifiers = useMemo(
@@ -158,23 +158,23 @@ export default function DatepickerBase<
     [dayPickerProps?.modifiersClassNames],
   );
 
-  const setCalendarOpen = useCallback(
+  const setIsCalendarOpenState = useCallback(
     (nextIsOpen: boolean) => {
-      setIsDropdownOpen(nextIsOpen);
-      onOpenStateChange?.(nextIsOpen);
+      setIsCalendarOpen(nextIsOpen);
+      onCalendarOpenChange?.(nextIsOpen);
     },
-    [onOpenStateChange],
+    [onCalendarOpenChange],
   );
 
   const handleCalendarToggle = () => {
     if (disabled || readOnly) return;
 
-    setCalendarOpen(!isDropdownOpen);
+    setIsCalendarOpenState(!isCalendarOpen);
   };
 
   const handleInputClick: MouseEventHandler<HTMLInputElement> = (event) => {
     if (!disabled && !readOnly) {
-      setCalendarOpen(true);
+      setIsCalendarOpenState(true);
     }
 
     onClick?.(event);
@@ -182,7 +182,7 @@ export default function DatepickerBase<
 
   const handleInputFocus: FocusEventHandler<HTMLInputElement> = (event) => {
     if (!disabled && !readOnly) {
-      setCalendarOpen(true);
+      setIsCalendarOpenState(true);
     }
 
     onFocus?.(event);
@@ -198,11 +198,11 @@ export default function DatepickerBase<
         event.key === " "
       ) {
         event.preventDefault();
-        setCalendarOpen(true);
+        setIsCalendarOpenState(true);
       }
 
       if (event.key === "Escape") {
-        setCalendarOpen(false);
+        setIsCalendarOpenState(false);
       }
     }
 
@@ -226,8 +226,8 @@ export default function DatepickerBase<
         | undefined
     )?.(nextSelected, triggerDate, modifiers, event);
 
-    if (shouldCloseOnSelect({ closeOnSelect, nextSelected })) {
-      setCalendarOpen(false);
+    if (getShouldCloseOnSelect({ shouldCloseOnSelect, nextSelected })) {
+      setIsCalendarOpenState(false);
     }
   };
 
@@ -237,19 +237,19 @@ export default function DatepickerBase<
   };
 
   useEffect(() => {
-    if (!isDropdownOpen) return;
+    if (!isCalendarOpen) return;
 
     // Use pointerdown so an external button click that opens the calendar
     // is not treated as an immediate outside click in the same interaction.
     const handleDocumentPointerDown = (event: PointerEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
-        setCalendarOpen(false);
+        setIsCalendarOpenState(false);
       }
     };
 
     const handleDocumentKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setCalendarOpen(false);
+        setIsCalendarOpenState(false);
       }
     };
 
@@ -260,13 +260,13 @@ export default function DatepickerBase<
       document.removeEventListener("pointerdown", handleDocumentPointerDown);
       document.removeEventListener("keydown", handleDocumentKeyDown);
     };
-  }, [isDropdownOpen, setCalendarOpen]);
+  }, [isCalendarOpen, setIsCalendarOpenState]);
 
   useEffect(() => {
-    if ((disabled || readOnly) && isDropdownOpen) {
-      setCalendarOpen(false);
+    if ((disabled || readOnly) && isCalendarOpen) {
+      setIsCalendarOpenState(false);
     }
-  }, [disabled, readOnly, isDropdownOpen, setCalendarOpen]);
+  }, [disabled, readOnly, isCalendarOpen, setIsCalendarOpenState]);
 
   return (
     <div ref={rootRef} className={cn(nameBlock)}>
@@ -284,8 +284,8 @@ export default function DatepickerBase<
         onClick={handleInputClick}
         onFocus={handleInputFocus}
         onKeyDown={handleInputKeyDown}
-        aria-controls={dropdownId}
-        aria-expanded={isDropdownOpen}
+        aria-controls={calendarDropdownId}
+        aria-expanded={isCalendarOpen}
         aria-haspopup="dialog"
       >
         <TextfieldBtn
@@ -297,9 +297,9 @@ export default function DatepickerBase<
       </Textfield>
 
       <AnimatePresence initial={false}>
-        {isDropdownOpen && !disabled && (
+        {isCalendarOpen && !disabled && (
           <motion.div
-            id={dropdownId}
+            id={calendarDropdownId}
             className={cn(`${nameBlock}__dropdown`, dropdownClassName)}
             initial={{ opacity: 0, y: -8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -319,7 +319,7 @@ export default function DatepickerBase<
               defaultMonth={resolvedDefaultMonth}
               startMonth={resolvedStartMonth}
               endMonth={resolvedEndMonth}
-              disabled={resolvedDayPickerDisabled}
+              disabled={isDayPickerDisabled}
               showOutsideDays={dayPickerProps?.showOutsideDays ?? true}
               captionLayout={resolvedCaptionLayout}
               navLayout={dayPickerProps?.navLayout ?? "after"}

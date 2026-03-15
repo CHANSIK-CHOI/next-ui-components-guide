@@ -27,13 +27,13 @@ export default function ButtonGroupSection() {
 
       <GuideProp
         isWide
-        name="ButtonGroup.Item / isAutoWidth"
+        name="ButtonGroup.Item / shouldAutoWidth"
         typeLabel="boolean"
         defaultValue="false"
-        description="ButtonGroup.Item의 isAutoWidth가 true이면 해당 item은 가능한 영역을 꽉 채우지 않고, 콘텐츠 너비에 맞춰 고정됩니다."
+        description="ButtonGroup.Item의 shouldAutoWidth가 true이면 해당 item은 가능한 영역을 꽉 채우지 않고, 콘텐츠 너비에 맞춰 고정됩니다."
       >
         <ButtonGroup>
-          <ButtonGroup.Item isAutoWidth>
+          <ButtonGroup.Item shouldAutoWidth>
             <IconButton aria-label="새 항목 추가" variant="line">
               <PlusIcon />
             </IconButton>

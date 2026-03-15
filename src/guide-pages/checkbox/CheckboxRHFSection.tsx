@@ -176,10 +176,10 @@ export default function CheckboxRHFSection() {
 
       <GuideProp
         isWide
-        name="disabled | readOnly | error"
+        name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
-        description="RHFCheckbox도 Checkbox 상태 props를 그대로 상속합니다. disabled는 RHF 필드 업데이트와 입력 상호작용을 막고, readOnly는 현재 값을 유지한 채 변경만 막습니다. error는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
+        description="RHFCheckbox도 Checkbox 상태 props를 그대로 상속합니다. disabled는 RHF 필드 업데이트와 입력 상호작용을 막고, readOnly는 현재 값을 유지한 채 변경만 막습니다. isError는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
       >
         <Field>
           <Field.Item align="start">
@@ -209,11 +209,11 @@ export default function CheckboxRHFSection() {
             <RHFCheckbox
               name="errorConsent"
               control={statePreviewControl}
-              error
+              isError
             />
-            <Field.Label>error 예시</Field.Label>
+            <Field.Label>isError 예시</Field.Label>
           </Field.Item>
-          <Field.Message errorMsg="시각 에러 상태를 강제로 표시한 예시입니다." />
+          <Field.Message errorMessage="시각 에러 상태를 강제로 표시한 예시입니다." />
         </Field>
       </GuideProp>
 
@@ -238,7 +238,7 @@ export default function CheckboxRHFSection() {
                   이용약관 및 개인정보 처리방침에 동의합니다.
                 </Field.Label>
               </Field.Item>
-              <Field.Message errorMsg={errors.agreeTerms?.message} />
+              <Field.Message errorMessage={errors.agreeTerms?.message} />
             </Field>
             <Button
               color="primary"

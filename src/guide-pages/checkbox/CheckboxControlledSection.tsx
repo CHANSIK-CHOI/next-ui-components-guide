@@ -58,15 +58,15 @@ export default function CheckboxControlledSection() {
             Checkbox, Radio, Textfield 같은 입력 요소와 함께 정렬해서 사용할 수
             있습니다.
           </Field.Description>
-          <Field.Message infoMsg="선택 항목은 언제든지 다시 변경할 수 있습니다." />
+          <Field.Message infoMessage="선택 항목은 언제든지 다시 변경할 수 있습니다." />
         </Field>
       </GuideProp>
 
       <GuideProp
-        name="disabled | readOnly | error"
+        name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
-        description="disabled는 상호작용을 막고, readOnly는 현재 체크 상태를 유지한 채 변경만 막습니다. error는 시각 상태와 aria-invalid를 적용합니다."
+        description="disabled는 상호작용을 막고, readOnly는 현재 체크 상태를 유지한 채 변경만 막습니다. isError는 시각 상태와 aria-invalid를 적용합니다."
       >
         <Field.Item>
           <Checkbox
@@ -86,22 +86,22 @@ export default function CheckboxControlledSection() {
         </Field.Item>
         <Field>
           <Field.Item align="start">
-            <Checkbox error />
-            <Field.Label>error 상태</Field.Label>
+            <Checkbox isError />
+            <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMsg="필수 동의 항목입니다." />
+          <Field.Message errorMessage="필수 동의 항목입니다." />
         </Field>
       </GuideProp>
 
       <GuideProp
         isWide
         name="CheckboxGroup"
-        typeLabel="name | direction | disabled | readOnly | error"
-        description="CheckboxGroup은 여러 Checkbox에 공통 name, direction, disabled, readOnly, error 상태를 내려주는 그룹 레이아웃입니다. direction으로 row/column 배치를 바꿀 수 있습니다."
+        typeLabel="name | direction | disabled | readOnly | isError"
+        description="CheckboxGroup은 여러 Checkbox에 공통 name, direction, disabled, readOnly, isError 상태를 내려주는 그룹 레이아웃입니다. direction으로 row/column 배치를 바꿀 수 있습니다."
       >
         <CheckboxGroup
           name="marketingChannels"
-          error={marketingChannels.length === 0}
+          isError={marketingChannels.length === 0}
         >
           <Field.Item>
             <Checkbox
@@ -129,7 +129,7 @@ export default function CheckboxControlledSection() {
           </Field.Item>
         </CheckboxGroup>
         {marketingChannels.length === 0 && (
-          <Field.Message errorMsg="최소 한 가지 알림 수단을 선택해주세요." />
+          <Field.Message errorMessage="최소 한 가지 알림 수단을 선택해주세요." />
         )}
       </GuideProp>
     </GuideSection>

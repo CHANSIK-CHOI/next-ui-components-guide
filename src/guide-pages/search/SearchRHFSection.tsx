@@ -50,7 +50,7 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
         <>
           - RHFSearch는 RHFTextfield props를 확장합니다.
           <br /> - RHFTextfield는 Textfield UI props를 기반으로 하므로
-          isClearable, infoMsg, errorMsg 같은 Textfield props도 함께 사용할 수
+          isClearable, infoMessage, errorMessage 같은 Textfield props도 함께 사용할 수
           있습니다.
           <br /> - clear 버튼은 isClearable이 true이고 값이 있을 때 보이며,
           클릭하면 RHF 값이 먼저 빈 문자열로 정리된 뒤 onClear가 호출됩니다.
@@ -69,7 +69,7 @@ const RHFSearchPropsGuideProp = memo(function RHFSearchPropsGuideProp() {
               name="keyword"
               control={control}
               isClearable
-              infoMsg="RHF 연결과 검색 버튼을 동시에 사용할 수 있습니다."
+              infoMessage="RHF 연결과 검색 버튼을 동시에 사용할 수 있습니다."
               onSearch={() => console.log(getValues("keyword"))}
             />
           </Field>
@@ -255,7 +255,7 @@ const RHFSearchStateGuideProp = memo(function RHFSearchStateGuideProp() {
           readOnly
           isClearable
           onSearch={() => console.log(getValues("readOnlyKeyword"))}
-          infoMsg="readOnly에서도 검색 버튼 클릭 동작은 유지됩니다."
+          infoMessage="readOnly에서도 검색 버튼 클릭 동작은 유지됩니다."
         />
       </Field>
     </GuideProp>

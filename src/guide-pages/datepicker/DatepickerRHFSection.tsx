@@ -141,7 +141,7 @@ export default function DatepickerRHFSection() {
                 name="bookingDate"
                 control={basicControl}
                 isClearable
-                infoMsg="name과 control을 전달하면 RHF 단일 날짜 필드와 연결됩니다."
+                infoMessage="name과 control을 전달하면 RHF 단일 날짜 필드와 연결됩니다."
               />
             </Field>
             <Button color="primary" type="submit" disabled={isBasicSubmitting}>
@@ -203,7 +203,7 @@ export default function DatepickerRHFSection() {
                     { after: new Date(2026, 2, 25) },
                   ],
                 }}
-                infoMsg="required + 2026년 3월 10일~25일 범위 제한 + 주말 비활성화 예시입니다."
+                infoMessage="required + 2026년 3월 10일~25일 범위 제한 + 주말 비활성화 예시입니다."
               />
             </Field>
             <Button color="primary" type="submit" disabled={isOptionsSubmitting}>
@@ -215,7 +215,7 @@ export default function DatepickerRHFSection() {
 
       <GuideProp
         isWide
-        name="displayFormat | formatDisplayValue | closeOnSelect"
+        name="displayFormat | formatDisplayValue | shouldCloseOnSelect"
         typeLabel='string | ({ displayFormat, locale, selected }) => string | boolean'
         description="Datepicker에서 제공하는 표시 포맷과 캘린더 동작 props도 RHFDatepicker에서 그대로 사용할 수 있습니다."
       >
@@ -227,7 +227,7 @@ export default function DatepickerRHFSection() {
                 name="displayDate"
                 control={displayControl}
                 displayFormat="yyyy년 MM월 dd일"
-                closeOnSelect={false}
+                shouldCloseOnSelect={false}
                 isClearable
                 formatDisplayValue={({ selected, locale }) =>
                   selected
@@ -236,7 +236,7 @@ export default function DatepickerRHFSection() {
                       })} 일정`
                     : ""
                 }
-                infoMsg="선택 후 캘린더를 유지하면서 커스텀 표시 문자열을 노출합니다."
+                infoMessage="선택 후 캘린더를 유지하면서 커스텀 표시 문자열을 노출합니다."
               />
             </Field>
             <Button color="primary" type="submit" disabled={isDisplaySubmitting}>
@@ -259,7 +259,7 @@ export default function DatepickerRHFSection() {
               name="disabledDate"
               control={stateControl}
               disabled
-              infoMsg="disabled는 RHF field와 UI를 함께 비활성화합니다."
+              infoMessage="disabled는 RHF field와 UI를 함께 비활성화합니다."
             />
           </Field>
           <Field>
@@ -269,7 +269,7 @@ export default function DatepickerRHFSection() {
               control={stateControl}
               readOnly
               isClearable
-              infoMsg="readOnly 상태에서는 현재 값만 표시되고 캘린더와 clear 버튼이 비활성화됩니다."
+              infoMessage="readOnly 상태에서는 현재 값만 표시되고 캘린더와 clear 버튼이 비활성화됩니다."
             />
           </Field>
         </div>
@@ -277,9 +277,9 @@ export default function DatepickerRHFSection() {
 
       <GuideProp
         isWide
-        name="defaultCalendarOpen | closeOnSelect | calendarButtonTitle | dropdownClassName"
+        name="defaultIsCalendarOpen | shouldCloseOnSelect | calendarButtonTitle | dropdownClassName"
         typeLabel="boolean | string"
-        description="RHF 연결 상태에서도 캘린더 열림/닫힘 관련 props를 그대로 사용할 수 있습니다. defaultCalendarOpen은 내부 상태의 초기값이고, closeOnSelect=false로 선택 후에도 캘린더를 유지할 수 있습니다. dropdownClassName은 실제 열리는 캘린더 래퍼에 class를 추가합니다."
+        description="RHF 연결 상태에서도 캘린더 열림/닫힘 관련 props를 그대로 사용할 수 있습니다. defaultIsCalendarOpen은 내부 상태의 초기값이고, shouldCloseOnSelect=false로 선택 후에도 캘린더를 유지할 수 있습니다. dropdownClassName은 실제 열리는 캘린더 래퍼에 class를 추가합니다."
       >
         <div className="guideFormStack">
           <Field>
@@ -287,10 +287,10 @@ export default function DatepickerRHFSection() {
             <RHFDatepicker
               name="initiallyOpenDate"
               control={calendarControl}
-              defaultCalendarOpen
+              defaultIsCalendarOpen
               calendarButtonTitle="초기 열림 RHF 캘린더"
               dropdownClassName="datepicker__dropdown--preview"
-              infoMsg="defaultCalendarOpen과 dropdownClassName을 함께 사용한 RHF 예시입니다."
+              infoMessage="defaultIsCalendarOpen과 dropdownClassName을 함께 사용한 RHF 예시입니다."
             />
           </Field>
           <Field>
@@ -298,9 +298,9 @@ export default function DatepickerRHFSection() {
             <RHFDatepicker
               name="persistentOpenDate"
               control={calendarControl}
-              closeOnSelect={false}
+              shouldCloseOnSelect={false}
               calendarButtonTitle="선택 후 유지 RHF 캘린더"
-              infoMsg="closeOnSelect=false로 선택 후에도 캘린더를 유지하는 RHF 예시입니다."
+              infoMessage="shouldCloseOnSelect=false로 선택 후에도 캘린더를 유지하는 RHF 예시입니다."
             />
           </Field>
         </div>
@@ -308,9 +308,9 @@ export default function DatepickerRHFSection() {
 
       <GuideProp
         isWide
-        name="getDefaultMonth | shouldCloseOnSelect"
-        typeLabel='({ selected }) => Date | undefined | ({ closeOnSelect, nextSelected }) => boolean'
-        description="RHF 연결 상태에서도 getDefaultMonth와 shouldCloseOnSelect를 그대로 사용할 수 있습니다. 선택값이 없을 때 처음 보여줄 월을 계산하거나, 날짜 선택 후 닫힘 조건을 직접 커스터마이징할 때 사용합니다."
+        name="getDefaultMonth | getShouldCloseOnSelect"
+        typeLabel='({ selected }) => Date | undefined | ({ shouldCloseOnSelect, nextSelected }) => boolean'
+        description="RHF 연결 상태에서도 getDefaultMonth와 getShouldCloseOnSelect를 그대로 사용할 수 있습니다. 선택값이 없을 때 처음 보여줄 월을 계산하거나, 날짜 선택 후 닫힘 조건을 직접 커스터마이징할 때 사용합니다."
       >
         <div className="guideFormStack">
           <Field>
@@ -318,12 +318,12 @@ export default function DatepickerRHFSection() {
             <RHFDatepicker
               name="defaultMonthDate"
               control={advancedCalendarControl}
-              defaultCalendarOpen
+              defaultIsCalendarOpen
               getDefaultMonth={({ selected }) =>
                 selected ?? new Date(2026, 6, 1)
               }
               calendarButtonTitle="기본 월 커스텀 RHF 캘린더"
-              infoMsg="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 RHF 예시입니다."
+              infoMessage="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 RHF 예시입니다."
             />
           </Field>
           <Field>
@@ -331,11 +331,11 @@ export default function DatepickerRHFSection() {
             <RHFDatepicker
               name="customCloseDate"
               control={advancedCalendarControl}
-              shouldCloseOnSelect={({ nextSelected }) =>
+              getShouldCloseOnSelect={({ nextSelected }) =>
                 Boolean(nextSelected && nextSelected.getDate() >= 15)
               }
               calendarButtonTitle="15일 이후 선택 시 닫힘"
-              infoMsg="15일 미만 날짜를 선택하면 캘린더를 유지하고, 15일 이후 날짜를 선택하면 닫히도록 제어한 RHF 예시입니다."
+              infoMessage="15일 미만 날짜를 선택하면 캘린더를 유지하고, 15일 이후 날짜를 선택하면 닫히도록 제어한 RHF 예시입니다."
             />
           </Field>
         </div>

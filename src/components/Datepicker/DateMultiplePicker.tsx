@@ -9,7 +9,7 @@ import DatepickerBase, {
 import {
   formatMultipleDateValue,
   getMultipleDefaultMonth,
-  shouldCloseMultipleOnSelect,
+  getShouldCloseMultipleOnSelect,
 } from "./Datepicker.utils";
 
 type DateMultiplePickerDayPickerProps = PropsMulti | PropsMultiRequired;
@@ -21,11 +21,11 @@ type DateMultiplePickerBaseProps = DatepickerBaseProps<
 
 export type DateMultiplePickerProps = Omit<
   DateMultiplePickerBaseProps,
-  "formatDisplayValue" | "getDefaultMonth" | "mode" | "shouldCloseOnSelect"
+  "formatDisplayValue" | "getDefaultMonth" | "mode" | "getShouldCloseOnSelect"
 > & {
   formatDisplayValue?: DateMultiplePickerBaseProps["formatDisplayValue"];
   getDefaultMonth?: DateMultiplePickerBaseProps["getDefaultMonth"];
-  shouldCloseOnSelect?: DateMultiplePickerBaseProps["shouldCloseOnSelect"];
+  getShouldCloseOnSelect?: DateMultiplePickerBaseProps["getShouldCloseOnSelect"];
 };
 
 const DateMultiplePicker = forwardRef<
@@ -36,7 +36,7 @@ const DateMultiplePicker = forwardRef<
     {
       formatDisplayValue = formatMultipleDateValue,
       getDefaultMonth = getMultipleDefaultMonth,
-      shouldCloseOnSelect = shouldCloseMultipleOnSelect,
+      getShouldCloseOnSelect = getShouldCloseMultipleOnSelect,
       ...restProps
     },
     ref,
@@ -48,7 +48,7 @@ const DateMultiplePicker = forwardRef<
         mode="multiple"
         formatDisplayValue={formatDisplayValue}
         getDefaultMonth={getDefaultMonth}
-        shouldCloseOnSelect={shouldCloseOnSelect}
+        getShouldCloseOnSelect={getShouldCloseOnSelect}
       />
     );
   },

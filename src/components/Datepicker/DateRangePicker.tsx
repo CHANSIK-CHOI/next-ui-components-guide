@@ -10,7 +10,7 @@ import DatepickerBase, {
 import {
   formatRangeDateValue,
   getRangeDefaultMonth,
-  shouldCloseRangeOnSelect,
+  getShouldCloseRangeOnSelect,
 } from "./Datepicker.utils";
 
 type DateRangePickerDayPickerProps = PropsRange | PropsRangeRequired;
@@ -22,11 +22,11 @@ type DateRangePickerBaseProps = DatepickerBaseProps<
 
 export type DateRangePickerProps = Omit<
   DateRangePickerBaseProps,
-  "formatDisplayValue" | "getDefaultMonth" | "mode" | "shouldCloseOnSelect"
+  "formatDisplayValue" | "getDefaultMonth" | "mode" | "getShouldCloseOnSelect"
 > & {
   formatDisplayValue?: DateRangePickerBaseProps["formatDisplayValue"];
   getDefaultMonth?: DateRangePickerBaseProps["getDefaultMonth"];
-  shouldCloseOnSelect?: DateRangePickerBaseProps["shouldCloseOnSelect"];
+  getShouldCloseOnSelect?: DateRangePickerBaseProps["getShouldCloseOnSelect"];
 };
 
 function isCompleteDateRange(
@@ -41,10 +41,10 @@ const DateRangePicker = forwardRef<HTMLInputElement, DateRangePickerProps>(
       selected,
       onSelectedChange,
       dayPickerProps,
-      defaultCalendarOpen = false,
+      defaultIsCalendarOpen = false,
       formatDisplayValue = formatRangeDateValue,
       getDefaultMonth = getRangeDefaultMonth,
-      shouldCloseOnSelect = shouldCloseRangeOnSelect,
+      getShouldCloseOnSelect = getShouldCloseRangeOnSelect,
       ...restProps
     },
     ref,
@@ -52,9 +52,9 @@ const DateRangePicker = forwardRef<HTMLInputElement, DateRangePickerProps>(
     // 캘린더가 열려 있는 동안에는 아직 확정되지 않은 기간 선택 상태를 로컬에
     // 보관해서, { from, to }가 모두 정해지기 전의 중간 선택도 UI에 보여줍니다.
     const [draftRange, setDraftRange] = useState<DateRange | undefined>();
-    const [isDropdownOpen, setIsDropdownOpen] = useState(defaultCalendarOpen);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(defaultIsCalendarOpen);
 
-    const resolvedSelected = isDropdownOpen && draftRange ? draftRange : selected;
+    const resolvedSelected = isCalendarOpen && draftRange ? draftRange : selected;
 
     const resolvedDayPickerProps: NonNullable<
       DateRangePickerProps["dayPickerProps"]
@@ -64,13 +64,13 @@ const DateRangePicker = forwardRef<HTMLInputElement, DateRangePickerProps>(
       resetOnSelect: dayPickerProps?.resetOnSelect ?? true,
     };
 
-    const handleOpenStateChange = useCallback(
+    const handleCalendarOpenChange = useCallback(
       (nextIsOpen: boolean) => {
         if (!nextIsOpen) {
           setDraftRange(undefined);
         }
 
-        setIsDropdownOpen(nextIsOpen);
+        setIsCalendarOpen(nextIsOpen);
       },
       [],
     );
@@ -105,9 +105,9 @@ const DateRangePicker = forwardRef<HTMLInputElement, DateRangePickerProps>(
         dayPickerProps={resolvedDayPickerProps}
         formatDisplayValue={formatDisplayValue}
         getDefaultMonth={getDefaultMonth}
-        shouldCloseOnSelect={shouldCloseOnSelect}
-        defaultCalendarOpen={defaultCalendarOpen}
-        onOpenStateChange={handleOpenStateChange}
+        getShouldCloseOnSelect={getShouldCloseOnSelect}
+        defaultIsCalendarOpen={defaultIsCalendarOpen}
+        onCalendarOpenChange={handleCalendarOpenChange}
       />
     );
   },

@@ -61,6 +61,13 @@ type LibraryItem = {
   isCalendar?: boolean;
 };
 
+type NamingRuleItem = {
+  label: string;
+  title: string;
+  description: string;
+  example: string;
+};
+
 const PROJECT_LIBRARIES: LibraryItem[] = [
   { label: "Next.js 14", icon: siNextdotjs },
   { label: "React 18", icon: siReact },
@@ -77,6 +84,41 @@ const UI_LIBRARIES: LibraryItem[] = [
 
 const MOTION_LIBRARIES: LibraryItem[] = [
   { label: "framer-motion", icon: siFramer },
+];
+
+const UI_NAMING_RULES: NamingRuleItem[] = [
+  {
+    label: "Functions",
+    title: "동작은 동사, 이벤트는 on, 내부 핸들러는 handle",
+    description:
+      "일반 함수는 get, set, open, close, create, remove처럼 동사로 시작하고, 이벤트 핸들러 prop은 on..., 내부 구현용 함수는 handle...로 구분합니다.",
+    example:
+      "예: getValues, setIsCalendarOpen, openAlert, onConfirm, handleReset",
+  },
+  {
+    label: "Booleans",
+    title: "boolean은 의미에 따라 is, has, can, should를 나눠서 사용",
+    description:
+      "상태는 is..., 보유 여부는 has..., 가능 여부는 can..., 정책이나 의도는 should...를 사용합니다. 단, disabled, checked, open 같은 표준 HTML/React prop은 그대로 둡니다.",
+    example:
+      "예: isClearable, hasCloseButton, canClear, shouldCloseOnEscape",
+  },
+  {
+    label: "Values",
+    title: "값은 명사형으로 두고, 같은 의미는 같은 이름을 유지",
+    description:
+      "데이터와 표시값은 title, description, icon처럼 명사로 두고, Base와 wrapper에서 같은 의미의 prop은 같은 이름으로 그대로 넘깁니다.",
+    example:
+      "예: Textfield와 Search의 isClearable, PopupBase와 Alert의 description",
+  },
+  {
+    label: "Library",
+    title: "라이브러리 pass-through props는 원래 이름을 유지",
+    description:
+      "react-day-picker나 native input처럼 외부 라이브러리에서 제공하는 옵션은 wrapper에서도 이름을 바꾸지 않습니다. 공식 문서와 바로 연결되고 확장 시 혼동이 적습니다.",
+    example:
+      "예: dayPickerProps.required, dayPickerProps.resetOnSelect, disabled, checked",
+  },
 ];
 
 const NOTIFICATION_CYCLE_LABEL: Record<string, string> = {
@@ -207,6 +249,25 @@ export default function Home() {
         </GuideSection>
 
         <GuideSection
+          label="Naming Rules"
+          title="UI Prop Naming Rules"
+          description="UI 컴포넌트 네이밍을 통일하기 위한 규칙 메모입니다. 이후 컴포넌트 정리는 이 기준으로 맞춥니다."
+        >
+          <div className="homeNaming">
+            <div className="homeNaming__grid">
+              {UI_NAMING_RULES.map((rule) => (
+                <article key={rule.label} className="homeNaming__card">
+                  <span className="homeNaming__label">{rule.label}</span>
+                  <strong className="homeNaming__title">{rule.title}</strong>
+                  <p className="homeNaming__description">{rule.description}</p>
+                  <p className="homeNaming__example">{rule.example}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </GuideSection>
+
+        <GuideSection
           label="Sample Form"
           title="회원가입 폼 예시"
           description="지금까지 만든 폼 계열 컴포넌트를 실제 가입 흐름처럼 조합한 예시입니다."
@@ -274,7 +335,7 @@ export default function Home() {
                     placeholder="관심 있는 키워드를 검색해보세요"
                     isClearable
                     onSearch={handleSearchKeyword}
-                    infoMsg={lastSearchKeyword ? `"${lastSearchKeyword}"` : ""}
+                    infoMessage={lastSearchKeyword ? `"${lastSearchKeyword}"` : ""}
                   />
                 </Field>
 
@@ -300,7 +361,7 @@ export default function Home() {
                   <p className="homeForm__groupLabel">알림 주기</p>
                   <RadioGroup
                     name="notificationCycle"
-                    error={Boolean(errors.notificationCycle)}
+                    isError={Boolean(errors.notificationCycle)}
                   >
                     <Field.Item>
                       <RHFRadio
@@ -330,7 +391,9 @@ export default function Home() {
                       <Field.Label>월 1회 받기</Field.Label>
                     </Field.Item>
                   </RadioGroup>
-                  <Field.Message errorMsg={errors.notificationCycle?.message} />
+                  <Field.Message
+                    errorMessage={errors.notificationCycle?.message}
+                  />
                 </Field>
 
                 <Field>
@@ -353,11 +416,11 @@ export default function Home() {
                       서비스 이용약관 및 개인정보 처리방침에 동의합니다.
                     </Field.Label>
                   </Field.Item>
-                  <Field.Message errorMsg={errors.agreeTerms?.message} />
+                  <Field.Message errorMessage={errors.agreeTerms?.message} />
                 </Field>
 
                 <ButtonGroup>
-                  <ButtonGroup.Item isAutoWidth>
+                  <ButtonGroup.Item shouldAutoWidth>
                     <Button variant="line" type="button" onClick={handleReset}>
                       초기화
                     </Button>

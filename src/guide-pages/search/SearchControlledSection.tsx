@@ -13,7 +13,7 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
       description={
         <>
           - Search는 Textfield props를 확장한 래퍼 컴포넌트입니다.
-          <br /> - value, onChange, isClearable, infoMsg, errorMsg 같은
+          <br /> - value, onChange, isClearable, infoMessage, errorMessage 같은
           Textfield props를 그대로 사용할 수 있습니다.
           <br /> - controlled usage에서 clear 버튼은 isClearable이 true이고,
           value가 있으며, onClear가 제공되고, disabled/readOnly가 아닐 때만
@@ -29,7 +29,7 @@ const SearchPropsGuideProp = memo(function SearchPropsGuideProp() {
         value={keyword}
         placeholder="검색어를 입력해주세요"
         isClearable
-        infoMsg="Textfield props를 그대로 사용하면서 검색 버튼을 함께 노출합니다."
+        infoMessage="Textfield props를 그대로 사용하면서 검색 버튼을 함께 노출합니다."
         onChange={(event) => setKeyword(event.target.value)}
         onClear={() => setKeyword("")}
       />
@@ -134,7 +134,7 @@ const SearchStateGuideProp = memo(function SearchStateGuideProp() {
         readOnly
         isClearable
         onSearch={() => console.log(readOnlyValue)}
-        infoMsg="readOnly에서도 검색 버튼 클릭 동작은 유지됩니다."
+        infoMessage="readOnly에서도 검색 버튼 클릭 동작은 유지됩니다."
       />
     </GuideProp>
   );

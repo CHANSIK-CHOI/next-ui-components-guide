@@ -19,13 +19,13 @@ const DateMultiplePickerPropsGuideProp = memo(
           <>
             - DateMultiplePicker는 복수 날짜 선택을 위한 Textfield 기반
             래퍼입니다.
-            <br /> - placeholder, infoMsg, errorMsg, readOnly, disabled,
+            <br /> - placeholder, infoMessage, errorMessage, readOnly, disabled,
             isClearable, onClear 같은 Textfield props를 그대로 사용할 수
             있고, selected는 Date[] 형태로 제어합니다.
             <br /> - dayPickerProps에는 복수 선택 모드에 맞는 min, max, required
             같은 옵션을 전달할 수 있습니다.
-            <br /> - defaultCalendarOpen, getDefaultMonth,
-            shouldCloseOnSelect 같은 캘린더 제어 props도 함께 사용할 수
+            <br /> - defaultIsCalendarOpen, getDefaultMonth,
+            getShouldCloseOnSelect 같은 캘린더 제어 props도 함께 사용할 수
             있습니다.
           </>
         }
@@ -34,7 +34,7 @@ const DateMultiplePickerPropsGuideProp = memo(
           selected={selected}
           onSelectedChange={setSelected}
           isClearable
-          infoMsg="여러 날짜를 태그처럼 선택해야 하는 예약/스케줄 UX에 사용할 수 있습니다."
+          infoMessage="여러 날짜를 태그처럼 선택해야 하는 예약/스케줄 UX에 사용할 수 있습니다."
         />
       </GuideProp>
     );
@@ -60,7 +60,7 @@ const DateMultiplePickerValueGuideProp = memo(
           selected={selected}
           onSelectedChange={setSelected}
           isClearable
-          infoMsg={
+          infoMessage={
             selected?.length
               ? `선택된 날짜 수: ${selected.length}개`
               : "아직 선택된 날짜가 없습니다."
@@ -99,7 +99,7 @@ const DateMultiplePickerClearGuideProp = memo(
           }}
           isClearable
           onClear={() => setLastAction("마지막 동작: clear")}
-          infoMsg={
+          infoMessage={
             selected?.length
               ? `${lastAction} / clear 버튼으로 복수 선택 값을 비울 수 있습니다.`
               : `${lastAction} / 현재 선택된 날짜가 없습니다.`
@@ -137,7 +137,7 @@ const DateMultiplePickerDayPickerPropsGuideProp = memo(
             max: 4,
             disabled: { dayOfWeek: [0] },
           }}
-          infoMsg="최대 4개까지 선택하고, 일요일은 disabled 처리한 예시입니다."
+          infoMessage="최대 4개까지 선택하고, 일요일은 disabled 처리한 예시입니다."
         />
         <DateMultiplePicker
           selected={requiredDates}
@@ -147,7 +147,7 @@ const DateMultiplePickerDayPickerPropsGuideProp = memo(
             required: true,
             min: 2,
           }}
-          infoMsg="required 복수 선택은 clear 버튼이 숨겨지고 최소 선택 개수를 유지합니다."
+          infoMessage="required 복수 선택은 clear 버튼이 숨겨지고 최소 선택 개수를 유지합니다."
         />
       </GuideProp>
     );
@@ -206,24 +206,24 @@ const DateMultiplePickerCalendarStateGuideProp = memo(
     return (
       <GuideProp
         isWide
-        name="defaultCalendarOpen | closeOnSelect | calendarButtonTitle | dropdownClassName"
+        name="defaultIsCalendarOpen | shouldCloseOnSelect | calendarButtonTitle | dropdownClassName"
         typeLabel="boolean | string"
-        description="복수 선택 모드는 기본적으로 선택 후 닫히지 않습니다. defaultCalendarOpen으로 초기 렌더에서 열어둘 수 있고, closeOnSelect를 true로 넘기면 선택할 때마다 캘린더를 닫도록 바꿀 수 있습니다. calendarButtonTitle과 dropdownClassName으로 캘린더 버튼/래퍼도 제어할 수 있습니다."
+        description="복수 선택 모드는 기본적으로 선택 후 닫히지 않습니다. defaultIsCalendarOpen으로 초기 렌더에서 열어둘 수 있고, shouldCloseOnSelect를 true로 넘기면 선택할 때마다 캘린더를 닫도록 바꿀 수 있습니다. calendarButtonTitle과 dropdownClassName으로 캘린더 버튼/래퍼도 제어할 수 있습니다."
       >
         <DateMultiplePicker
           selected={selected}
           onSelectedChange={setSelected}
-          defaultCalendarOpen
+          defaultIsCalendarOpen
           calendarButtonTitle="기본 열림 복수 선택 캘린더"
           dropdownClassName="datepicker__dropdown--preview"
-          infoMsg="복수 선택 모드의 기본 닫힘 동작은 false이며, defaultCalendarOpen으로 처음부터 열어둘 수 있습니다."
+          infoMessage="복수 선택 모드의 기본 닫힘 동작은 false이며, defaultIsCalendarOpen으로 처음부터 열어둘 수 있습니다."
         />
         <DateMultiplePicker
           selected={selected}
           onSelectedChange={setSelected}
-          closeOnSelect
+          shouldCloseOnSelect
           calendarButtonTitle="선택 시 닫히는 복수 선택 캘린더"
-          infoMsg="closeOnSelect=true로 선택할 때마다 캘린더를 닫는 예시입니다."
+          infoMessage="shouldCloseOnSelect=true로 선택할 때마다 캘린더를 닫는 예시입니다."
         />
       </GuideProp>
     );
@@ -242,26 +242,26 @@ const DateMultiplePickerAdvancedCalendarGuideProp = memo(
     return (
       <GuideProp
         isWide
-        name="getDefaultMonth | shouldCloseOnSelect"
-        typeLabel='({ selected }) => Date | undefined | ({ closeOnSelect, nextSelected }) => boolean'
-        description="getDefaultMonth는 선택값이 없을 때 처음 보여줄 월을 계산하고, shouldCloseOnSelect는 복수 선택 중 캘린더를 닫을지 직접 결정합니다."
+        name="getDefaultMonth | getShouldCloseOnSelect"
+        typeLabel='({ selected }) => Date | undefined | ({ shouldCloseOnSelect, nextSelected }) => boolean'
+        description="getDefaultMonth는 선택값이 없을 때 처음 보여줄 월을 계산하고, getShouldCloseOnSelect는 복수 선택 중 캘린더를 닫을지 직접 결정합니다."
       >
         <DateMultiplePicker
           selected={defaultMonthDates}
           onSelectedChange={setDefaultMonthDates}
-          defaultCalendarOpen
+          defaultIsCalendarOpen
           getDefaultMonth={({ selected }) => selected?.[0] ?? new Date(2026, 6, 1)}
           calendarButtonTitle="기본 월 커스텀 복수 선택 캘린더"
-          infoMsg="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 예시입니다."
+          infoMessage="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 예시입니다."
         />
         <DateMultiplePicker
           selected={customCloseDates}
           onSelectedChange={setCustomCloseDates}
-          shouldCloseOnSelect={({ nextSelected }) =>
+          getShouldCloseOnSelect={({ nextSelected }) =>
             Boolean(nextSelected && nextSelected.length >= 3)
           }
           calendarButtonTitle="3개 이상 선택 시 닫힘"
-          infoMsg="3개 미만을 선택하면 캘린더를 유지하고, 3개 이상 선택하면 닫히도록 제어한 예시입니다."
+          infoMessage="3개 미만을 선택하면 캘린더를 유지하고, 3개 이상 선택하면 닫히도록 제어한 예시입니다."
         />
       </GuideProp>
     );
@@ -292,7 +292,7 @@ const DateMultiplePickerStateGuideProp = memo(
           selected={readOnlyDates}
           readOnly
           isClearable
-          infoMsg="readOnly 상태에서는 현재 선택만 표시되고 캘린더 선택과 clear가 막힙니다."
+          infoMessage="readOnly 상태에서는 현재 선택만 표시되고 캘린더 선택과 clear가 막힙니다."
         />
       </GuideProp>
     );

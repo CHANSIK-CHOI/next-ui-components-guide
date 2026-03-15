@@ -21,13 +21,13 @@ const DateRangePickerPropsGuideProp = memo(
           <>
             - DateRangePicker는 Textfield props를 확장한 기간 선택 전용
             컴포넌트입니다.
-            <br /> - placeholder, infoMsg, errorMsg, readOnly, disabled,
+            <br /> - placeholder, infoMessage, errorMessage, readOnly, disabled,
             isClearable, onClear 같은 Textfield props를 그대로 사용할 수
             있습니다.
             <br /> - selected와 onSelectedChange는 DateRange 형태로 동작하고,
             dayPickerProps는 기간 선택 모드에 맞는 옵션을 전달합니다.
-            <br /> - defaultCalendarOpen, getDefaultMonth,
-            shouldCloseOnSelect 같은 캘린더 제어 props도 함께 사용할 수
+            <br /> - defaultIsCalendarOpen, getDefaultMonth,
+            getShouldCloseOnSelect 같은 캘린더 제어 props도 함께 사용할 수
             있습니다.
           </>
         }
@@ -36,7 +36,7 @@ const DateRangePickerPropsGuideProp = memo(
           selected={selected}
           onSelectedChange={setSelected}
           isClearable
-          infoMsg="입실/퇴실, 시작일/종료일처럼 범위를 선택할 때 사용합니다."
+          infoMessage="입실/퇴실, 시작일/종료일처럼 범위를 선택할 때 사용합니다."
         />
       </GuideProp>
     );
@@ -68,7 +68,7 @@ const DateRangePickerValueGuideProp = memo(
           selected={selected}
           onSelectedChange={setSelected}
           isClearable
-          infoMsg={infoMessage}
+          infoMessage={infoMessage}
         />
       </GuideProp>
     );
@@ -107,7 +107,7 @@ const DateRangePickerClearGuideProp = memo(
           }}
           isClearable
           onClear={() => setLastAction("마지막 동작: clear")}
-          infoMsg={
+          infoMessage={
             selected?.from && selected.to
               ? `${lastAction} / clear 버튼으로 범위를 비울 수 있습니다.`
               : `${lastAction} / 현재 확정된 기간이 없습니다.`
@@ -153,7 +153,7 @@ const DateRangePickerDayPickerPropsGuideProp = memo(
             excludeDisabled: true,
             disabled: { dayOfWeek: [0, 6] },
           }}
-          infoMsg="2일 이상 5일 이하, 주말 제외 범위 선택 예시입니다."
+          infoMessage="2일 이상 5일 이하, 주말 제외 범위 선택 예시입니다."
         />
         <DateRangePicker
           selected={requiredRange}
@@ -163,7 +163,7 @@ const DateRangePickerDayPickerPropsGuideProp = memo(
             required: true,
             resetOnSelect: true,
           }}
-          infoMsg="required 범위는 clear 버튼이 숨겨지고, resetOnSelect로 새 범위를 다시 시작할 수 있습니다."
+          infoMessage="required 범위는 clear 버튼이 숨겨지고, resetOnSelect로 새 범위를 다시 시작할 수 있습니다."
         />
       </GuideProp>
     );
@@ -226,24 +226,24 @@ const DateRangePickerCalendarStateGuideProp = memo(
     return (
       <GuideProp
         isWide
-        name="defaultCalendarOpen | closeOnSelect | calendarButtonTitle | dropdownClassName"
+        name="defaultIsCalendarOpen | shouldCloseOnSelect | calendarButtonTitle | dropdownClassName"
         typeLabel="boolean | string"
-        description="기간 선택은 기본적으로 시작일과 종료일이 모두 선택되면 닫히고, 중간 선택 상태에서 닫으면 값이 초기화됩니다. defaultCalendarOpen은 내부 열림 상태의 초기값이고, closeOnSelect를 false로 두면 완료 후에도 캘린더를 유지할 수 있습니다. calendarButtonTitle과 dropdownClassName으로 캘린더 버튼/래퍼를 제어할 수 있습니다."
+        description="기간 선택은 기본적으로 시작일과 종료일이 모두 선택되면 닫히고, 중간 선택 상태에서 닫으면 값이 초기화됩니다. defaultIsCalendarOpen은 내부 열림 상태의 초기값이고, shouldCloseOnSelect를 false로 두면 완료 후에도 캘린더를 유지할 수 있습니다. calendarButtonTitle과 dropdownClassName으로 캘린더 버튼/래퍼를 제어할 수 있습니다."
       >
         <DateRangePicker
           selected={selected}
           onSelectedChange={setSelected}
-          defaultCalendarOpen
+          defaultIsCalendarOpen
           calendarButtonTitle="기본 열림 범위 캘린더"
           dropdownClassName="datepicker__dropdown--preview"
-          infoMsg="defaultCalendarOpen, calendarButtonTitle, dropdownClassName을 함께 사용한 예시입니다."
+          infoMessage="defaultIsCalendarOpen, calendarButtonTitle, dropdownClassName을 함께 사용한 예시입니다."
         />
         <DateRangePicker
           selected={selected}
           onSelectedChange={setSelected}
-          closeOnSelect={false}
+          shouldCloseOnSelect={false}
           calendarButtonTitle="선택 후 유지 범위 캘린더"
-          infoMsg="closeOnSelect=false로 완료 후에도 캘린더를 유지하는 예시입니다."
+          infoMessage="shouldCloseOnSelect=false로 완료 후에도 캘린더를 유지하는 예시입니다."
         />
       </GuideProp>
     );
@@ -262,24 +262,24 @@ const DateRangePickerAdvancedCalendarGuideProp = memo(
     return (
       <GuideProp
         isWide
-        name="getDefaultMonth | shouldCloseOnSelect"
-        typeLabel='({ selected }) => Date | undefined | ({ closeOnSelect, nextSelected }) => boolean'
-        description="getDefaultMonth는 선택값이 없을 때 처음 보여줄 월을 계산하고, shouldCloseOnSelect는 범위 선택 진행 중/완료 후 캘린더를 닫을지 직접 결정합니다."
+        name="getDefaultMonth | getShouldCloseOnSelect"
+        typeLabel='({ selected }) => Date | undefined | ({ shouldCloseOnSelect, nextSelected }) => boolean'
+        description="getDefaultMonth는 선택값이 없을 때 처음 보여줄 월을 계산하고, getShouldCloseOnSelect는 범위 선택 진행 중/완료 후 캘린더를 닫을지 직접 결정합니다."
       >
         <DateRangePicker
           selected={defaultMonthRange}
           onSelectedChange={setDefaultMonthRange}
-          defaultCalendarOpen
+          defaultIsCalendarOpen
           getDefaultMonth={({ selected }) =>
             selected?.from ?? selected?.to ?? new Date(2026, 6, 1)
           }
           calendarButtonTitle="기본 월 커스텀 범위 캘린더"
-          infoMsg="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 예시입니다."
+          infoMessage="selected가 없으면 2026년 7월부터 시작하도록 기본 월을 커스터마이징한 예시입니다."
         />
         <DateRangePicker
           selected={customCloseRange}
           onSelectedChange={setCustomCloseRange}
-          shouldCloseOnSelect={({ nextSelected }) =>
+          getShouldCloseOnSelect={({ nextSelected }) =>
             Boolean(
               nextSelected?.from &&
                 nextSelected?.to &&
@@ -287,7 +287,7 @@ const DateRangePickerAdvancedCalendarGuideProp = memo(
             )
           }
           calendarButtonTitle="종료일 20일 이후면 닫힘"
-          infoMsg="종료일이 20일 미만이면 완료 범위를 선택해도 캘린더를 유지하고, 20일 이후면 닫히도록 제어한 예시입니다."
+          infoMessage="종료일이 20일 미만이면 완료 범위를 선택해도 캘린더를 유지하고, 20일 이후면 닫히도록 제어한 예시입니다."
         />
       </GuideProp>
     );
@@ -318,7 +318,7 @@ const DateRangePickerStateGuideProp = memo(
           selected={readOnlyRange}
           readOnly
           isClearable
-          infoMsg="readOnly 상태에서는 현재 기간만 표시되고 캘린더 선택과 clear가 막힙니다."
+          infoMessage="readOnly 상태에서는 현재 기간만 표시되고 캘린더 선택과 clear가 막힙니다."
         />
       </GuideProp>
     );

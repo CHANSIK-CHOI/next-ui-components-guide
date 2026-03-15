@@ -52,6 +52,32 @@ export function DelIcon(props: IconBaseProps) {
   );
 }
 
+export function DelOutlineIcon(props: IconBaseProps) {
+  return (
+    <Icon viewBox="0 0 20 20" fill="none" {...props}>
+      <circle
+        cx="10"
+        cy="10"
+        r="7"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M7.5 7.5L12.5 12.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M12.5 7.5L7.5 12.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </Icon>
+  );
+}
+
 export function CloseIcon(props: IconBaseProps) {
   return (
     <Icon viewBox="0 0 20 20" fill="none" {...props}>

@@ -4,7 +4,7 @@ type CheckboxGroupContextValue = {
   name?: string;
   disabled?: boolean;
   readOnly?: boolean;
-  error?: boolean;
+  isError?: boolean;
 };
 
 const CheckboxGroupContext = createContext<CheckboxGroupContextValue>({});

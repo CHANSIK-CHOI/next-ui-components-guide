@@ -36,7 +36,7 @@ export default function RHFTextfield<
   defaultValue,
   shouldUnregister,
   disabled = false,
-  errorMsg,
+  errorMessage,
   formatValue,
   onClear,
   ...restTextfieldProps
@@ -73,7 +73,7 @@ export default function RHFTextfield<
       disabled={disabled}
       onChange={handleChange}
       onClear={handleClear}
-      errorMsg={fieldState.error?.message ?? errorMsg}
+      errorMessage={fieldState.error?.message ?? errorMessage}
     />
   );
 }

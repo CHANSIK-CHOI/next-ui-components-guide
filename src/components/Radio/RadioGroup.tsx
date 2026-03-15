@@ -12,7 +12,7 @@ export type RadioGroupProps = Omit<
   direction?: "row" | "column";
   disabled?: boolean;
   readOnly?: boolean;
-  error?: boolean;
+  isError?: boolean;
 };
 
 export default function RadioGroup({
@@ -22,16 +22,17 @@ export default function RadioGroup({
   direction = "column",
   disabled,
   readOnly,
-  error,
+  isError,
   ...rest
 }: RadioGroupProps) {
   return (
     <RadioGroupContext.Provider
-      value={{ name, disabled, readOnly, error }}
+      value={{ name, disabled, readOnly, isError }}
     >
       <div
         {...rest}
         role="radiogroup"
+        aria-invalid={isError ? true : undefined}
         className={cn(nameBlock, `${nameBlock}--${direction}`, className)}
       >
         {children}

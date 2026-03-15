@@ -132,7 +132,7 @@ export default function TextfieldRHFSection() {
                 name="sampleText"
                 control={basicControl}
                 isClearable
-                infoMsg="name과 control을 전달하면 RHF 상태와 연결됩니다."
+                infoMessage="name과 control을 전달하면 RHF 상태와 연결됩니다."
               />
             </Field>
             <Button color="primary" type="submit" disabled={isBasicSubmitting}>
@@ -250,7 +250,7 @@ export default function TextfieldRHFSection() {
                 maxLength={13}
                 formatValue={formatPhoneNumber}
                 isClearable
-                infoMsg="입력 중에는 하이픈이 자동으로 추가되고, submit 시에는 숫자만 남겨서 처리할 수 있습니다."
+                infoMessage="입력 중에는 하이픈이 자동으로 추가되고, submit 시에는 숫자만 남겨서 처리할 수 있습니다."
                 rules={{
                   required: "휴대전화 번호를 입력해주세요.",
                   pattern: {
@@ -289,7 +289,7 @@ export default function TextfieldRHFSection() {
                 maxLength={8}
                 unit="원"
                 isClearable
-                infoMsg="native input props와 Textfield UI props를 함께 전달할 수 있습니다."
+                infoMessage="native input props와 Textfield UI props를 함께 전달할 수 있습니다."
               />
             </Field>
             <Button

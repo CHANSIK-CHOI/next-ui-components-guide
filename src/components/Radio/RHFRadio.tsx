@@ -34,7 +34,7 @@ export default function RHFRadio<
   defaultValue,
   shouldUnregister,
   disabled = false,
-  error = false,
+  isError = false,
   value,
   ...restRadioProps
 }: RHFRadioProps<TFormValues, TFieldName>) {
@@ -55,7 +55,7 @@ export default function RHFRadio<
       value={value}
       checked={field.value === value}
       disabled={disabled}
-      error={Boolean(fieldState.error) || error}
+      isError={Boolean(fieldState.error) || isError}
       onBlur={field.onBlur}
       onChange={() => field.onChange(value)}
     />

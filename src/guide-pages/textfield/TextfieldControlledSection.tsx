@@ -96,7 +96,7 @@ const ActionSlotGuideProp = memo(function ActionSlotGuideProp() {
       <Textfield
         value={blockedActionText}
         isTextInputBlocked
-        infoMsg="텍스트 입력은 막고, trailing action으로 다른 UI를 열 수 있습니다."
+        infoMessage="텍스트 입력은 막고, trailing action으로 다른 UI를 열 수 있습니다."
       >
         <button
           type="button"
@@ -128,7 +128,7 @@ const NativeInputGuideProp = memo(function NativeInputGuideProp() {
           <br /> - type은 text, password, email, tel, url, number만 허용합니다.
           <br /> - defaultValue는 지원하지 않고 value 기반 controlled usage를
           전제로 하며,
-          <br /> - aria-invalid는 errorMsg 기준으로 내부에서 설정합니다.
+          <br /> - aria-invalid는 errorMessage 기준으로 내부에서 설정합니다.
         </>
       }
     >
@@ -192,7 +192,7 @@ const MessageGuideProp = memo(function MessageGuideProp() {
 
   return (
     <GuideProp
-      name="infoMsg | errorMsg"
+      name="infoMessage | errorMessage"
       typeLabel="string"
       defaultValue='""'
       description="입력 필드 아래에 안내 메시지나 에러 메시지를 노출합니다."
@@ -200,13 +200,13 @@ const MessageGuideProp = memo(function MessageGuideProp() {
     >
       <Textfield
         value={infoText}
-        infoMsg="보조 설명을 함께 노출할 수 있습니다."
+        infoMessage="보조 설명을 함께 노출할 수 있습니다."
         onChange={(event) => setInfoText(event.target.value)}
         onClear={() => setInfoText("")}
       />
       <Textfield
         value={errorText}
-        errorMsg="에러 메시지를 표시하면 error 스타일이 적용됩니다."
+        errorMessage="에러 메시지를 표시하면 error 스타일이 적용됩니다."
         onChange={(event) => setErrorText(event.target.value)}
         onClear={() => setErrorText("")}
       />

@@ -37,10 +37,11 @@ export default function Alert({
       title={title}
       description={description}
       footer={footerContent}
-      showCloseButton={false}
-      closeOnBackdrop={false}
-      closeOnEscape={false}
+      hasCloseButton={false}
+      shouldCloseOnBackdrop={false}
+      shouldCloseOnEscape={false}
       dialogLabel={title ? undefined : "Alert 팝업"}
+      size="small"
     >
       {icon !== null && <div className={cn(`${nameBlock}__icon`)}>{icon}</div>}
     </PopupBase>

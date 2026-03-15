@@ -28,7 +28,7 @@ export default function RHFDateMultiplePicker<
   defaultValue,
   shouldUnregister,
   disabled = false,
-  errorMsg,
+  errorMessage,
   onSelectedChange,
   ...restDatepickerProps
 }: RHFDateMultiplePickerProps<TFormValues, TFieldName>) {
@@ -57,7 +57,7 @@ export default function RHFDateMultiplePicker<
       selected={field.value as DateMultiplePickerProps["selected"]}
       onSelectedChange={handleSelectedChange}
       disabled={disabled}
-      errorMsg={fieldState.error?.message ?? errorMsg}
+      errorMessage={fieldState.error?.message ?? errorMessage}
     />
   );
 }

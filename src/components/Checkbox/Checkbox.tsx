@@ -9,7 +9,7 @@ const INTERACTION_KEYS = new Set([" ", "Enter"]);
 type CheckboxBaseProps = {
   id?: string;
   className?: string;
-  error?: boolean;
+  isError?: boolean;
   readOnly?: boolean;
 };
 
@@ -22,7 +22,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       id,
       name,
       className,
-      error,
+      isError,
       readOnly,
       disabled,
       onClick,
@@ -39,7 +39,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const resolvedName = name ?? checkboxGroupContext.name;
     const resolvedDisabled = disabled ?? checkboxGroupContext.disabled ?? false;
     const resolvedReadOnly = readOnly ?? checkboxGroupContext.readOnly ?? false;
-    const resolvedError = error ?? checkboxGroupContext.error ?? false;
+    const resolvedIsError = isError ?? checkboxGroupContext.isError ?? false;
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {
       if (resolvedReadOnly) {
@@ -63,7 +63,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <span
         className={cn(nameBlock, className, {
           "is-disabled": resolvedDisabled,
-          "is-error": resolvedError,
+          "is-error": resolvedIsError,
           "is-readonly": resolvedReadOnly,
         })}
       >
@@ -74,7 +74,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           name={resolvedName}
           type="checkbox"
           disabled={resolvedDisabled}
-          aria-invalid={resolvedError ? true : undefined}
+          aria-invalid={resolvedIsError ? true : undefined}
           aria-readonly={resolvedReadOnly ? true : undefined}
           className={cn(`${nameBlock}__input`)}
           onClick={handleClick}

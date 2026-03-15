@@ -56,11 +56,15 @@ export function getButtonClassName({
   );
 }
 
-type ButtonWrapElParams = {
+type ButtonContentElementParams = {
   icon: ButtonBaseProps["icon"];
   children: ButtonBaseProps["children"];
 };
-export function setButtonWrapEl({ icon, children }: ButtonWrapElParams) {
+
+export function getButtonContentElement({
+  icon,
+  children,
+}: ButtonContentElementParams) {
   return (
     <span className={cn(`${nameBlock}__wrap`)}>
       {icon && <span className={cn(`${nameBlock}__icon`)}>{icon}</span>}
@@ -88,11 +92,11 @@ export default function Button({
     shape,
   };
   const buttonClassName = getButtonClassName(buttonClassNameParams);
-  const buttonWrapEl = setButtonWrapEl({ icon, children });
+  const buttonContentElement = getButtonContentElement({ icon, children });
 
   return (
     <button type="button" {...rest} className={buttonClassName}>
-      {buttonWrapEl}
+      {buttonContentElement}
     </button>
   );
 }

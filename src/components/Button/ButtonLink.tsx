@@ -5,8 +5,8 @@ import {
   type ButtonBaseProps,
   type ButtonClassNameParams,
   type ButtonDesignProps,
+  getButtonContentElement,
   getButtonClassName,
-  setButtonWrapEl,
 } from "./Button";
 
 type ButtonLinkNativeProps = Omit<
@@ -37,10 +37,10 @@ export default function ButtonLink({
   };
 
   const buttonClassName = getButtonClassName(buttonClassNameParams);
-  const buttonWrapEl = setButtonWrapEl({ icon, children });
+  const buttonContentElement = getButtonContentElement({ icon, children });
   return (
     <Link {...rest} className={buttonClassName}>
-      {buttonWrapEl}
+      {buttonContentElement}
     </Link>
   );
 }

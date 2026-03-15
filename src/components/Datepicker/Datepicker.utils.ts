@@ -8,7 +8,7 @@ type DatepickerFormatOptions<TSelected> = {
 };
 
 type DatepickerCloseOptions<TSelected> = {
-  closeOnSelect: boolean | undefined;
+  shouldCloseOnSelect: boolean | undefined;
   nextSelected: TSelected | undefined;
 };
 
@@ -72,33 +72,33 @@ export function getRangeDefaultMonth({
   return selected?.from ?? selected?.to;
 }
 
-export function shouldCloseSingleOnSelect({
-  closeOnSelect,
+export function getShouldCloseSingleOnSelect({
+  shouldCloseOnSelect,
   nextSelected,
 }: DatepickerCloseOptions<Date>) {
-  if (typeof closeOnSelect === "boolean") {
-    return closeOnSelect;
+  if (typeof shouldCloseOnSelect === "boolean") {
+    return shouldCloseOnSelect;
   }
 
   return Boolean(nextSelected);
 }
 
-export function shouldCloseMultipleOnSelect({
-  closeOnSelect,
+export function getShouldCloseMultipleOnSelect({
+  shouldCloseOnSelect,
 }: DatepickerCloseOptions<Date[]>) {
-  if (typeof closeOnSelect === "boolean") {
-    return closeOnSelect;
+  if (typeof shouldCloseOnSelect === "boolean") {
+    return shouldCloseOnSelect;
   }
 
   return false;
 }
 
-export function shouldCloseRangeOnSelect({
-  closeOnSelect,
+export function getShouldCloseRangeOnSelect({
+  shouldCloseOnSelect,
   nextSelected,
 }: DatepickerCloseOptions<DateRange>) {
-  if (typeof closeOnSelect === "boolean") {
-    return closeOnSelect;
+  if (typeof shouldCloseOnSelect === "boolean") {
+    return shouldCloseOnSelect;
   }
 
   return Boolean(nextSelected?.from && nextSelected?.to);

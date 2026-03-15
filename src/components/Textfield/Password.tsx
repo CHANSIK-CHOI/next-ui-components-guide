@@ -3,7 +3,7 @@ import Textfield, { type TextfieldProps } from "./Textfield";
 import TextfieldBtn from "./TextfieldBtn";
 
 export type PasswordProps = Omit<TextfieldProps, "children" | "type"> & {
-  defaultPasswordVisible?: boolean;
+  defaultIsPasswordVisible?: boolean;
   hidePasswordTitle?: string;
   showPasswordTitle?: string;
 };
@@ -11,7 +11,7 @@ export type PasswordProps = Omit<TextfieldProps, "children" | "type"> & {
 const Password = forwardRef<HTMLInputElement, PasswordProps>(
   (
     {
-      defaultPasswordVisible = false,
+      defaultIsPasswordVisible = false,
       hidePasswordTitle = "비밀번호 숨기기",
       showPasswordTitle = "비밀번호 보기",
       onClear,
@@ -21,10 +21,10 @@ const Password = forwardRef<HTMLInputElement, PasswordProps>(
     ref,
   ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(
-      defaultPasswordVisible,
+      defaultIsPasswordVisible,
     );
 
-    const togglePasswordVisible = () => {
+    const handleTogglePasswordVisibility = () => {
       setIsPasswordVisible((prev) => !prev);
     };
 
@@ -44,7 +44,7 @@ const Password = forwardRef<HTMLInputElement, PasswordProps>(
         <TextfieldBtn
           icon={isPasswordVisible ? "hidePw" : "showPw"}
           title={isPasswordVisible ? hidePasswordTitle : showPasswordTitle}
-          onClick={togglePasswordVisible}
+          onClick={handleTogglePasswordVisibility}
           disabled={disabled}
         />
       </Textfield>

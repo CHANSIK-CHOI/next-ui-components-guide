@@ -1,5 +1,5 @@
 import AlertSection from "./AlertSection";
 
-export default function PopupGuideContent() {
+export default function AlertGuideContent() {
   return <AlertSection />;
 }

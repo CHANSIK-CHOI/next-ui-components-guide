@@ -16,8 +16,8 @@ export type FieldLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 export type FieldDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 export type FieldMessageProps = {
   className?: string;
-  infoMsg?: string;
-  errorMsg?: string;
+  infoMessage?: string;
+  errorMessage?: string;
 };
 export type FieldItemProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
@@ -120,14 +120,14 @@ function FieldDescription({
 
 function FieldMessage({
   className,
-  infoMsg = "",
-  errorMsg = "",
+  infoMessage = "",
+  errorMessage = "",
 }: FieldMessageProps) {
-  if (!infoMsg && !errorMsg) return null;
+  if (!infoMessage && !errorMessage) return null;
 
   return (
     <div className={cn(`${nameBlock}__message`, className)}>
-      <Message infoMsg={infoMsg} errorMsg={errorMsg} />
+      <Message infoMessage={infoMessage} errorMessage={errorMessage} />
     </div>
   );
 }

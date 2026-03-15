@@ -24,8 +24,8 @@ type TextfieldBaseProps = {
   readOnly?: boolean;
   isTextInputBlocked?: boolean;
   disabled?: boolean;
-  infoMsg?: string;
-  errorMsg?: string;
+  infoMessage?: string;
+  errorMessage?: string;
   unit?: string;
   isClearable?: boolean;
   onClear?: () => void;
@@ -55,8 +55,8 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
       readOnly = false,
       isTextInputBlocked = false,
       disabled = false,
-      infoMsg = "",
-      errorMsg = "",
+      infoMessage = "",
+      errorMessage = "",
       unit = "",
       isClearable = false,
       onClear,
@@ -66,7 +66,7 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
   ) => {
     const { inputId: fieldContextId } = useFieldContext();
     const generatedId = useId();
-    const ID = id ?? fieldContextId ?? generatedId;
+    const resolvedId = id ?? fieldContextId ?? generatedId;
     const hasValue = value != null && String(value).length > 0;
     const canClear =
       isClearable &&
@@ -79,7 +79,7 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
       <div
         className={cn(nameBlock, className, {
           "is-disabled": disabled,
-          "is-error": Boolean(errorMsg),
+          "is-error": Boolean(errorMessage),
           "is-readonly": readOnly,
           [`${nameBlock}--text-right`]: unit,
         })}
@@ -90,13 +90,13 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
               autoComplete="off"
               {...rest}
               ref={ref}
-              id={ID}
+              id={resolvedId}
               className={cn(`${nameBlock}__input`)}
               value={value}
               placeholder={placeholder}
               disabled={disabled}
               readOnly={readOnly || isTextInputBlocked}
-              aria-invalid={errorMsg ? true : undefined}
+              aria-invalid={errorMessage ? true : undefined}
             />
           </div>
           <div className={cn(`${nameBlock}__actions`)}>
@@ -113,7 +113,7 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
             {unit && <span className={cn(`${nameBlock}__unit`)}>{unit}</span>}
           </div>
         </div>
-        <Message infoMsg={infoMsg} errorMsg={errorMsg} />
+        <Message infoMessage={infoMessage} errorMessage={errorMessage} />
       </div>
     );
   },
