@@ -23,4 +23,5 @@ export { default as RHFSearch } from "./Textfield/RHFSearch";
 export { default as RHFPassword } from "./Textfield/RHFPassword";
 export { default as PopupBase } from "./Popup/PopupBase";
 export { default as Alert } from "./Popup/Alert";
+export { default as Confirm } from "./Popup/Confirm";
 export { default as PopupProvider } from "./Popup/PopupProvider";

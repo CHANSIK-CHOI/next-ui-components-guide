@@ -55,4 +55,9 @@ export const guideNavigation: GuideNavigationItem[] = [
     label: "Alert",
     description: "Alert / useAlert",
   },
+  {
+    href: "/confirm",
+    label: "Confirm",
+    description: "Confirm / useConfirm",
+  },
 ];

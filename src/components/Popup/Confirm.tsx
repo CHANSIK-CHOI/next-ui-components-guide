@@ -3,11 +3,11 @@ import { AttentionIcon } from "@/components/Icon";
 import Button from "../Button/Button";
 import ButtonGroup from "../Button/ButtonGroup";
 import PopupBase from "./PopupBase";
-import type { AlertProps } from "./PopupBase.types";
+import type { ConfirmProps } from "./PopupBase.types";
 
-const nameBlock = "popupAlert";
+const nameBlock = "popupConfirm";
 
-export default function Alert({
+export default function Confirm({
   id,
   open,
   onExited,
@@ -15,11 +15,18 @@ export default function Alert({
   title,
   description,
   icon = <AttentionIcon width={28} height={28} />,
+  cancelText = "취소",
   confirmText = "확인",
+  onCancel,
   onConfirm,
-}: AlertProps) {
+}: ConfirmProps) {
   const footerContent = (
     <ButtonGroup className={cn(`${nameBlock}__actions`)}>
+      <ButtonGroup.Item>
+        <Button type="button" variant="line" size="medium" onClick={onCancel}>
+          {cancelText}
+        </Button>
+      </ButtonGroup.Item>
       <ButtonGroup.Item>
         <Button type="button" size="medium" onClick={onConfirm}>
           {confirmText}
@@ -40,7 +47,7 @@ export default function Alert({
       hasCloseButton={false}
       shouldCloseOnBackdrop={false}
       shouldCloseOnEscape={false}
-      dialogLabel={title ? undefined : "Alert 팝업"}
+      dialogLabel={title ? undefined : "Confirm 팝업"}
       size="small"
     >
       {icon !== null && <div className={cn(`${nameBlock}__icon`)}>{icon}</div>}

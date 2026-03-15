@@ -151,7 +151,7 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
     <GuideProp
       isWide
       name="Alert 고정 동작"
-      // typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false"
+      typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false"
       description={
         <>
           - Alert는 `PopupBase`를 그대로 노출하는 페이지가 아니라, 고정된 규칙을
@@ -269,8 +269,8 @@ const StackGuideProp = memo(function StackGuideProp() {
     <GuideProp
       isWide
       name="usePopupStack()"
-      typeLabel='Array<{ id: string; type: "alert"; status: "open" | "closing" }>'
-      description="전역에서 현재 어떤 Alert가 열려 있는지, 닫히는 중인지 Zustand selector로 바로 조회할 수 있습니다."
+      typeLabel='Array<{ id: string; type: "alert" | "confirm"; status: "open" | "closing" }>'
+      description="전역에서 현재 어떤 popup이 열려 있는지, 닫히는 중인지 Zustand selector로 바로 조회할 수 있습니다."
     >
       <div
         className={
@@ -279,7 +279,7 @@ const StackGuideProp = memo(function StackGuideProp() {
             : "guidePopupState"
         }
       >
-        <strong className="guidePopupState__title">Active alert stack</strong>
+        <strong className="guidePopupState__title">Active popup stack</strong>
         {hasActivePopups ? (
           <ul className="guidePopupState__list">
             {activePopupLabels.map((label) => (

@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Alert from "./Alert";
+import Confirm from "./Confirm";
 import { usePopupStore } from "./popup.store";
 
 const POPUP_ROOT_ID = "popup-root";
@@ -76,25 +77,47 @@ export default function PopupProvider({ children }: PopupProviderProps) {
         ? createPortal(
             <>
               {items.map((item) => {
-                if (item.type !== "alert") {
-                  return null;
+                if (item.type === "alert") {
+                  return (
+                    <Alert
+                      key={item.id}
+                      {...item.props}
+                      id={item.id}
+                      open={item.status === "open"}
+                      onConfirm={() => {
+                        item.props.onConfirm?.();
+                        handleClosePopup(item.id);
+                      }}
+                      onExited={() => {
+                        removePopup(item.id);
+                      }}
+                    />
+                  );
                 }
 
-                return (
-                  <Alert
-                    key={item.id}
-                    {...item.props}
-                    id={item.id}
-                    open={item.status === "open"}
-                    onConfirm={() => {
-                      item.props.onConfirm?.();
-                      handleClosePopup(item.id);
-                    }}
-                    onExited={() => {
-                      removePopup(item.id);
-                    }}
-                  />
-                );
+                if (item.type === "confirm") {
+                  return (
+                    <Confirm
+                      key={item.id}
+                      {...item.props}
+                      id={item.id}
+                      open={item.status === "open"}
+                      onCancel={() => {
+                        item.props.onCancel?.();
+                        handleClosePopup(item.id);
+                      }}
+                      onConfirm={() => {
+                        item.props.onConfirm?.();
+                        handleClosePopup(item.id);
+                      }}
+                      onExited={() => {
+                        removePopup(item.id);
+                      }}
+                    />
+                  );
+                }
+
+                return null;
               })}
             </>,
             portalRoot,

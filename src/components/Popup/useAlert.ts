@@ -4,8 +4,8 @@ import { usePopupStack, usePopupStore } from "./popup.store";
 
 export default function useAlert() {
   const openAlert = usePopupStore((state) => state.openAlert);
+  const closePopupType = usePopupStore((state) => state.closePopupType);
   const closePopup = usePopupStore((state) => state.closePopup);
-  const closeAll = usePopupStore((state) => state.closeAll);
   const popupStack = usePopupStack();
 
   const alertStack = useMemo(
@@ -28,7 +28,7 @@ export default function useAlert() {
   return {
     open,
     close,
-    closeAll,
+    closeAll: () => closePopupType("alert"),
     alerts: alertStack,
   };
 }

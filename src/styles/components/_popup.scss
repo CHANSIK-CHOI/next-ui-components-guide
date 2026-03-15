@@ -3,6 +3,7 @@
 
 $module: "popup";
 $alert: "popupAlert";
+$confirm: "popupConfirm";
 
 .#{$module} {
   position: fixed;
@@ -197,7 +198,8 @@ $alert: "popupAlert";
   }
 }
 
-.#{$alert} {
+.#{$alert},
+.#{$confirm} {
   .popup__headerContent {
     text-align: center;
   }
@@ -245,10 +247,22 @@ $alert: "popupAlert";
 
   &__actions {
     .buttonGroup__wrap {
-      justify-content: center;
+      width: 100%;
     }
+
     .buttonGroup__item {
       display: flex;
+    }
+  }
+}
+
+.#{$alert} {
+  &__actions {
+    .buttonGroup__wrap {
+      justify-content: center;
+    }
+
+    .buttonGroup__item {
       justify-content: center;
     }
 

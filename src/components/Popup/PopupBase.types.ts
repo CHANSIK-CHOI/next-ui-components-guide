@@ -31,11 +31,14 @@ type AlertControlProps = Pick<
   "id" | "open" | "onExited"
 >;
 
-export type AlertBaseProps = {
+type PopupActionBaseProps = {
   className?: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   icon?: React.ReactNode | null;
+};
+
+export type AlertBaseProps = PopupActionBaseProps & {
   confirmText?: React.ReactNode;
   onConfirm?: () => void;
 };
@@ -43,5 +46,18 @@ export type AlertBaseProps = {
 export type AlertProps = AlertBaseProps & AlertControlProps;
 
 export type AlertPopupOptions = AlertBaseProps & {
+  id?: string;
+};
+
+export type ConfirmBaseProps = PopupActionBaseProps & {
+  cancelText?: React.ReactNode;
+  confirmText?: React.ReactNode;
+  onCancel?: () => void;
+  onConfirm?: () => void;
+};
+
+export type ConfirmProps = ConfirmBaseProps & AlertControlProps;
+
+export type ConfirmPopupOptions = ConfirmBaseProps & {
   id?: string;
 };

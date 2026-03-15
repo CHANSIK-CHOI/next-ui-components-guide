@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import { useMemo } from "react";
-import type { AlertPopupOptions } from "./PopupBase.types";
+import type {
+  AlertPopupOptions,
+  ConfirmPopupOptions,
+} from "./PopupBase.types";
 
-export type PopupType = "alert";
+export type PopupType = "alert" | "confirm";
 export type PopupStatus = "open" | "closing";
 
 type AlertPopupItem = {
@@ -12,16 +15,25 @@ type AlertPopupItem = {
   props: AlertPopupOptions;
 };
 
-export type PopupItem = AlertPopupItem;
+type ConfirmPopupItem = {
+  id: string;
+  type: "confirm";
+  status: PopupStatus;
+  props: ConfirmPopupOptions;
+};
+
+export type PopupItem = AlertPopupItem | ConfirmPopupItem;
 
 export type PopupSnapshot = Pick<PopupItem, "id" | "type" | "status">;
 
 type PopupStore = {
   items: PopupItem[];
   openAlert: (options: AlertPopupOptions) => string;
+  openConfirm: (options: ConfirmPopupOptions) => string;
   closePopup: (id: string) => void;
   removePopup: (id: string) => void;
   closeAll: () => void;
+  closePopupType: (type: PopupType) => void;
 };
 
 function createPopupId(type: PopupType) {
@@ -58,6 +70,33 @@ export const usePopupStore = create<PopupStore>()((set) => ({
 
     return id;
   },
+  openConfirm: (options) => {
+    const id = options.id ?? createPopupId("confirm");
+
+    set((state) => {
+      const isDuplicateId = state.items.some((item) => item.id === id);
+
+      if (isDuplicateId) {
+        throw new Error(
+          `Popup with id "${id}" already exists. openConfirm only creates new popups.`,
+        );
+      }
+
+      return {
+        items: [
+          ...state.items,
+          {
+            id,
+            type: "confirm",
+            status: "open",
+            props: options,
+          },
+        ],
+      };
+    });
+
+    return id;
+  },
   closePopup: (id) => {
     set((state) => ({
       items: state.items.map((item) =>
@@ -81,6 +120,18 @@ export const usePopupStore = create<PopupStore>()((set) => ({
         ...item,
         status: "closing",
       })),
+    }));
+  },
+  closePopupType: (type) => {
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.type === type
+          ? {
+              ...item,
+              status: "closing",
+            }
+          : item,
+      ),
     }));
   },
 }));
