@@ -151,7 +151,6 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
     <GuideProp
       isWide
       name="Alert 고정 동작"
-      typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false"
       description={
         <>
           - Alert는 `PopupBase`를 그대로 노출하는 페이지가 아니라, 고정된 규칙을
@@ -174,6 +173,70 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
             `shouldCloseOnEscape = false`
           </li>
           <li className="guidePopupState__item">`size = small`</li>
+        </ul>
+      </div>
+    </GuideProp>
+  );
+});
+
+// const AlertUsageGuideProp = memo(function AlertUsageGuideProp() {
+//   return (
+//     <GuideProp
+//       isWide
+//       name="Alert 사용 기준"
+//       typeLabel="안내 / 완료 / 오류 / 정보"
+//       description={
+//         <>
+//           - Alert는 사용자의 선택을 받기보다, 현재 상태를 알려주고 확인 한
+//           번으로 마무리하는 경우에 적합합니다.
+//           <br /> - 저장 완료, 오류 안내, 권한 안내, 필수 공지처럼 액션 분기보다
+//           메시지 전달이 중요한 경우에 사용합니다.
+//           <br /> - 사용자의 의사결정이 필요하면 Alert보다 Confirm을 사용하는
+//           편이 더 자연스럽습니다.
+//         </>
+//       }
+//     >
+//       <div className="guidePopupState">
+//         <strong className="guidePopupState__title">When to use Alert</strong>
+//         <ul className="guidePopupState__list">
+//           <li className="guidePopupState__item">
+//             저장 완료, 처리 완료 같은 완료 알림
+//           </li>
+//           <li className="guidePopupState__item">
+//             네트워크 오류, 권한 부족 같은 상태 안내
+//           </li>
+//           <li className="guidePopupState__item">
+//             사용자가 선택하지 않아도 되는 단순 공지
+//           </li>
+//         </ul>
+//       </div>
+//     </GuideProp>
+//   );
+// });
+
+const AlertIdGuideProp = memo(function AlertIdGuideProp() {
+  return (
+    <GuideProp
+      isWide
+      name="id"
+      typeLabel="string | undefined"
+      description={
+        <>
+          - `id`를 넘기지 않으면 내부에서 고유 id를 자동 생성합니다.
+          <br /> - `open()`은 생성된 id를 반환하므로, 필요하면 `close(id)`로
+          특정 Alert만 닫을 수 있습니다.
+          <br /> - 같은 `id`로 다시 열면 duplicate로 간주되어 에러가 발생합니다.
+        </>
+      }
+    >
+      <div className="guidePopupState">
+        <strong className="guidePopupState__title">Alert id rules</strong>
+        <ul className="guidePopupState__list">
+          <li className="guidePopupState__item">`id` 미지정: 자동 생성</li>
+          <li className="guidePopupState__item">`open()` 반환값: 생성된 id</li>
+          <li className="guidePopupState__item">
+            duplicate `id`: store에서 `throw`
+          </li>
         </ul>
       </div>
     </GuideProp>
@@ -306,6 +369,8 @@ export default function AlertSection() {
       <AlertOptionsGuideProp />
       <AlertIconGuideProp />
       <AlertBehaviorGuideProp />
+      {/* <AlertUsageGuideProp /> */}
+      <AlertIdGuideProp />
       <AlertHookGuideProp />
       <StackGuideProp />
     </GuideSection>

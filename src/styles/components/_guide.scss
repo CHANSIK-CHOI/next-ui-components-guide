@@ -293,6 +293,18 @@ $guideActions: "guidePopupActions";
   }
 }
 
+.guideCodeBlock {
+  width: 100%;
+  padding: 1.6rem;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 1.6rem;
+  background: rgba(17, 24, 39, 0.96);
+  color: rgba(255, 255, 255, 0.92);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  @include mix.typo(1.3rem, 1.4rem, "regular", 1.7);
+}
+
 .homeOverview {
   display: flex;
   flex-direction: column;

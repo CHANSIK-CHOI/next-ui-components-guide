@@ -17,8 +17,8 @@ const ConfirmOptionsGuideProp = memo(function ConfirmOptionsGuideProp() {
       typeLabel="ReactNode | ReactNode | ReactNode | ReactNode | ReactNode | (() => void) | (() => void) | string"
       description={
         <>
-          - Confirm은 Alert와 같은 고정형 popup 구조를 유지하면서, 취소와
-          확인 두 액션을 함께 제공하는 패턴입니다.
+          - Confirm은 Alert와 같은 고정형 popup 구조를 유지하면서, 취소와 확인
+          두 액션을 함께 제공하는 패턴입니다.
           <br /> - `title`, `description`, `icon`은 Alert와 동일한 의미로
           사용하고, 버튼 텍스트와 cancel/confirm callback만 확장됩니다.
           <br /> - `onCancel`, `onConfirm`은 각 버튼 클릭 시 실행된 뒤 popup이
@@ -30,7 +30,8 @@ const ConfirmOptionsGuideProp = memo(function ConfirmOptionsGuideProp() {
         onClick={() =>
           confirm.open({
             title: "기본 Confirm",
-            description: "취소와 확인 중 하나를 선택해야 하는 상황에 사용합니다.",
+            description:
+              "취소와 확인 중 하나를 선택해야 하는 상황에 사용합니다.",
           })
         }
       >
@@ -84,7 +85,6 @@ const ConfirmBehaviorGuideProp = memo(function ConfirmBehaviorGuideProp() {
     <GuideProp
       isWide
       name="Confirm 고정 동작"
-      typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false"
       description={
         <>
           - Confirm도 Alert와 동일하게 닫기 버튼, backdrop click, `Escape`
@@ -106,6 +106,98 @@ const ConfirmBehaviorGuideProp = memo(function ConfirmBehaviorGuideProp() {
             `shouldCloseOnEscape = false`
           </li>
           <li className="guidePopupState__item">`size = small`</li>
+        </ul>
+      </div>
+    </GuideProp>
+  );
+});
+
+// const ConfirmUsageGuideProp = memo(function ConfirmUsageGuideProp() {
+//   return (
+//     <GuideProp
+//       isWide
+//       name="Confirm 사용 기준"
+//       typeLabel="선택 / 삭제 / 이탈 / 비동기 분기"
+//       description={
+//         <>
+//           - Confirm은 사용자가 실제로 선택해야 하는 상황에 사용합니다.
+//           <br /> - 삭제, 작성 취소, 페이지 이탈, 결제 진행처럼 선택 결과에 따라
+//           다음 로직이 달라지는 경우에 적합합니다.
+//           <br /> - 단순 안내만 필요하면 Confirm보다 Alert가 더 맞습니다.
+//         </>
+//       }
+//     >
+//       <div className="guidePopupState">
+//         <strong className="guidePopupState__title">When to use Confirm</strong>
+//         <ul className="guidePopupState__list">
+//           <li className="guidePopupState__item">
+//             삭제, 탈퇴처럼 되돌리기 어려운 동작 전 확인
+//           </li>
+//           <li className="guidePopupState__item">
+//             저장하지 않고 나가기 같은 이탈 확인
+//           </li>
+//           <li className="guidePopupState__item">
+//             확인 결과에 따라 다음 비즈니스 로직이 달라지는 경우
+//           </li>
+//         </ul>
+//       </div>
+//     </GuideProp>
+//   );
+// });
+
+const ConfirmAsyncGuideProp = memo(function ConfirmAsyncGuideProp() {
+  return (
+    <GuideProp
+      isWide
+      name="openAsync()"
+      typeLabel="(options) => Promise<boolean>"
+      description={
+        <>
+          - `openAsync()`는 Confirm 결과를 {"`Promise<boolean>`"}으로 돌려줘서
+          `await` 다음 줄에서 바로 분기할 수 있습니다.
+          <br /> - 확인 버튼은 `true`, 취소 버튼은 `false`를 반환합니다.
+          <br /> - `close()`나 `closeAll()`처럼 코드로 닫아도 `false`로
+          정리됩니다.
+        </>
+      }
+    >
+      <pre className="guideCodeBlock">{`const isConfirmed = await confirm.openAsync({
+  title: "삭제 확인",
+  description: "정말 삭제하시겠습니까?",
+});
+
+if (isConfirmed) {
+  // 확인 이후 로직
+}`}</pre>
+    </GuideProp>
+  );
+});
+
+const ConfirmIdGuideProp = memo(function ConfirmIdGuideProp() {
+  return (
+    <GuideProp
+      isWide
+      name="id"
+      typeLabel="string | undefined"
+      description={
+        <>
+          - `id`를 넘기지 않으면 내부에서 고유 id를 자동 생성합니다.
+          <br /> - `open()`은 생성된 id를 반환하고, `openAsync()`도 내부적으로
+          id를 만들거나 전달받은 id를 그대로 사용합니다.
+          <br /> - 같은 `id`로 다시 열면 duplicate로 간주되어 에러가 발생합니다.
+        </>
+      }
+    >
+      <div className="guidePopupState">
+        <strong className="guidePopupState__title">Confirm id rules</strong>
+        <ul className="guidePopupState__list">
+          <li className="guidePopupState__item">`id` 미지정: 자동 생성</li>
+          <li className="guidePopupState__item">
+            `open()` / `openAsync()` 모두 특정 id 지정 가능
+          </li>
+          <li className="guidePopupState__item">
+            duplicate `id`: store에서 `throw`
+          </li>
         </ul>
       </div>
     </GuideProp>
@@ -135,8 +227,8 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
         <>
           - `useConfirm()`은 `Alert`와 같은 방식으로 어느 페이지에서든 Confirm을
           전역 호출할 수 있게 해줍니다.
-          <br /> - `open()`은 confirm id를 반환하고, `close(id?)`는 특정 id
-          또는 가장 마지막 Confirm을 닫습니다.
+          <br /> - `open()`은 confirm id를 반환하고, `close(id?)`는 특정 id 또는
+          가장 마지막 Confirm을 닫습니다.
           <br /> - `openAsync()`는 `await`로 확인 결과를 받아서 다음 로직을
           이어갈 수 있고, `closeAll()`은 현재 열린 Confirm만 한 번에 닫습니다.
         </>
@@ -148,7 +240,8 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
             confirm.open({
               id: GUIDE_FIRST_CONFIRM_ID,
               title: "첫 번째 Confirm",
-              description: "Confirm도 여러 개 쌓을 수 있고 마지막 항목 기준으로 닫을 수 있습니다.",
+              description:
+                "Confirm도 여러 개 쌓을 수 있고 마지막 항목 기준으로 닫을 수 있습니다.",
               icon: (
                 <AttentionIcon
                   width={28}
@@ -163,7 +256,8 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
             confirm.open({
               id: GUIDE_SECOND_CONFIRM_ID,
               title: "두 번째 Confirm",
-              description: "closeAll은 Confirm 타입만 닫도록 분리되어 있습니다.",
+              description:
+                "closeAll은 Confirm 타입만 닫도록 분리되어 있습니다.",
             });
           }
         }}
@@ -177,7 +271,8 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
         onClick={async () => {
           const isConfirmed = await confirm.openAsync({
             title: "비동기 Confirm",
-            description: "확인을 누르면 true, 취소를 누르면 false를 반환합니다.",
+            description:
+              "확인을 누르면 true, 취소를 누르면 false를 반환합니다.",
           });
 
           console.log("confirm result:", isConfirmed);
@@ -260,6 +355,9 @@ export default function ConfirmSection() {
     >
       <ConfirmOptionsGuideProp />
       <ConfirmBehaviorGuideProp />
+      {/* <ConfirmUsageGuideProp /> */}
+      <ConfirmAsyncGuideProp />
+      <ConfirmIdGuideProp />
       <ConfirmHookGuideProp />
       <StackGuideProp />
     </GuideSection>

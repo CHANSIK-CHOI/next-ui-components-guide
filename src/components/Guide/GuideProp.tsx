@@ -5,7 +5,7 @@ const nameBlock = "guideProp";
 
 type GuidePropProps = {
   name: string;
-  typeLabel: string;
+  typeLabel?: string;
   defaultValue?: string;
   description?: string | React.ReactNode;
   children: React.ReactNode;
