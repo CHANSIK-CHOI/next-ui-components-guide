@@ -26,6 +26,11 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Password / RHFPassword",
   },
   {
+    href: "/popup",
+    label: "Popup",
+    description: "Popup / Alert",
+  },
+  {
     href: "/checkbox",
     label: "Checkbox",
     description: "Checkbox / RHFCheckbox / CheckboxGroup",

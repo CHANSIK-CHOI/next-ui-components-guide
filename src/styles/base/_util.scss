@@ -1,8 +1,12 @@
 @use "../abstracts/mixins" as mix;
 @use "../abstracts/variables" as var;
 
-.is-prevent-scroll {
+body.is-prevent-scroll {
   overflow: hidden;
+  position: fixed;
+  inset: 0 auto auto 0;
+  width: 100%;
+  top: calc(var(--scroll-lock-top, 0px) * -1);
 }
 
 .a11y-hidden {

@@ -18,7 +18,8 @@
     "react-dom": "^18",
     "react-hook-form": "^7.71.2",
     "sass": "^1.98.0",
-    "simple-icons": "^16.11.0"
+    "simple-icons": "^16.11.0",
+    "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,0 +1,263 @@
+@use "../abstracts/functions" as func;
+@use "../abstracts/mixins" as mix;
+
+$module: "popup";
+$alert: "popupAlert";
+$guideState: "guidePopupState";
+
+.#{$module} {
+  position: fixed;
+  inset: 0;
+  z-index: func.z("overlay-layer");
+  pointer-events: none;
+
+  &__dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.52);
+    backdrop-filter: blur(0.4rem);
+    pointer-events: auto;
+  }
+
+  &__positioner {
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  &__panel {
+    width: min(100%, 48rem);
+    max-height: min(calc(100vh - 4rem), 72rem);
+    background: var(--bg-color-1);
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 2rem;
+    box-shadow: 0 2.4rem 6rem rgba(15, 23, 42, 0.18);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    pointer-events: auto;
+
+    @include mix.respond-to("desktop") {
+      width: min(100%, 52rem);
+      border-radius: 2.4rem;
+    }
+  }
+
+  &__head {
+    flex-shrink: 0;
+    padding: 2.4rem 2.4rem 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.6rem;
+
+    @include mix.respond-to("desktop") {
+      padding: 3.2rem 3.2rem 0;
+    }
+  }
+
+  &__head--noTitle {
+    justify-content: flex-end;
+  }
+
+  &__headerContent {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title {
+    color: var(--text-color-1);
+    @include mix.typo(2rem, 2.8rem, "bold");
+  }
+
+  &__close {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: var(--text-color-2);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-color);
+      outline-offset: 0.2rem;
+    }
+
+    &:hover {
+      background: rgba(17, 24, 39, 0.06);
+      color: var(--text-color-1);
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 2rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    @include mix.respond-to("desktop") {
+      padding: 2.4rem 3.2rem;
+    }
+  }
+
+  &__description {
+    color: var(--text-color-2);
+    @include mix.typo(1.6rem, 2.4rem, "regular");
+  }
+
+  &__foot {
+    flex-shrink: 0;
+    padding: 0 2.4rem 2.4rem;
+
+    @include mix.respond-to("desktop") {
+      padding: 0 3.2rem 3.2rem;
+    }
+  }
+
+  &--align-center &__body {
+    align-items: center;
+    text-align: center;
+  }
+
+  &--small &__panel {
+    width: min(100%, 36rem);
+  }
+
+  &--large &__panel {
+    width: min(100%, 64rem);
+  }
+
+  &--bottomSheet &__positioner {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  &--bottomSheet &__panel {
+    width: 100%;
+    max-height: min(88vh, 72rem);
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+
+  &--full &__positioner {
+    padding: 0;
+  }
+
+  &--full &__panel {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  &--noHeader &__body {
+    padding-top: 2.4rem;
+
+    @include mix.respond-to("desktop") {
+      padding-top: 3.2rem;
+    }
+  }
+
+  &--noFooter &__body {
+    padding-bottom: 2.4rem;
+
+    @include mix.respond-to("desktop") {
+      padding-bottom: 3.2rem;
+    }
+  }
+}
+
+.#{$alert} {
+  .popup__headerContent {
+    text-align: center;
+  }
+
+  .popup__description {
+    order: 2;
+    max-width: 40rem;
+    color: var(--text-color-2);
+  }
+
+  &__icon {
+    order: 1;
+    width: 6rem;
+    height: 6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--color-info-soft);
+    color: var(--color-info);
+  }
+
+  &.#{$module}--noHeader {
+    .popup__body {
+      justify-content: center;
+      min-height: 18rem;
+      gap: 2rem;
+    }
+
+    .popup__description {
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+  }
+
+  &__actions {
+    .buttonGroup__wrap {
+      justify-content: center;
+    }
+
+    .button {
+      max-width: 20rem;
+    }
+  }
+}
+
+.popupPortal {
+  position: fixed;
+  // inset: 0;
+  z-index: func.z("overlay-layer");
+}
+
+.#{$guideState} {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 1.6rem;
+  background: var(--bg-color-2);
+  border: 1px solid var(--line-color-3);
+  text-align: left;
+
+  &__title {
+    display: block;
+    color: var(--text-color-1);
+    @include mix.typo(1.4rem, 2rem, "semi-bold");
+  }
+
+  &__list {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  &__item,
+  &__empty {
+    color: var(--text-color-2);
+    @include mix.typo(1.4rem, 2rem, "regular");
+  }
+
+  &__empty {
+    margin-top: 1.2rem;
+  }
+}

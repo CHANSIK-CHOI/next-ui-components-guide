@@ -52,6 +52,25 @@ export function DelIcon(props: IconBaseProps) {
   );
 }
 
+export function CloseIcon(props: IconBaseProps) {
+  return (
+    <Icon viewBox="0 0 20 20" fill="none" {...props}>
+      <path
+        d="M5 5L15 15"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15 5L5 15"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </Icon>
+  );
+}
+
 export function SearchIcon(props: IconBaseProps) {
   return (
     <Icon viewBox="0 0 20 20" fill="none" {...props}>
