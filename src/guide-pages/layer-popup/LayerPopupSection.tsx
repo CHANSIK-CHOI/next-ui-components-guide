@@ -334,7 +334,7 @@ const LayerPopupRegistrationGuideProp = memo(
             <br /> - popup 내용에 필요한 데이터는 외부 props로 넘기지 않고, 해당
             컴포넌트 내부 로직에서 바로 구성합니다.
             <br /> - `id`, `open`, `onRequestClose`, `onExited`는 여전히
-            `PopupProvider`가 runtime에 주입합니다.
+            `PopupHost`가 runtime에 주입합니다.
           </>
         }
       >

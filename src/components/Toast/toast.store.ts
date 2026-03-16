@@ -41,40 +41,48 @@ export const useToastStore = create<ToastStore>()((set) => ({
   openToast: (options) => {
     const id = options.id ?? createToastId();
 
-    set((state) => ({
-      items: appendToastItem(state.items, {
-        id,
-        status: "open",
-        props: options,
-      }),
-    }));
+    set((state) => {
+      return {
+        items: appendToastItem(state.items, {
+          id,
+          status: "open",
+          props: options,
+        }),
+      };
+    });
 
     return id;
   },
   closeToast: (id) => {
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              status: "closing",
-            }
-          : item,
-      ),
-    }));
+    set((state) => {
+      return {
+        items: state.items.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                status: "closing",
+              }
+            : item,
+        ),
+      };
+    });
   },
   removeToast: (id) => {
-    set((state) => ({
-      items: state.items.filter((item) => item.id !== id),
-    }));
+    set((state) => {
+      return {
+        items: state.items.filter((item) => item.id !== id),
+      };
+    });
   },
   closeAllToasts: () => {
-    set((state) => ({
-      items: state.items.map((item) => ({
-        ...item,
-        status: "closing",
-      })),
-    }));
+    set((state) => {
+      return {
+        items: state.items.map((item) => ({
+          ...item,
+          status: "closing",
+        })),
+      };
+    });
   },
 }));
 

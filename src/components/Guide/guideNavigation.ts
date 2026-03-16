@@ -16,6 +16,11 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Checkbox / RHFCheckbox / CheckboxGroup",
   },
   {
+    href: "/switch",
+    label: "Switch",
+    description: "Switch / RHFSwitch",
+  },
+  {
     href: "/radio",
     label: "Radio",
     description: "Radio / RHFRadio / RadioGroup",
@@ -24,6 +29,16 @@ export const guideNavigation: GuideNavigationItem[] = [
     href: "/textfield",
     label: "Textfield",
     description: "Textfield / RHFTextfield",
+  },
+  {
+    href: "/textarea",
+    label: "Textarea",
+    description: "Textarea / RHFTextarea",
+  },
+  {
+    href: "/select",
+    label: "Select",
+    description: "Select / MultiSelect / RHFSelect / RHFMultiSelect",
   },
   {
     href: "/search",

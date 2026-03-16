@@ -30,7 +30,7 @@ export default function PopupShellGuideProp({
           - {popupName}은 `PopupBase` shell을 감싼 wrapper이므로, custom popup
           컴포넌트 안에서 {shellPropIntro}
           <br /> - 반대로 `id`, `open`, `onRequestClose`, `onExited`는 디자인
-          props가 아니라 `PopupProvider`가 runtime에 주입하는 인스턴스 제어용
+          props가 아니라 `PopupHost`가 runtime에 주입하는 인스턴스 제어용
           props입니다.
           <br /> - 그래서 보통 custom popup 컴포넌트에서는
           `...runtimeProps`를 펼친 뒤, 필요한 shell props만 추가 선언하는 패턴을
@@ -80,7 +80,7 @@ ${sizeExampleLine}
             `onClickClose`
           </li>
           <li className="guidePopupState__item">
-            Runtime from provider: `id`, `open`, `onRequestClose`, `onExited`
+            Runtime from host: `id`, `open`, `onRequestClose`, `onExited`
           </li>
         </ul>
       </div>

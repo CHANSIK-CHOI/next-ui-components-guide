@@ -213,7 +213,7 @@ const ToastStackGuideProp = memo(function ToastStackGuideProp() {
         <>
           - 현재 열린 toast stack을 그대로 조회할 수 있어서, 자동 닫힘과 수동
           닫힘이 섞인 상태도 바로 확인할 수 있습니다.
-          <br /> - ToastProvider는 이 stack 순서대로 렌더하고, CSS column 방향을
+          <br /> - ToastHost는 이 stack 순서대로 렌더하고, CSS column 방향을
           이용해 화면 하단에서 위로 쌓이게 처리합니다.
         </>
       }

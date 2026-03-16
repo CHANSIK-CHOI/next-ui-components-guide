@@ -3,15 +3,15 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Alert from "./Alert";
 import Confirm from "./Confirm";
 import { usePopupStore } from "./popup.store";
-import usePopupProviderA11y from "./usePopupProviderA11y";
+import usePopupHostA11y from "./usePopupHostA11y";
 
 const POPUP_ROOT_ID = "popup-root";
 
-type PopupProviderProps = {
+type PopupHostProps = {
   children: React.ReactNode;
 };
 
-export default function PopupProvider({ children }: PopupProviderProps) {
+export default function PopupHost({ children }: PopupHostProps) {
   const items = usePopupStore((state) => state.items);
   const closePopup = usePopupStore((state) => state.closePopup);
   const removePopup = usePopupStore((state) => state.removePopup);
@@ -21,7 +21,7 @@ export default function PopupProvider({ children }: PopupProviderProps) {
     [items],
   );
 
-  usePopupProviderA11y({ hasPopup: items.length > 0 });
+  usePopupHostA11y({ hasPopup: items.length > 0 });
 
   const handleClosePopup = useCallback(
     (id: string) => {

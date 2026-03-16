@@ -1,10 +1,9 @@
 .checkbox,
-.radio {
+.radio,
+.switch {
   position: relative;
   display: inline-flex;
   flex-shrink: 0;
-  width: 2.2rem;
-  height: 2.2rem;
   cursor: pointer;
 
   &.is-disabled {
@@ -26,7 +25,8 @@
     opacity: 0;
 
     &:focus-visible + .checkbox__control,
-    &:focus-visible + .radio__control {
+    &:focus-visible + .radio__control,
+    &:focus-visible + .switch__control {
       border-color: var(--focus-color);
       box-shadow: 0 0 0 0.4rem rgba(28, 166, 115, 0.16);
     }
@@ -73,6 +73,12 @@
   &.is-readonly &__control {
     background-color: var(--bg-color-2);
   }
+}
+
+.checkbox,
+.radio {
+  width: 2.2rem;
+  height: 2.2rem;
 }
 
 .checkbox-group,
@@ -159,5 +165,64 @@
   &__input:checked + .radio__control .radio__indicator {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.switch {
+  width: 4.6rem;
+  height: 2.6rem;
+
+  &__control {
+    justify-content: flex-start;
+    padding: 0.2rem;
+    border-radius: 999rem;
+    border-color: var(--line-color-3);
+    background-color: var(--line-color-3);
+  }
+
+  &__thumb {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    box-shadow: 0 0.2rem 0.6rem rgba(15, 23, 42, 0.18);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  &:not(.is-disabled):not(.is-readonly):hover &__control {
+    border-color: var(--color-primary);
+    background-color: var(--line-color-2);
+  }
+
+  &__input:checked + .switch__control {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+  }
+
+  &__input:checked + .switch__control .switch__thumb {
+    transform: translateX(2rem);
+  }
+
+  &.is-error .switch__input:checked + .switch__control {
+    border-color: var(--color-error);
+    background-color: var(--color-error);
+  }
+
+  &.is-disabled .switch__control {
+    border-color: var(--line-color-3);
+    background-color: var(--line-color-3);
+  }
+
+  &.is-disabled .switch__input:checked + .switch__control {
+    border-color: var(--line-color-2);
+    background-color: var(--line-color-2);
+  }
+
+  &.is-readonly .switch__input:checked + .switch__control {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
   }
 }

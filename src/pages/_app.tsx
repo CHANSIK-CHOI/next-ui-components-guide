@@ -1,16 +1,16 @@
 import { GuideShell } from "@/components/Guide";
-import { PopupProvider, ToastProvider } from "@/components";
+import { PopupHost, ToastHost } from "@/components";
 import "@/styles/style.scss";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
-    <PopupProvider>
-      <ToastProvider>
+    <PopupHost>
+      <ToastHost>
         <GuideShell currentPath={router.pathname}>
           <Component {...pageProps} />
         </GuideShell>
-      </ToastProvider>
-    </PopupProvider>
+      </ToastHost>
+    </PopupHost>
   );
 }

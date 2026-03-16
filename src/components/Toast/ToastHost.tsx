@@ -5,11 +5,11 @@ import { useToastStore } from "./toast.store";
 
 const TOAST_ROOT_ID = "toast-root";
 
-type ToastProviderProps = {
+type ToastHostProps = {
   children: React.ReactNode;
 };
 
-export default function ToastProvider({ children }: ToastProviderProps) {
+export default function ToastHost({ children }: ToastHostProps) {
   const items = useToastStore((state) => state.items);
   const closeToast = useToastStore((state) => state.closeToast);
   const removeToast = useToastStore((state) => state.removeToast);

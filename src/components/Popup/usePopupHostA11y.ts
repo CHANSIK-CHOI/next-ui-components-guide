@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef } from "react";
 
 const APP_ROOT_ID = "__next";
 
-type UsePopupProviderA11yParams = {
+type UsePopupHostA11yParams = {
   hasPopup: boolean;
 };
 
-export default function usePopupProviderA11y({
+export default function usePopupHostA11y({
   hasPopup,
-}: UsePopupProviderA11yParams) {
+}: UsePopupHostA11yParams) {
   const scrollTopRef = useRef(0);
   const isScrollLockedRef = useRef(false);
   const previousAppRootAriaHiddenRef = useRef<string | null>(null);

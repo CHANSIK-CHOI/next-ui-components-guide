@@ -36,7 +36,7 @@ const AlertOptionsGuideProp = memo(function AlertOptionsGuideProp() {
           alert.open({
             title: "기본 Alert",
             description:
-              "이 Alert는 전역 Zustand store에 등록되고 PopupProvider가 portal로 렌더링합니다.",
+              "이 Alert는 전역 Zustand store에 등록되고 PopupHost가 portal로 렌더링합니다.",
           })
         }
       >
@@ -297,7 +297,7 @@ const AlertHookGuideProp = memo(function AlertHookGuideProp() {
       typeLabel='{ open: (options) => string; close: (id?: string) => void; closeAll: () => void; alerts: Array<{ id: string; type: "alert"; status: "open" | "closing" }>; }'
       description={
         <>
-          - `PopupProvider`를 앱 루트에 한 번만 두고, 어느 페이지에서든
+          - `PopupHost`를 앱 루트에 한 번만 두고, 어느 페이지에서든
           `useAlert()`로 Alert를 띄우고 닫는 구조입니다.
           <br /> - `open()`은 생성된 alert id를 반환하고, `close(id?)`는 특정 id
           또는 가장 마지막 Alert를 닫습니다.
@@ -397,7 +397,7 @@ export default function AlertSection() {
     <GuideSection
       label="Alert"
       title="Alert"
-      description="Alert는 전역 store와 provider를 통해 어느 페이지에서든 호출할 수 있는 고정형 확인 팝업입니다. 이 페이지는 Alert에서 실제로 쓰는 props와 useAlert 훅 중심으로만 정리합니다."
+      description="Alert는 전역 store와 PopupHost를 통해 어느 페이지에서든 호출할 수 있는 고정형 확인 팝업입니다. 이 페이지는 Alert에서 실제로 쓰는 props와 useAlert 훅 중심으로만 정리합니다."
     >
       <AlertOptionsGuideProp />
       <AlertIconGuideProp />
