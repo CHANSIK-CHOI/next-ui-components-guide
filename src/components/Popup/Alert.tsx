@@ -11,6 +11,7 @@ export default function Alert({
   id,
   open,
   onExited,
+  isTopmost,
   className,
   title,
   description,
@@ -33,8 +34,10 @@ export default function Alert({
       id={id}
       open={open}
       onExited={onExited}
+      isTopmost={isTopmost}
       className={cn(nameBlock, className)}
       title={title}
+      icon={icon}
       description={description}
       footer={footerContent}
       hasCloseButton={false}
@@ -42,8 +45,6 @@ export default function Alert({
       shouldCloseOnEscape={false}
       dialogLabel={title ? undefined : "Alert 팝업"}
       size="small"
-    >
-      {icon !== null && <div className={cn(`${nameBlock}__icon`)}>{icon}</div>}
-    </PopupBase>
+    />
   );
 }

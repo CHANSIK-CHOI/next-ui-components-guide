@@ -11,6 +11,7 @@ export default function Confirm({
   id,
   open,
   onExited,
+  isTopmost,
   className,
   title,
   description,
@@ -40,8 +41,10 @@ export default function Confirm({
       id={id}
       open={open}
       onExited={onExited}
+      isTopmost={isTopmost}
       className={cn(nameBlock, className)}
       title={title}
+      icon={icon}
       description={description}
       footer={footerContent}
       hasCloseButton={false}
@@ -49,8 +52,6 @@ export default function Confirm({
       shouldCloseOnEscape={false}
       dialogLabel={title ? undefined : "Confirm 팝업"}
       size="small"
-    >
-      {icon !== null && <div className={cn(`${nameBlock}__icon`)}>{icon}</div>}
-    </PopupBase>
+    />
   );
 }

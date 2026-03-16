@@ -15,7 +15,6 @@ export default function TextfieldGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/textfield"
         title="Textfield / RHFTextfield"
         description="controlled usage와 React Hook Form 연동 기준으로 Textfield와 RHFTextfield의 props와 예시를 정리한 가이드 페이지입니다."
       >

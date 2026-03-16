@@ -14,6 +14,7 @@ export type PopupBaseProps = {
   size?: PopupSize;
   contentAlign?: PopupContentAlign;
   title?: React.ReactNode;
+  icon?: React.ReactNode | null;
   description?: React.ReactNode;
   footer?: React.ReactNode;
   hasCloseButton?: boolean;
@@ -24,40 +25,70 @@ export type PopupBaseProps = {
   onRequestClose?: () => void;
   onClickClose?: () => void;
   onExited?: () => void;
+  isTopmost?: boolean;
 };
 
-type AlertControlProps = Pick<
+type PopupInstanceProps = Pick<
   PopupBaseProps,
-  "id" | "open" | "onExited"
+  "id" | "open" | "onExited" | "isTopmost"
 >;
 
-type PopupActionBaseProps = {
-  className?: string;
-  title?: React.ReactNode;
-  description?: React.ReactNode;
-  icon?: React.ReactNode | null;
-};
+type PopupSharedShellProps = Omit<PopupBaseProps, "variant" | "size" | "isTopmost">;
+type PopupSizedShellProps = PopupSharedShellProps &
+  Pick<PopupBaseProps, "size">;
+export type PopupRuntimeProps = PopupInstanceProps &
+  Pick<PopupBaseProps, "onRequestClose">;
 
-export type AlertBaseProps = PopupActionBaseProps & {
+export type AlertContentProps = Pick<
+  PopupBaseProps,
+  "className" | "title" | "icon" | "description"
+> & {
   confirmText?: React.ReactNode;
   onConfirm?: () => void;
 };
 
-export type AlertProps = AlertBaseProps & AlertControlProps;
+export type AlertProps = AlertContentProps & PopupInstanceProps;
 
-export type AlertPopupOptions = AlertBaseProps & {
-  id?: string;
-};
+export type AlertPopupOptions = AlertContentProps &
+  {
+    id?: string;
+    shouldCloseOnConfirm?: boolean;
+  };
 
-export type ConfirmBaseProps = PopupActionBaseProps & {
+export type ConfirmContentProps = Pick<
+  PopupBaseProps,
+  "className" | "title" | "icon" | "description"
+> & {
   cancelText?: React.ReactNode;
   confirmText?: React.ReactNode;
   onCancel?: () => void;
   onConfirm?: () => void;
 };
 
-export type ConfirmProps = ConfirmBaseProps & AlertControlProps;
+export type ConfirmProps = ConfirmContentProps & PopupInstanceProps;
 
-export type ConfirmPopupOptions = ConfirmBaseProps & {
+export type ConfirmPopupOptions = ConfirmContentProps &
+  {
+    id?: string;
+    shouldCloseOnCancel?: boolean;
+    shouldCloseOnConfirm?: boolean;
+  };
+
+type PopupRegistrationOptions = {
   id?: string;
+  component: React.ComponentType<PopupRuntimeProps>;
 };
+
+export type LayerPopupProps = PopupSizedShellProps;
+export type BottomSheetProps = PopupSharedShellProps;
+export type FullPopupProps = PopupSharedShellProps;
+
+export type LayerPopupComponentProps = PopupRuntimeProps;
+export type BottomSheetComponentProps = PopupRuntimeProps;
+export type FullPopupComponentProps = PopupRuntimeProps;
+
+export type LayerPopupOptions = PopupRegistrationOptions;
+
+export type BottomSheetOptions = PopupRegistrationOptions;
+
+export type FullPopupOptions = PopupRegistrationOptions;

@@ -14,7 +14,6 @@ export default function ConfirmGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/confirm"
         title="Confirm"
         description="Confirm과 useConfirm usage를 기준으로 전역 호출, props, store stack 구조를 정리한 가이드 페이지입니다."
       >

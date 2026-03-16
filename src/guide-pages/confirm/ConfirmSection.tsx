@@ -13,14 +13,17 @@ const ConfirmOptionsGuideProp = memo(function ConfirmOptionsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="title | description | icon | cancelText | confirmText | onCancel | onConfirm | className"
-      typeLabel="ReactNode | ReactNode | ReactNode | ReactNode | ReactNode | (() => void) | (() => void) | string"
+      name="title | description | icon | cancelText | confirmText | shouldCloseOnCancel | shouldCloseOnConfirm | onCancel | onConfirm | className"
+      typeLabel="ReactNode | ReactNode | ReactNode | ReactNode | ReactNode | boolean | boolean | (() => void) | (() => void) | string"
       description={
         <>
           - Confirm은 Alert와 같은 고정형 popup 구조를 유지하면서, 취소와 확인
           두 액션을 함께 제공하는 패턴입니다.
           <br /> - `title`, `description`, `icon`은 Alert와 동일한 의미로
           사용하고, 버튼 텍스트와 cancel/confirm callback만 확장됩니다.
+          <br /> - `shouldCloseOnCancel`, `shouldCloseOnConfirm`의 기본값은 모두
+          `true`이고, `false`로 두면 버튼 클릭 이후에도 현재 Confirm을 유지한
+          채 후속 popup을 열 수 있습니다.
           <br /> - `onCancel`, `onConfirm`은 각 버튼 클릭 시 실행된 뒤 popup이
           닫힙니다.
         </>
@@ -76,6 +79,28 @@ const ConfirmOptionsGuideProp = memo(function ConfirmOptionsGuideProp() {
       >
         cancel / confirm 액션 Confirm
       </Button>
+
+      <Button
+        color="primary"
+        variant="line"
+        onClick={() =>
+          confirm.open({
+            title: "다음 단계 확인",
+            description:
+              "확인을 눌러도 현재 Confirm을 닫지 않고 다음 Confirm을 이어서 띄웁니다.",
+            confirmText: "다음 Confirm",
+            shouldCloseOnConfirm: false,
+            onConfirm: () => {
+              confirm.open({
+                title: "후속 Confirm",
+                description: "이전 Confirm을 유지한 채 새 Confirm을 추가했습니다.",
+              });
+            },
+          })
+        }
+      >
+        닫지 않고 다음 Confirm 열기
+      </Button>
     </GuideProp>
   );
 });
@@ -85,13 +110,15 @@ const ConfirmBehaviorGuideProp = memo(function ConfirmBehaviorGuideProp() {
     <GuideProp
       isWide
       name="Confirm 고정 동작"
+      typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false | shouldCloseOnCancel=true | shouldCloseOnConfirm=true"
       description={
         <>
           - Confirm도 Alert와 동일하게 닫기 버튼, backdrop click, `Escape`
           닫힘을 모두 막아두고 버튼 액션으로만 닫히게 합니다.
           <br /> - 취소 버튼은 `onCancel`, 확인 버튼은 `onConfirm` 흐름을
           담당합니다.
-          <br /> - 현재 기본 레이아웃은 small size와 중앙 정렬을 유지합니다.
+          <br /> - 현재 기본 레이아웃은 small size와 중앙 정렬을 유지하고,
+          버튼 클릭 후 자동 닫힘 기본값은 둘 다 `true`입니다.
         </>
       }
     >
@@ -104,6 +131,12 @@ const ConfirmBehaviorGuideProp = memo(function ConfirmBehaviorGuideProp() {
           </li>
           <li className="guidePopupState__item">
             `shouldCloseOnEscape = false`
+          </li>
+          <li className="guidePopupState__item">
+            `shouldCloseOnCancel = true`
+          </li>
+          <li className="guidePopupState__item">
+            `shouldCloseOnConfirm = true`
           </li>
           <li className="guidePopupState__item">`size = small`</li>
         </ul>

@@ -2,6 +2,7 @@ import {
   Button,
   ButtonGroup,
   Field,
+  LayerPopup,
   RHFCheckbox,
   RHFDatepicker,
   RHFPassword,
@@ -12,6 +13,11 @@ import {
 } from "@/components";
 import { GuideLayout, GuideSection } from "@/components/Guide";
 import { CalendarIcon } from "@/components/Icon";
+import {
+  type LayerPopupComponentProps,
+  useConfirm,
+  useLayerPopup,
+} from "@/components/Popup";
 import { format } from "date-fns";
 import Head from "next/head";
 import { type CSSProperties, useState } from "react";
@@ -37,6 +43,20 @@ type SIGNUP_FORM_TYPE = {
   agreeTerms: boolean;
 };
 
+type SIGNUP_DETAIL_FORM_TYPE = {
+  workspaceName: string;
+  workspaceType: "solo" | "team" | "agency";
+  onboardingGoal: string;
+  receiveOnboardingGuide: boolean;
+};
+
+type SUBMITTED_SIGNUP_FORM = Omit<SIGNUP_FORM_TYPE, "password">;
+
+type SUBMITTED_SIGNUP_RESULT = {
+  signupForm: SUBMITTED_SIGNUP_FORM;
+  signupDetailForm: SIGNUP_DETAIL_FORM_TYPE;
+};
+
 const SIGNUP_FORM: SIGNUP_FORM_TYPE = {
   fullName: "",
   email: "",
@@ -46,6 +66,13 @@ const SIGNUP_FORM: SIGNUP_FORM_TYPE = {
   notificationCycle: "weekly",
   receiveEvent: true,
   agreeTerms: false,
+};
+
+const SIGNUP_DETAIL_FORM: SIGNUP_DETAIL_FORM_TYPE = {
+  workspaceName: "",
+  workspaceType: "team",
+  onboardingGoal: "",
+  receiveOnboardingGuide: true,
 };
 
 type LogoIcon = {
@@ -80,6 +107,7 @@ const UI_LIBRARIES: LibraryItem[] = [
   { label: "react-day-picker", isCalendar: true },
   { label: "date-fns", icon: siDatefns },
   { label: "classnames", monogram: "cn" },
+  { label: "zustand", monogram: "zt" },
 ];
 
 const MOTION_LIBRARIES: LibraryItem[] = [
@@ -127,6 +155,15 @@ const NOTIFICATION_CYCLE_LABEL: Record<string, string> = {
   monthly: "월 1회 받기",
 };
 
+const WORKSPACE_TYPE_LABEL: Record<
+  SIGNUP_DETAIL_FORM_TYPE["workspaceType"],
+  string
+> = {
+  solo: "개인 작업",
+  team: "사내 협업",
+  agency: "대행 / 외주 운영",
+};
+
 function LibraryLogo({ item }: { item: LibraryItem }) {
   const style = item.icon
     ? ({ color: `#${item.icon.hex}` } as CSSProperties)
@@ -160,10 +197,199 @@ function LibraryList({ items }: { items: LibraryItem[] }) {
   );
 }
 
+type CreateSignupDetailLayerPopupParams = {
+  signupValue: SIGNUP_FORM_TYPE;
+  onComplete: (detailValue: SIGNUP_DETAIL_FORM_TYPE) => void;
+};
+
+function createSignupDetailLayerPopup({
+  signupValue,
+  onComplete,
+}: CreateSignupDetailLayerPopupParams): React.ComponentType<LayerPopupComponentProps> {
+  const defaultDetailForm: SIGNUP_DETAIL_FORM_TYPE = {
+    ...SIGNUP_DETAIL_FORM,
+    workspaceName: signupValue.fullName
+      ? `${signupValue.fullName}님의 워크스페이스`
+      : "",
+    onboardingGoal:
+      signupValue.profileKeyword || "첫 팀 온보딩을 빠르게 완료하기",
+  };
+
+  function SignupDetailLayerPopup(runtimeProps: LayerPopupComponentProps) {
+    const {
+      control: popupControl,
+      handleSubmit: handlePopupSubmit,
+      formState: {
+        errors: popupErrors,
+        isSubmitting: isPopupSubmitting,
+      },
+    } = useForm<SIGNUP_DETAIL_FORM_TYPE>({
+      mode: "onSubmit",
+      defaultValues: defaultDetailForm,
+    });
+
+    const handleConfirm = handlePopupSubmit((detailValue) => {
+      onComplete(detailValue);
+      runtimeProps.onRequestClose?.();
+    });
+
+    return (
+      <LayerPopup
+        {...runtimeProps}
+        title="가입 상세 설정"
+        description="메인 회원가입 폼이 통과되면 LayerPopup 안에서 워크스페이스 정보를 한 번 더 입력하는 흐름입니다."
+        size="large"
+        shouldCloseOnBackdrop={false}
+        footer={
+          <ButtonGroup>
+            <ButtonGroup.Item>
+              <Button
+                type="button"
+                variant="line"
+                onClick={runtimeProps.onRequestClose}
+              >
+                취소
+              </Button>
+            </ButtonGroup.Item>
+            <ButtonGroup.Item>
+              <Button
+                type="button"
+                color="primary"
+                disabled={isPopupSubmitting}
+                onClick={handleConfirm}
+              >
+                가입 완료
+              </Button>
+            </ButtonGroup.Item>
+          </ButtonGroup>
+        }
+      >
+        <div className="homeSignupPopup">
+          <div className="homeSignupPopup__summary">
+            <div className="homeSignupPopup__summaryCard">
+              <span className="homeSignupPopup__summaryLabel">기본 이름</span>
+              <strong className="homeSignupPopup__summaryValue">
+                {signupValue.fullName}
+              </strong>
+            </div>
+            <div className="homeSignupPopup__summaryCard">
+              <span className="homeSignupPopup__summaryLabel">이메일</span>
+              <strong className="homeSignupPopup__summaryValue">
+                {signupValue.email}
+              </strong>
+            </div>
+            <div className="homeSignupPopup__summaryCard">
+              <span className="homeSignupPopup__summaryLabel">알림 주기</span>
+              <strong className="homeSignupPopup__summaryValue">
+                {NOTIFICATION_CYCLE_LABEL[signupValue.notificationCycle]}
+              </strong>
+            </div>
+          </div>
+
+          <form
+            className="guideFormStack"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void handleConfirm();
+            }}
+          >
+            <Field>
+              <Field.Label>워크스페이스 이름</Field.Label>
+              <RHFTextfield
+                name="workspaceName"
+                control={popupControl}
+                placeholder="워크스페이스 이름을 입력해주세요"
+                isClearable
+                rules={{
+                  required: "워크스페이스 이름을 입력해주세요.",
+                  validate: (fieldValue) =>
+                    fieldValue.trim().length > 0 ||
+                    "공백만 입력할 수 없습니다.",
+                }}
+              />
+            </Field>
+
+            <Field>
+              <p className="homeForm__groupLabel">운영 형태</p>
+              <RadioGroup
+                name="workspaceType"
+                isError={Boolean(popupErrors.workspaceType)}
+              >
+                <Field.Item>
+                  <RHFRadio
+                    name="workspaceType"
+                    control={popupControl}
+                    value="solo"
+                    rules={{ required: "운영 형태를 선택해주세요." }}
+                  />
+                  <Field.Label>개인 작업</Field.Label>
+                </Field.Item>
+                <Field.Item>
+                  <RHFRadio
+                    name="workspaceType"
+                    control={popupControl}
+                    value="team"
+                    rules={{ required: "운영 형태를 선택해주세요." }}
+                  />
+                  <Field.Label>사내 협업</Field.Label>
+                </Field.Item>
+                <Field.Item>
+                  <RHFRadio
+                    name="workspaceType"
+                    control={popupControl}
+                    value="agency"
+                    rules={{ required: "운영 형태를 선택해주세요." }}
+                  />
+                  <Field.Label>대행 / 외주 운영</Field.Label>
+                </Field.Item>
+              </RadioGroup>
+              <Field.Message errorMessage={popupErrors.workspaceType?.message} />
+            </Field>
+
+            <Field>
+              <Field.Label>도입 목적</Field.Label>
+              <RHFTextfield
+                name="onboardingGoal"
+                control={popupControl}
+                placeholder="도입 목적을 입력해주세요"
+                isClearable
+                rules={{
+                  required: "도입 목적을 입력해주세요.",
+                  validate: (fieldValue) =>
+                    fieldValue.trim().length >= 4 ||
+                    "도입 목적은 4자 이상 입력해주세요.",
+                }}
+              />
+            </Field>
+
+            <Field>
+              <Field.Item align="start">
+                <RHFCheckbox
+                  name="receiveOnboardingGuide"
+                  control={popupControl}
+                />
+                <Field.Label>
+                  시작 가이드와 샘플 템플릿 메일을 함께 받겠습니다.
+                </Field.Label>
+              </Field.Item>
+            </Field>
+          </form>
+        </div>
+      </LayerPopup>
+    );
+  }
+
+  SignupDetailLayerPopup.displayName = "SignupDetailLayerPopup";
+
+  return SignupDetailLayerPopup;
+}
+
 export default function Home() {
   const [lastSearchKeyword, setLastSearchKeyword] = useState("");
-  const [submittedSignupForm, setSubmittedSignupForm] =
-    useState<SIGNUP_FORM_TYPE | null>(null);
+  const [submittedSignupResult, setSubmittedSignupResult] =
+    useState<SUBMITTED_SIGNUP_RESULT | null>(null);
+  const confirm = useConfirm();
+  const layerPopup = useLayerPopup();
   const {
     control,
     getValues,
@@ -182,12 +408,47 @@ export default function Home() {
   const handleReset = () => {
     reset(SIGNUP_FORM);
     setLastSearchKeyword("");
-    setSubmittedSignupForm(null);
+    setSubmittedSignupResult(null);
   };
 
-  const onSubmit = async (value: SIGNUP_FORM_TYPE) => {
-    console.log(value);
-    setSubmittedSignupForm(value);
+  const handleResetWithConfirm = async () => {
+    const isConfirmed = await confirm.openAsync({
+      title: "입력값 초기화",
+      description:
+        "회원가입 폼 입력값과 제출 결과를 모두 초기화합니다. 계속 진행할까요?",
+      confirmText: "초기화",
+      cancelText: "취소",
+    });
+
+    if (!isConfirmed) {
+      return;
+    }
+
+    handleReset();
+  };
+
+  const onSubmit = (value: SIGNUP_FORM_TYPE) => {
+    layerPopup.open({
+      component: createSignupDetailLayerPopup({
+        signupValue: value,
+        onComplete: (detailValue) => {
+          const signupForm: SUBMITTED_SIGNUP_FORM = {
+            fullName: value.fullName,
+            email: value.email,
+            profileKeyword: value.profileKeyword,
+            birthDate: value.birthDate,
+            notificationCycle: value.notificationCycle,
+            receiveEvent: value.receiveEvent,
+            agreeTerms: value.agreeTerms,
+          };
+
+          setSubmittedSignupResult({
+            signupForm,
+            signupDetailForm: detailValue,
+          });
+        },
+      }),
+    });
   };
 
   return (
@@ -202,7 +463,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GuideLayout
-        currentPath="/"
         title="프로젝트 개요"
         description="Next 환경에서 사용 가능한 공용 UI를 한눈에 확인할 수 있도록 가이드 형태로 제작한 프로젝트입니다."
       >
@@ -270,7 +530,7 @@ export default function Home() {
         <GuideSection
           label="Sample Form"
           title="회원가입 폼 예시"
-          description="지금까지 만든 폼 계열 컴포넌트를 실제 가입 흐름처럼 조합한 예시입니다."
+          description="지금까지 만든 폼 계열 컴포넌트를 실제 가입 흐름처럼 조합한 예시입니다. 기본 폼 검증 후 LayerPopup에서 추가 정보를 입력하면 결과 패널에 함께 반영됩니다."
         >
           <div className="homeForm">
             <form onSubmit={handleSubmit(onSubmit)} className="homeForm__form">
@@ -421,7 +681,13 @@ export default function Home() {
 
                 <ButtonGroup>
                   <ButtonGroup.Item shouldAutoWidth>
-                    <Button variant="line" type="button" onClick={handleReset}>
+                    <Button
+                      variant="line"
+                      type="button"
+                      onClick={() => {
+                        void handleResetWithConfirm();
+                      }}
+                    >
                       초기화
                     </Button>
                   </ButtonGroup.Item>
@@ -440,50 +706,104 @@ export default function Home() {
 
             <div className="homeForm__summary">
               <strong className="homeForm__summaryTitle">제출 결과</strong>
-              {submittedSignupForm ? (
-                <ul className="homeForm__summaryList">
-                  <li>
-                    <span>이름</span>
-                    <strong>{submittedSignupForm.fullName}</strong>
-                  </li>
-                  <li>
-                    <span>이메일</span>
-                    <strong>{submittedSignupForm.email}</strong>
-                  </li>
-                  <li>
-                    <span>관심 키워드</span>
-                    <strong>
-                      {submittedSignupForm.profileKeyword || "입력 안 함"}
+              {submittedSignupResult ? (
+                <>
+                  <div className="homeForm__summarySection">
+                    <strong className="homeForm__summarySectionTitle">
+                      기본 회원가입 정보
                     </strong>
-                  </li>
-                  <li>
-                    <span>생년월일</span>
-                    <strong>
-                      {submittedSignupForm.birthDate
-                        ? format(submittedSignupForm.birthDate, "yyyy.MM.dd")
-                        : "선택 안 함"}
+                    <ul className="homeForm__summaryList">
+                      <li>
+                        <span>이름</span>
+                        <strong>{submittedSignupResult.signupForm.fullName}</strong>
+                      </li>
+                      <li>
+                        <span>이메일</span>
+                        <strong>{submittedSignupResult.signupForm.email}</strong>
+                      </li>
+                      <li>
+                        <span>관심 키워드</span>
+                        <strong>
+                          {submittedSignupResult.signupForm.profileKeyword ||
+                            "입력 안 함"}
+                        </strong>
+                      </li>
+                      <li>
+                        <span>생년월일</span>
+                        <strong>
+                          {submittedSignupResult.signupForm.birthDate
+                            ? format(
+                                submittedSignupResult.signupForm.birthDate,
+                                "yyyy.MM.dd",
+                              )
+                            : "선택 안 함"}
+                        </strong>
+                      </li>
+                      <li>
+                        <span>알림 주기</span>
+                        <strong>
+                          {
+                            NOTIFICATION_CYCLE_LABEL[
+                              submittedSignupResult.signupForm.notificationCycle
+                            ]
+                          }
+                        </strong>
+                      </li>
+                      <li>
+                        <span>이벤트 수신</span>
+                        <strong>
+                          {submittedSignupResult.signupForm.receiveEvent
+                            ? "동의"
+                            : "미동의"}
+                        </strong>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="homeForm__summarySection">
+                    <strong className="homeForm__summarySectionTitle">
+                      LayerPopup 추가 정보
                     </strong>
-                  </li>
-                  <li>
-                    <span>알림 주기</span>
-                    <strong>
-                      {
-                        NOTIFICATION_CYCLE_LABEL[
-                          submittedSignupForm.notificationCycle
-                        ]
-                      }
-                    </strong>
-                  </li>
-                  <li>
-                    <span>이벤트 수신</span>
-                    <strong>
-                      {submittedSignupForm.receiveEvent ? "동의" : "미동의"}
-                    </strong>
-                  </li>
-                </ul>
+                    <ul className="homeForm__summaryList">
+                      <li>
+                        <span>워크스페이스 이름</span>
+                        <strong>
+                          {submittedSignupResult.signupDetailForm.workspaceName}
+                        </strong>
+                      </li>
+                      <li>
+                        <span>운영 형태</span>
+                        <strong>
+                          {
+                            WORKSPACE_TYPE_LABEL[
+                              submittedSignupResult.signupDetailForm
+                                .workspaceType
+                            ]
+                          }
+                        </strong>
+                      </li>
+                      <li>
+                        <span>도입 목적</span>
+                        <strong>
+                          {submittedSignupResult.signupDetailForm.onboardingGoal}
+                        </strong>
+                      </li>
+                      <li>
+                        <span>시작 가이드 메일</span>
+                        <strong>
+                          {submittedSignupResult.signupDetailForm
+                            .receiveOnboardingGuide
+                            ? "수신"
+                            : "미수신"}
+                        </strong>
+                      </li>
+                    </ul>
+                  </div>
+                </>
               ) : (
                 <p className="homeForm__summaryDescription">
-                  폼을 제출하면 입력한 값이 이 영역에 정리됩니다.
+                  메인 폼을 통과한 뒤 LayerPopup 확인까지 완료하면 입력한 값이 이
+                  영역에 정리됩니다.
                 </p>
               )}
             </div>

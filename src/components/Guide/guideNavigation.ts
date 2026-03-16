@@ -60,4 +60,24 @@ export const guideNavigation: GuideNavigationItem[] = [
     label: "Confirm",
     description: "Confirm / useConfirm",
   },
+  {
+    href: "/layer-popup",
+    label: "LayerPopup",
+    description: "LayerPopup / useLayerPopup",
+  },
+  {
+    href: "/bottom-sheet",
+    label: "BottomSheet",
+    description: "BottomSheet / useBottomSheet",
+  },
+  {
+    href: "/full-popup",
+    label: "FullPopup",
+    description: "FullPopup / useFullPopup",
+  },
+  {
+    href: "/toast",
+    label: "Toast",
+    description: "Toast / useToast",
+  },
 ];

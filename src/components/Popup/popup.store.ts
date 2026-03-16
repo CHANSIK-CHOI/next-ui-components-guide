@@ -2,10 +2,18 @@ import { create } from "zustand";
 import { useMemo } from "react";
 import type {
   AlertPopupOptions,
+  BottomSheetOptions,
   ConfirmPopupOptions,
+  FullPopupOptions,
+  LayerPopupOptions,
 } from "./PopupBase.types";
 
-export type PopupType = "alert" | "confirm";
+export type PopupType =
+  | "alert"
+  | "confirm"
+  | "layerPopup"
+  | "bottomSheet"
+  | "fullPopup";
 export type PopupStatus = "open" | "closing";
 
 type AlertPopupItem = {
@@ -22,7 +30,33 @@ type ConfirmPopupItem = {
   props: ConfirmPopupOptions;
 };
 
-export type PopupItem = AlertPopupItem | ConfirmPopupItem;
+type LayerPopupItem = {
+  id: string;
+  type: "layerPopup";
+  status: PopupStatus;
+  props: LayerPopupOptions;
+};
+
+type BottomSheetItem = {
+  id: string;
+  type: "bottomSheet";
+  status: PopupStatus;
+  props: BottomSheetOptions;
+};
+
+type FullPopupItem = {
+  id: string;
+  type: "fullPopup";
+  status: PopupStatus;
+  props: FullPopupOptions;
+};
+
+export type PopupItem =
+  | AlertPopupItem
+  | ConfirmPopupItem
+  | LayerPopupItem
+  | BottomSheetItem
+  | FullPopupItem;
 
 export type PopupSnapshot = Pick<PopupItem, "id" | "type" | "status">;
 
@@ -30,6 +64,9 @@ type PopupStore = {
   items: PopupItem[];
   openAlert: (options: AlertPopupOptions) => string;
   openConfirm: (options: ConfirmPopupOptions) => string;
+  openLayerPopup: (options: LayerPopupOptions) => string;
+  openBottomSheet: (options: BottomSheetOptions) => string;
+  openFullPopup: (options: FullPopupOptions) => string;
   closePopup: (id: string) => void;
   removePopup: (id: string) => void;
   closeAll: () => void;
@@ -40,6 +77,22 @@ function createPopupId(type: PopupType) {
   return `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
+function appendPopupItem(
+  items: PopupItem[],
+  nextItem: PopupItem,
+  actionName: string,
+) {
+  const isDuplicateId = items.some((item) => item.id === nextItem.id);
+
+  if (isDuplicateId) {
+    throw new Error(
+      `Popup with id "${nextItem.id}" already exists. ${actionName} only creates new popups.`,
+    );
+  }
+
+  return [...items, nextItem];
+}
+
 // set : store 상태를 바꾸는 함수
 export const usePopupStore = create<PopupStore>()((set) => ({
   items: [],
@@ -47,24 +100,17 @@ export const usePopupStore = create<PopupStore>()((set) => ({
     const id = options.id ?? createPopupId("alert");
 
     set((state) => {
-      const isDuplicateId = state.items.some((item) => item.id === id);
-
-      if (isDuplicateId) {
-        throw new Error(
-          `Popup with id "${id}" already exists. openAlert only creates new popups.`,
-        );
-      }
-
       return {
-        items: [
-          ...state.items,
+        items: appendPopupItem(
+          state.items,
           {
             id,
             type: "alert",
             status: "open",
             props: options,
           },
-        ],
+          "openAlert",
+        ),
       };
     });
 
@@ -74,26 +120,73 @@ export const usePopupStore = create<PopupStore>()((set) => ({
     const id = options.id ?? createPopupId("confirm");
 
     set((state) => {
-      const isDuplicateId = state.items.some((item) => item.id === id);
-
-      if (isDuplicateId) {
-        throw new Error(
-          `Popup with id "${id}" already exists. openConfirm only creates new popups.`,
-        );
-      }
-
       return {
-        items: [
-          ...state.items,
+        items: appendPopupItem(
+          state.items,
           {
             id,
             type: "confirm",
             status: "open",
             props: options,
           },
-        ],
+          "openConfirm",
+        ),
       };
     });
+
+    return id;
+  },
+  openLayerPopup: (options) => {
+    const id = options.id ?? createPopupId("layerPopup");
+
+    set((state) => ({
+      items: appendPopupItem(
+        state.items,
+        {
+          id,
+          type: "layerPopup",
+          status: "open",
+          props: options,
+        },
+        "openLayerPopup",
+      ),
+    }));
+
+    return id;
+  },
+  openBottomSheet: (options) => {
+    const id = options.id ?? createPopupId("bottomSheet");
+
+    set((state) => ({
+      items: appendPopupItem(
+        state.items,
+        {
+          id,
+          type: "bottomSheet",
+          status: "open",
+          props: options,
+        },
+        "openBottomSheet",
+      ),
+    }));
+
+    return id;
+  },
+  openFullPopup: (options) => {
+    const id = options.id ?? createPopupId("fullPopup");
+
+    set((state) => ({
+      items: appendPopupItem(
+        state.items,
+        {
+          id,
+          type: "fullPopup",
+          status: "open",
+          props: options,
+        },
+        "openFullPopup",
+      ),
+    }));
 
     return id;
   },

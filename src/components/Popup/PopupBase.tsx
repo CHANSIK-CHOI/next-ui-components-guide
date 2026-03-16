@@ -1,9 +1,10 @@
 import cn from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useId } from "react";
+import { useId } from "react";
 import { CloseIcon } from "@/components/Icon";
 import type { Transition } from "framer-motion";
 import type { PopupBaseProps, PopupVariant } from "./PopupBase.types";
+import usePopupPanelA11y from "./usePopupPanelA11y";
 
 const nameBlock = "popup";
 
@@ -53,6 +54,7 @@ export default function PopupBase({
   size = "regular",
   contentAlign = "center",
   title,
+  icon,
   description,
   footer,
   hasCloseButton = true,
@@ -63,34 +65,21 @@ export default function PopupBase({
   onRequestClose,
   onClickClose,
   onExited,
+  isTopmost = false,
 }: PopupBaseProps) {
   const generatedTitleId = useId();
   const generatedDescriptionId = useId();
   const panelMotion = getPanelMotion(variant);
   const hasHeader = Boolean(title) || hasCloseButton;
+  const { panelRef } = usePopupPanelA11y({
+    open,
+    isTopmost,
+    shouldCloseOnEscape,
+    onRequestClose,
+  });
 
   const titleId = title ? generatedTitleId : undefined;
   const descriptionId = description ? generatedDescriptionId : undefined;
-
-  useEffect(() => {
-    if (!open || !shouldCloseOnEscape) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") {
-        return;
-      }
-
-      onRequestClose?.();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onRequestClose, open, shouldCloseOnEscape]);
 
   const handleBackdropClick = () => {
     if (!shouldCloseOnBackdrop) {
@@ -158,12 +147,14 @@ export default function PopupBase({
 
           <div className={cn(`${nameBlock}__positioner`)}>
             <motion.section
+              ref={panelRef}
               role="dialog"
               aria-modal="true"
               aria-label={titleId ? undefined : (dialogLabel ?? "팝업")}
               aria-labelledby={titleId}
               aria-describedby={descriptionId}
               className={cn(`${nameBlock}__panel`, panelClassName)}
+              tabIndex={-1}
               initial={panelMotion.initial}
               animate={panelMotion.animate}
               exit={panelMotion.exit}
@@ -172,6 +163,9 @@ export default function PopupBase({
               {headerContent}
 
               <div className={cn(`${nameBlock}__body`, bodyClassName)}>
+                {icon !== null && icon !== undefined && (
+                  <div className={cn(`${nameBlock}__icon`)}>{icon}</div>
+                )}
                 {description && (
                   <p
                     id={descriptionId}

@@ -13,8 +13,8 @@ const AlertOptionsGuideProp = memo(function AlertOptionsGuideProp() {
   return (
     <GuideProp
       isWide
-      name="title | description | icon | confirmText | onConfirm | className"
-      typeLabel="ReactNode | ReactNode | ReactNode | ReactNode | (() => void) | string"
+      name="title | description | icon | confirmText | shouldCloseOnConfirm | onConfirm | className"
+      typeLabel="ReactNode | ReactNode | ReactNode | ReactNode | boolean | (() => void) | string"
       description={
         <>
           - Alert는 아이콘, 제목, 설명, 확인 버튼 텍스트만 바꿔서 쓰는 고정형
@@ -23,8 +23,11 @@ const AlertOptionsGuideProp = memo(function AlertOptionsGuideProp() {
           기본 텍스트입니다.
           <br /> - `icon`은 기본 경고 아이콘 대신 다른 시각 요소로 바꿀 수 있고,
           `className`은 Alert 루트 스타일을 확장할 때 사용합니다.
+          <br /> - `shouldCloseOnConfirm`의 기본값은 `true`이고, `false`로 두면
+          확인 버튼 클릭 이후에도 현재 Alert를 유지한 채 다른 popup을 이어서
+          띄울 수 있습니다.
           <br /> - `onConfirm`을 전달하면 확인 버튼 클릭 시 원하는 후처리를
-          실행한 뒤 Alert가 닫힙니다.
+          실행하고, 기본적으로는 그 뒤 Alert가 닫힙니다.
         </>
       }
     >
@@ -68,6 +71,32 @@ const AlertOptionsGuideProp = memo(function AlertOptionsGuideProp() {
         }
       >
         확인 액션이 있는 Alert
+      </Button>
+
+      <Button
+        color="primary"
+        variant="line"
+        onClick={() =>
+          alert.open({
+            title: "연속 popup 예시",
+            description:
+              "확인을 눌러도 현재 Alert를 닫지 않고 다음 Alert를 이어서 띄웁니다.",
+            confirmText: "다음 Alert 열기",
+            shouldCloseOnConfirm: false,
+            onConfirm: () => {
+              alert.open({
+                title: "다음 Alert",
+                description:
+                  "이전 Alert를 유지한 상태에서 새 Alert를 추가했습니다.",
+                onConfirm: () => {
+                  alert.closeAll();
+                },
+              });
+            },
+          })
+        }
+      >
+        닫지 않고 다음 Alert 열기
       </Button>
     </GuideProp>
   );
@@ -151,6 +180,7 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
     <GuideProp
       isWide
       name="Alert 고정 동작"
+      typeLabel="hasCloseButton=false | shouldCloseOnBackdrop=false | shouldCloseOnEscape=false | shouldCloseOnConfirm=true"
       description={
         <>
           - Alert는 `PopupBase`를 그대로 노출하는 페이지가 아니라, 고정된 규칙을
@@ -158,7 +188,7 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
           <br /> - 닫기 버튼은 없고, backdrop 클릭이나 `Escape`로 닫히지
           않습니다.
           <br /> - 현재 구조에서는 확인 버튼을 통한 닫기 흐름을 기본 동작으로
-          사용합니다.
+          사용하고, 확인 클릭 후 자동 닫힘 기본값은 `true`입니다.
         </>
       }
     >
@@ -171,6 +201,9 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
           </li>
           <li className="guidePopupState__item">
             `shouldCloseOnEscape = false`
+          </li>
+          <li className="guidePopupState__item">
+            `shouldCloseOnConfirm = true`
           </li>
           <li className="guidePopupState__item">`size = small`</li>
         </ul>

@@ -3,6 +3,7 @@
 
 $guideState: "guidePopupState";
 $guideActions: "guidePopupActions";
+$guidePopupDemo: "guidePopupDemo";
 
 .guideSection {
   display: flex;
@@ -263,7 +264,7 @@ $guideActions: "guidePopupActions";
   &--floating {
     position: fixed;
     top: 2rem;
-    left: 2rem;
+    // left: 2rem;
     right: 2rem;
     width: auto;
     max-width: 36rem;
@@ -282,14 +283,19 @@ $guideActions: "guidePopupActions";
 
 .#{$guideActions} {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 2rem;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  width: auto;
+  max-width: 36rem;
   z-index: func.z("overlay-layer") + 1;
-  padding: 0 2rem;
-
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.14);
   @include mix.respond-to("desktop") {
-    padding: 0 20rem;
+    top: 3.2rem;
+    left: auto;
+    right: 2rem;
   }
 }
 
@@ -303,6 +309,102 @@ $guideActions: "guidePopupActions";
   overflow-x: auto;
   white-space: pre-wrap;
   @include mix.typo(1.3rem, 1.4rem, "regular", 1.7);
+}
+
+.#{$guidePopupDemo} {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  &__intro {
+    color: var(--text-color-2);
+    @include mix.typo(1.4rem, 2rem, "regular");
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0 1rem;
+    border-radius: 999px;
+    background: rgba(17, 24, 39, 0.06);
+    color: var(--text-color-2);
+    @include mix.typo(1.2rem, 1.8rem, "semi-bold");
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @include mix.respond-to("tablet") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__card {
+    padding: 1.6rem;
+    border: 1px solid rgba(17, 24, 39, 0.08);
+    border-radius: 1.6rem;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  &__cardLabel {
+    color: var(--text-color-3);
+    @include mix.typo(1.1rem, 1.6rem, "bold");
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__cardTitle {
+    display: block;
+    margin-top: 0.6rem;
+    color: var(--text-color-1);
+    @include mix.typo(1.5rem, 2.1rem, "semi-bold");
+  }
+
+  &__cardText {
+    margin-top: 0.6rem;
+    color: var(--text-color-2);
+    @include mix.typo(1.4rem, 2rem, "regular");
+  }
+
+  &__sectionTitle {
+    display: block;
+    color: var(--text-color-1);
+    @include mix.typo(1.4rem, 2rem, "semi-bold");
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  &__listItem {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--text-color-2);
+    @include mix.typo(1.4rem, 2rem, "regular");
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0.7rem;
+      left: 0;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 999px;
+      background: var(--color-primary);
+    }
+  }
 }
 
 .homeOverview {
@@ -543,6 +645,20 @@ $guideActions: "guidePopupActions";
     }
   }
 
+  &__summarySection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  &__summarySectionTitle {
+    color: var(--text-color-1);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
   &__groupLabel,
   &__summaryTitle {
     color: var(--text-color-1);
@@ -586,5 +702,46 @@ $guideActions: "guidePopupActions";
       font-weight: 700;
       line-height: 1.5;
     }
+  }
+}
+
+.homeSignupPopup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+
+  &__summary {
+    display: grid;
+    gap: 1rem;
+
+    @include mix.respond-to("tablet") {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  &__summaryCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 1.6rem;
+    background: rgba(240, 251, 245, 0.72);
+    border: 1px solid rgba(28, 166, 115, 0.12);
+  }
+
+  &__summaryLabel {
+    color: var(--text-color-3);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  &__summaryValue {
+    color: var(--text-color-1);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.5;
   }
 }

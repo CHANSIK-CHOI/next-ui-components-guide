@@ -15,7 +15,6 @@ export default function DatepickerGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/datepicker"
         title="Datepicker / RHFDatepicker"
         description="controlled usage와 React Hook Form 연동 기준으로 Datepicker와 RHFDatepicker의 props와 예시를 정리한 가이드 페이지입니다."
       >

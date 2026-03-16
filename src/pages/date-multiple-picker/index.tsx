@@ -15,7 +15,6 @@ export default function DateMultiplePickerGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/date-multiple-picker"
         title="DateMultiplePicker / RHFDateMultiplePicker"
         description="controlled usage와 React Hook Form 연동 기준으로 DateMultiplePicker와 RHFDateMultiplePicker의 props와 예시를 정리한 가이드 페이지입니다."
       >

@@ -13,7 +13,6 @@ export default function CheckboxGuidePage() {
         />
       </Head>
       <GuideLayout
-        currentPath="/checkbox"
         title="Checkbox / CheckboxGroup / RHFCheckbox"
         description="controlled usage와 React Hook Form 연동 기준으로 Checkbox, CheckboxGroup, RHFCheckbox의 props와 예시를 정리한 가이드 페이지입니다."
       >

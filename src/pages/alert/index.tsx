@@ -14,7 +14,6 @@ export default function AlertGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/alert"
         title="Alert"
         description="Alert와 useAlert usage를 기준으로 전역 호출, props, store stack 구조를 정리한 가이드 페이지입니다."
       >

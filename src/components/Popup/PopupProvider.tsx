@@ -1,8 +1,9 @@
 import { createPortal } from "react-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Alert from "./Alert";
 import Confirm from "./Confirm";
 import { usePopupStore } from "./popup.store";
+import usePopupProviderA11y from "./usePopupProviderA11y";
 
 const POPUP_ROOT_ID = "popup-root";
 
@@ -14,25 +15,13 @@ export default function PopupProvider({ children }: PopupProviderProps) {
   const items = usePopupStore((state) => state.items);
   const closePopup = usePopupStore((state) => state.closePopup);
   const removePopup = usePopupStore((state) => state.removePopup);
-  const scrollTopRef = useRef(0);
-  const isScrollLockedRef = useRef(false);
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+  const topmostOpenPopupId = useMemo(
+    () => [...items].reverse().find((item) => item.status === "open")?.id,
+    [items],
+  );
 
-  const unlockScroll = useCallback((force = false) => {
-    if (!isScrollLockedRef.current) {
-      return;
-    }
-
-    if (!force && usePopupStore.getState().items.length > 0) {
-      return;
-    }
-
-    document.body.classList.remove("is-prevent-scroll");
-    document.body.style.removeProperty("--scroll-lock-top");
-    window.scrollTo(0, scrollTopRef.current);
-    scrollTopRef.current = 0;
-    isScrollLockedRef.current = false;
-  }, []);
+  usePopupProviderA11y({ hasPopup: items.length > 0 });
 
   const handleClosePopup = useCallback(
     (id: string) => {
@@ -49,27 +38,6 @@ export default function PopupProvider({ children }: PopupProviderProps) {
     }
   }, []);
 
-  useEffect(() => {
-    const hasPopup = items.length > 0;
-
-    if (hasPopup && !isScrollLockedRef.current) {
-      scrollTopRef.current =
-        window.scrollY || document.documentElement.scrollTop || 0;
-      document.body.classList.add("is-prevent-scroll");
-      document.body.style.setProperty(
-        "--scroll-lock-top",
-        `${scrollTopRef.current}px`,
-      );
-      isScrollLockedRef.current = true;
-    }
-
-    if (!hasPopup && isScrollLockedRef.current) {
-      unlockScroll();
-    }
-  }, [items.length, unlockScroll]);
-
-  useEffect(() => () => unlockScroll(true), [unlockScroll]);
-
   return (
     <>
       {children}
@@ -77,47 +45,87 @@ export default function PopupProvider({ children }: PopupProviderProps) {
         ? createPortal(
             <>
               {items.map((item) => {
-                if (item.type === "alert") {
-                  return (
-                    <Alert
-                      key={item.id}
-                      {...item.props}
-                      id={item.id}
-                      open={item.status === "open"}
-                      onConfirm={() => {
-                        item.props.onConfirm?.();
-                        handleClosePopup(item.id);
-                      }}
-                      onExited={() => {
-                        removePopup(item.id);
-                      }}
-                    />
-                  );
-                }
+                switch (item.type) {
+                  case "alert": {
+                    const { shouldCloseOnConfirm, ...alertProps } = item.props;
 
-                if (item.type === "confirm") {
-                  return (
-                    <Confirm
-                      key={item.id}
-                      {...item.props}
-                      id={item.id}
-                      open={item.status === "open"}
-                      onCancel={() => {
-                        item.props.onCancel?.();
-                        handleClosePopup(item.id);
-                      }}
-                      onConfirm={() => {
-                        item.props.onConfirm?.();
-                        handleClosePopup(item.id);
-                      }}
-                      onExited={() => {
-                        removePopup(item.id);
-                      }}
-                    />
-                  );
-                }
+                    return (
+                      <Alert
+                        key={item.id}
+                        {...alertProps}
+                        id={item.id}
+                        open={item.status === "open"}
+                        isTopmost={item.id === topmostOpenPopupId}
+                        onConfirm={() => {
+                          alertProps.onConfirm?.();
 
-                return null;
+                          if (shouldCloseOnConfirm ?? true) {
+                            handleClosePopup(item.id);
+                          }
+                        }}
+                        onExited={() => {
+                          removePopup(item.id);
+                        }}
+                      />
+                    );
+                  }
+                  case "confirm": {
+                    const {
+                      shouldCloseOnCancel,
+                      shouldCloseOnConfirm,
+                      ...confirmProps
+                    } = item.props;
+
+                    return (
+                      <Confirm
+                        key={item.id}
+                        {...confirmProps}
+                        id={item.id}
+                        open={item.status === "open"}
+                        isTopmost={item.id === topmostOpenPopupId}
+                        onCancel={() => {
+                          confirmProps.onCancel?.();
+
+                          if (shouldCloseOnCancel ?? true) {
+                            handleClosePopup(item.id);
+                          }
+                        }}
+                        onConfirm={() => {
+                          confirmProps.onConfirm?.();
+
+                          if (shouldCloseOnConfirm ?? true) {
+                            handleClosePopup(item.id);
+                          }
+                        }}
+                        onExited={() => {
+                          removePopup(item.id);
+                        }}
+                      />
+                    );
+                  }
+                  case "layerPopup":
+                  case "bottomSheet":
+                  case "fullPopup": {
+                    const PopupComponent = item.props.component;
+
+                    return (
+                      <PopupComponent
+                        key={item.id}
+                        id={item.id}
+                        open={item.status === "open"}
+                        isTopmost={item.id === topmostOpenPopupId}
+                        onRequestClose={() => {
+                          handleClosePopup(item.id);
+                        }}
+                        onExited={() => {
+                          removePopup(item.id);
+                        }}
+                      />
+                    );
+                  }
+                  default:
+                    return null;
+                }
               })}
             </>,
             portalRoot,

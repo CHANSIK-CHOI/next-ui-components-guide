@@ -15,7 +15,6 @@ export default function DateRangePickerGuidePage() {
       </Head>
 
       <GuideLayout
-        currentPath="/date-range-picker"
         title="DateRangePicker / RHFDateRangePicker"
         description="controlled usage와 React Hook Form 연동 기준으로 DateRangePicker와 RHFDateRangePicker의 props와 예시를 정리한 가이드 페이지입니다."
       >
