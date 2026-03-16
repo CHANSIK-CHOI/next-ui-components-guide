@@ -1,0 +1,114 @@
+@use "../abstracts/functions" as func;
+@use "../abstracts/mixins.scss" as mix;
+
+$module: "tooltip";
+
+.#{$module} {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  vertical-align: middle;
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+  }
+
+  &__panel {
+    position: absolute;
+    z-index: func.z("tooltip");
+    width: max-content;
+    max-width: min(28rem, calc(100vw - 3.2rem));
+  }
+
+  &__bubble {
+    position: relative;
+    padding: 1rem 1.2rem;
+    border-radius: 1.2rem;
+    background-color: var(--text-color-1);
+    box-shadow: 0 1.6rem 3.2rem rgba(15, 23, 42, 0.16);
+  }
+
+  &__content {
+    display: block;
+    color: var(--color-white);
+    white-space: normal;
+    word-break: keep-all;
+    @include mix.typo(1.4rem, 1.4rem, "regular", 1.6);
+  }
+
+  &__arrow {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--text-color-1);
+    transform: rotate(45deg);
+  }
+
+  &--topCenter &__panel {
+    bottom: calc(100% + 1.2rem);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--topLeft &__panel {
+    bottom: calc(100% + 1.2rem);
+    left: 0;
+  }
+
+  &--topRight &__panel {
+    right: 0;
+    bottom: calc(100% + 1.2rem);
+  }
+
+  &--bottomCenter &__panel {
+    top: calc(100% + 1.2rem);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--bottomLeft &__panel {
+    top: calc(100% + 1.2rem);
+    left: 0;
+  }
+
+  &--bottomRight &__panel {
+    top: calc(100% + 1.2rem);
+    right: 0;
+  }
+
+  &--topCenter &__arrow,
+  &--topLeft &__arrow,
+  &--topRight &__arrow {
+    bottom: -0.5rem;
+  }
+
+  &--bottomCenter &__arrow,
+  &--bottomLeft &__arrow,
+  &--bottomRight &__arrow {
+    top: -0.5rem;
+  }
+
+  &--topCenter &__arrow,
+  &--bottomCenter &__arrow {
+    left: 50%;
+    margin-left: -0.5rem;
+  }
+
+  &--topLeft &__arrow,
+  &--bottomLeft &__arrow {
+    left: 1.6rem;
+  }
+
+  &--topRight &__arrow,
+  &--bottomRight &__arrow {
+    right: 1.6rem;
+  }
+
+  &.is-disabled {
+    opacity: 1;
+  }
+}

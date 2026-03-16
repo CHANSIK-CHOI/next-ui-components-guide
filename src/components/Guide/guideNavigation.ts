@@ -41,6 +41,11 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Select / MultiSelect / RHFSelect / RHFMultiSelect",
   },
   {
+    href: "/tooltip",
+    label: "Tooltip",
+    description: "Tooltip",
+  },
+  {
     href: "/search",
     label: "Search",
     description: "Search / RHFSearch",

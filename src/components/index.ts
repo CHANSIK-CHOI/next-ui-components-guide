@@ -25,6 +25,7 @@ export { default as Select } from "./Select/Select";
 export { default as MultiSelect } from "./Select/MultiSelect";
 export { default as RHFSelect } from "./Select/RHFSelect";
 export { default as RHFMultiSelect } from "./Select/RHFMultiSelect";
+export { default as Tooltip } from "./Tooltip/Tooltip";
 export { default as Search } from "./Textfield/Search";
 export { default as Password } from "./Textfield/Password";
 export { default as RHFSearch } from "./Textfield/RHFSearch";
