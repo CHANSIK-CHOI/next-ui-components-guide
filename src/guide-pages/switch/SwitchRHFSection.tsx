@@ -59,16 +59,15 @@ export default function SwitchRHFSection() {
     },
   });
 
-  const { control: statePreviewControl } = useForm<SwitchStatePreviewFormValues>(
-    {
+  const { control: statePreviewControl } =
+    useForm<SwitchStatePreviewFormValues>({
       mode: "onSubmit",
       defaultValues: {
         disabledAutoSave: true,
         readOnlyLocationAccess: true,
         errorPreview: false,
       },
-    },
-  );
+    });
 
   const handleBasicFormSubmit = async (values: SwitchBasicFormValues) => {
     console.log(values);
@@ -80,9 +79,7 @@ export default function SwitchRHFSection() {
     console.log(values);
   };
 
-  const handleOptionalFormSubmit = async (
-    values: SwitchOptionalFormValues,
-  ) => {
+  const handleOptionalFormSubmit = async (values: SwitchOptionalFormValues) => {
     console.log(values);
     setOptionalSubmitResult(JSON.stringify(values));
   };
@@ -202,9 +199,6 @@ export default function SwitchRHFSection() {
             />
             <Field.Label>readOnly 예시</Field.Label>
           </Field.Item>
-          <Field.Description>
-            readOnly에서는 현재 토글 상태를 유지한 채 변경만 막습니다.
-          </Field.Description>
         </Field>
         <Field>
           <Field.Item>
@@ -215,7 +209,7 @@ export default function SwitchRHFSection() {
             />
             <Field.Label>isError 예시</Field.Label>
           </Field.Item>
-          <Field.Message errorMessage="시각 에러 상태를 강제로 표시한 예시입니다." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
 

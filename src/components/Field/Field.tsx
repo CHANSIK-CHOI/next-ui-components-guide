@@ -5,14 +5,25 @@ import Message from "../Textfield/Message";
 
 const nameBlock = "field";
 
+type FieldGridProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
 export type FieldProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode;
   inputId?: string;
   direction?: "row" | "column";
   align?: "start" | "center";
 };
-
-export type FieldLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
+type FieldLabelAsLabel = React.LabelHTMLAttributes<HTMLLabelElement> & {
+  as?: "label";
+};
+type FieldLabelAsSpan = React.HTMLAttributes<HTMLSpanElement> & {
+  as?: "span";
+  htmlFor?: never;
+};
+export type FieldLabelProps = FieldLabelAsLabel | FieldLabelAsSpan;
 export type FieldDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 export type FieldMessageProps = {
   className?: string;
@@ -87,13 +98,26 @@ function FieldItem({
   );
 }
 
+function FieldGrid({ children, className }: FieldGridProps) {
+  return <div className={cn(`${nameBlock}__grid`, className)}>{children}</div>;
+}
+
 function FieldLabel({
   children,
   className,
   htmlFor,
+  as = "label",
   ...rest
 }: FieldLabelProps) {
   const { inputId: fieldContextId } = useFieldContext();
+
+  if (as == "span") {
+    return (
+      <span {...rest} className={cn(`${nameBlock}__label`, className)}>
+        {children}
+      </span>
+    );
+  }
 
   return (
     <label
@@ -134,6 +158,7 @@ function FieldMessage({
 
 type FieldComponent = typeof FieldRoot & {
   Item: typeof FieldItem;
+  Grid: typeof FieldGrid;
   Label: typeof FieldLabel;
   Description: typeof FieldDescription;
   Message: typeof FieldMessage;
@@ -141,6 +166,7 @@ type FieldComponent = typeof FieldRoot & {
 
 const Field = Object.assign(FieldRoot, {
   Item: FieldItem,
+  Grid: FieldGrid,
   Label: FieldLabel,
   Description: FieldDescription,
   Message: FieldMessage,

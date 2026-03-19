@@ -25,7 +25,7 @@ export default function TooltipSection() {
 
       <GuideProp
         name="placement"
-        typeLabel='\"topCenter\" | \"topLeft\" | \"topRight\" | \"bottomCenter\" | \"bottomLeft\" | \"bottomRight\"'
+        typeLabel='"topCenter" | "topLeft" | "topRight" | "bottomCenter" | "bottomLeft" | "bottomRight"'
         defaultValue="topCenter"
         description="배치는 trigger 기준으로 위/아래와 정렬 위치를 조합해서 지정합니다. 아래 예시는 스타일 확인을 위해 open 상태로 고정해 둔 예시입니다."
       >
@@ -85,7 +85,10 @@ export default function TooltipSection() {
           >
             {isTooltipOpen ? "툴팁 닫기" : "툴팁 열기"}
           </Button>
-          <Tooltip content="disabled 상태에서는 tooltip이 열리지 않습니다." disabled>
+          <Tooltip
+            content="disabled 상태에서는 tooltip이 열리지 않습니다."
+            disabled
+          >
             <Button size="small" variant="line">
               disabled tooltip
             </Button>

@@ -41,11 +41,6 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Select / MultiSelect / RHFSelect / RHFMultiSelect",
   },
   {
-    href: "/tooltip",
-    label: "Tooltip",
-    description: "Tooltip",
-  },
-  {
     href: "/search",
     label: "Search",
     description: "Search / RHFSearch",
@@ -69,6 +64,11 @@ export const guideNavigation: GuideNavigationItem[] = [
     href: "/date-multiple-picker",
     label: "DateMultiplePicker",
     description: "DateMultiplePicker / RHFDateMultiplePicker",
+  },
+  {
+    href: "/field",
+    label: "Field",
+    description: "Field / Field.Label / Field.Description / Field.Message",
   },
   {
     href: "/alert",
@@ -99,5 +99,15 @@ export const guideNavigation: GuideNavigationItem[] = [
     href: "/toast",
     label: "Toast",
     description: "Toast / useToast",
+  },
+  {
+    href: "/tooltip",
+    label: "Tooltip",
+    description: "Tooltip",
+  },
+  {
+    href: "/accordion",
+    label: "Accordion",
+    description: "Accordion",
   },
 ];

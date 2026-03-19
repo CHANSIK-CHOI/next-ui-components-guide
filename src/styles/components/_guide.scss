@@ -319,7 +319,7 @@ $guidePopupDemo: "guidePopupDemo";
 
   &__intro {
     color: var(--text-color-2);
-    @include mix.typo(1.4rem, 2rem, "regular");
+    @include mix.typo(1.4rem, 1.8rem, "regular");
   }
 
   &__meta {
@@ -659,8 +659,7 @@ $guidePopupDemo: "guidePopupDemo";
     letter-spacing: -0.01em;
   }
 
-  &__groupLabel,
-  &__summaryTitle {
+  &__groupLabel {
     color: var(--text-color-1);
     font-size: 1.6rem;
     font-weight: 700;
@@ -743,5 +742,109 @@ $guidePopupDemo: "guidePopupDemo";
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.5;
+  }
+}
+
+.guideAccordionFlow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+}
+
+.guideAccordionToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.guideAccordionPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+
+    @include mix.respond-to("tablet") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+.guideAccordionNote {
+  width: 100%;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid rgba(28, 166, 115, 0.12);
+  border-radius: 1.6rem;
+  background: rgba(240, 251, 245, 0.68);
+  color: var(--text-color-2);
+  @include mix.typo(1.4rem, 1.5rem, "regular", 1.7);
+}
+
+.guideAccordionBadgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.guideAccordionBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.06);
+  color: var(--text-color-2);
+  @include mix.typo(1.2rem, 1.3rem, "semi-bold");
+}
+
+.guideAccordionTerms {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1.6rem;
+  border: 1px solid var(--line-color-3);
+  border-radius: 1.6rem;
+  background: var(--bg-color-2);
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  &__item {
+    color: var(--text-color-2);
+    @include mix.typo(1.4rem, 1.5rem, "regular", 1.65);
+  }
+}
+
+.guideFieldForm {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+
+    @include mix.respond-to("tablet") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__groupLabel,
+  &__summaryTitle {
+    color: var(--text-color-1);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  &__actions {
+    margin-top: 1.6rem;
   }
 }

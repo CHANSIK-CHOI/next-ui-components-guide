@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export default function SwitchControlledSection() {
   const [pushEnabled, setPushEnabled] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(false);
   const [disabledAutoSave] = useState(true);
   const [readOnlyLocationAccess] = useState(true);
 
@@ -26,28 +25,6 @@ export default function SwitchControlledSection() {
           />
           <Field.Label>푸시 알림 받기</Field.Label>
         </Field.Item>
-      </GuideProp>
-
-      <GuideProp
-        isWide
-        name="Field / Field.Label / Field.Description / Field.Message"
-        typeLabel="layout"
-        description="Field는 Switch와 레이블, 보조 설명, 메시지를 한 덩어리로 정렬하는 레이아웃 컴포넌트입니다."
-      >
-        <Field>
-          <Field.Item>
-            <Switch
-              checked={soundEnabled}
-              onChange={(event) => setSoundEnabled(event.target.checked)}
-            />
-            <Field.Label>앱 사운드 켜기</Field.Label>
-          </Field.Item>
-          <Field.Description>
-            설정형 토글은 보통 Field와 함께 사용하면 설명과 메시지를 같은
-            맥락에서 묶을 수 있습니다.
-          </Field.Description>
-          <Field.Message infoMessage="스위치를 끄면 앱 내 효과음과 알림음이 함께 비활성화됩니다." />
-        </Field>
       </GuideProp>
 
       <GuideProp
@@ -77,7 +54,7 @@ export default function SwitchControlledSection() {
             <Switch isError />
             <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMessage="필수 설정 항목을 확인해주세요." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
     </GuideSection>

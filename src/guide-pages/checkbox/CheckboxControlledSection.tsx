@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export default function CheckboxControlledSection() {
   const [consentChecked, setConsentChecked] = useState(true);
-  const [fieldChecked, setFieldChecked] = useState(false);
   const [disabledChecked] = useState(true);
   const [readOnlyChecked] = useState(true);
   const [marketingChannels, setMarketingChannels] = useState<string[]>([
@@ -40,29 +39,6 @@ export default function CheckboxControlledSection() {
       </GuideProp>
 
       <GuideProp
-        isWide
-        name="Field / Field.Label / Field.Description / Field.Message"
-        typeLabel="layout"
-        description="Field는 input과 레이블, 보조 설명, 메시지를 한 덩어리로 정렬하는 레이아웃 컴포넌트입니다."
-      >
-        <Field>
-          <Field.Item>
-            <Checkbox
-              checked={fieldChecked}
-              onChange={(event) => setFieldChecked(event.target.checked)}
-            />
-            <Field.Label>이벤트 및 혜택 알림을 받겠습니다.</Field.Label>
-          </Field.Item>
-
-          <Field.Description>
-            Checkbox, Radio, Textfield 같은 입력 요소와 함께 정렬해서 사용할 수
-            있습니다.
-          </Field.Description>
-          <Field.Message infoMessage="선택 항목은 언제든지 다시 변경할 수 있습니다." />
-        </Field>
-      </GuideProp>
-
-      <GuideProp
         name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
@@ -89,7 +65,7 @@ export default function CheckboxControlledSection() {
             <Checkbox isError />
             <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMessage="필수 동의 항목입니다." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
 
@@ -97,7 +73,7 @@ export default function CheckboxControlledSection() {
         isWide
         name="CheckboxGroup"
         typeLabel="name | direction | disabled | readOnly | isError"
-        description="CheckboxGroup은 여러 Checkbox에 공통 name, direction, disabled, readOnly, isError 상태를 내려주는 그룹 레이아웃입니다. direction으로 row/column 배치를 바꿀 수 있습니다."
+        description="CheckboxGroup은 여러 Checkbox에 공통 name, disabled, readOnly, isError 상태를 내려주는 그룹 레이아웃입니다. direction으로 row/column 배치를 바꿀 수 있습니다."
       >
         <CheckboxGroup
           name="marketingChannels"

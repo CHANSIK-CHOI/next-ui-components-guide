@@ -192,7 +192,9 @@
       background-color 0.2s ease;
   }
 
-  &:not(.is-disabled):not(.is-readonly):hover &__control {
+  &:not(.is-disabled):not(.is-readonly):hover
+    &__input:not(:checked)
+    &__control {
     border-color: var(--color-primary);
     background-color: var(--line-color-2);
   }

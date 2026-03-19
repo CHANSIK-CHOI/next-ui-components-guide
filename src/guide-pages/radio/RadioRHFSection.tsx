@@ -46,14 +46,16 @@ export default function RadioRHFSection() {
     },
   });
 
-  const { control: statePreviewControl } = useForm<RadioStatePreviewFormValues>({
-    mode: "onSubmit",
-    defaultValues: {
-      disabledPreview: "disabled",
-      readOnlyPreview: "readonly",
-      errorPreview: "",
+  const { control: statePreviewControl } = useForm<RadioStatePreviewFormValues>(
+    {
+      mode: "onSubmit",
+      defaultValues: {
+        disabledPreview: "disabled",
+        readOnlyPreview: "readonly",
+        errorPreview: "",
+      },
     },
-  });
+  );
 
   const {
     control: conditionalControl,
@@ -137,7 +139,7 @@ export default function RadioRHFSection() {
         name="shouldUnregister"
         typeLabel="boolean"
         defaultValue="false"
-        description="shouldUnregister는 라디오 그룹 전체가 조건부 렌더링으로 사라질 때 선택값을 폼 상태에서 제거하고 싶을 때 사용합니다. 같은 name을 공유하는 각 RHFRadio에 함께 지정해두는 패턴이 자연스럽습니다."
+        description="shouldUnregister는 라디오 그룹 전체가 조건부 렌더링으로 사라질 때 선택값을 폼 상태에서 제거하고 싶을 때 사용합니다."
       >
         <form onSubmit={handleConditionalSubmit(handleConditionalFormSubmit)}>
           <div className="guideFormStack">
@@ -146,7 +148,9 @@ export default function RadioRHFSection() {
               type="button"
               onClick={() => setShowReminderWindow((prev) => !prev)}
             >
-              {showReminderWindow ? "알림 시간 숨기기" : "알림 시간 다시 보이기"}
+              {showReminderWindow
+                ? "알림 시간 숨기기"
+                : "알림 시간 다시 보이기"}
             </Button>
             <Field>
               {showReminderWindow ? (
@@ -222,7 +226,7 @@ export default function RadioRHFSection() {
                 value="disabled"
                 disabled
               />
-              <Field.Label>disabled 예시</Field.Label>
+              <Field.Label>disabled 상태</Field.Label>
             </Field.Item>
           </RadioGroup>
         </Field>
@@ -235,12 +239,9 @@ export default function RadioRHFSection() {
                 value="readonly"
                 readOnly
               />
-              <Field.Label>readOnly 예시</Field.Label>
+              <Field.Label>readOnly 상태</Field.Label>
             </Field.Item>
           </RadioGroup>
-          <Field.Description>
-            readOnly에서는 현재 선택 상태를 유지한 채 변경만 막습니다.
-          </Field.Description>
         </Field>
         <Field>
           <RadioGroup name="errorPreview" isError>
@@ -251,10 +252,10 @@ export default function RadioRHFSection() {
                 value="error"
                 isError
               />
-              <Field.Label>isError 예시</Field.Label>
+              <Field.Label>isError 상태</Field.Label>
             </Field.Item>
           </RadioGroup>
-          <Field.Message errorMessage="시각 에러 상태를 강제로 표시한 예시입니다." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
 

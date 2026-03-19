@@ -64,7 +64,10 @@ export default function SelectControlledSection() {
       <GuideProp
         isWide
         name="value | onChange | options"
-        typeLabel="value: string | number | null / options: OptionsOrGroups<SelectOption, GroupBase<SelectOption>>"
+        typeLabel={[
+          "value: string | number | null",
+          "options: OptionsOrGroups<SelectOption, GroupBase<SelectOption>>",
+        ]}
         description="Select는 단일 선택 전용 래퍼입니다. react-select의 option 객체는 내부에서만 쓰고, 외부에서는 선택된 value 하나만 주고받습니다. options는 일반 목록과 grouped options를 모두 그대로 전달할 수 있습니다."
       >
         <Field>
@@ -125,7 +128,11 @@ export default function SelectControlledSection() {
       >
         <Field>
           <Field.Label>disabled 상태</Field.Label>
-          <Select options={CATEGORY_OPTIONS} value={disabledCategory} disabled />
+          <Select
+            options={CATEGORY_OPTIONS}
+            value={disabledCategory}
+            disabled
+          />
         </Field>
         <Field>
           <Field.Label>readOnly 상태</Field.Label>

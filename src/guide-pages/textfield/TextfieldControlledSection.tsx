@@ -93,11 +93,7 @@ const ActionSlotGuideProp = memo(function ActionSlotGuideProp() {
         </button>
       </Textfield>
 
-      <Textfield
-        value={blockedActionText}
-        isTextInputBlocked
-        infoMessage="텍스트 입력은 막고, trailing action으로 다른 UI를 열 수 있습니다."
-      >
+      <Textfield value={blockedActionText} isTextInputBlocked>
         <button
           type="button"
           className="textfield__btn"

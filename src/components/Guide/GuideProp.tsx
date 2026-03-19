@@ -5,7 +5,7 @@ const nameBlock = "guideProp";
 
 type GuidePropProps = {
   name: string;
-  typeLabel?: string;
+  typeLabel?: string | string[];
   defaultValue?: string;
   description?: string | React.ReactNode;
   children: React.ReactNode;
@@ -33,7 +33,16 @@ export default function GuideProp({
 
         <div className={cn(`${nameBlock}__titleRow`)}>
           <h3 className={cn(`${nameBlock}__title`)}>{name}</h3>
-          <code className={cn(`${nameBlock}__type`)}>{typeLabel}</code>
+          {Array.isArray(typeLabel)
+            ? typeLabel.map((type) => (
+                <code key={type} className={cn(`${nameBlock}__type`)}>
+                  {type}
+                </code>
+              ))
+            : typeLabel !== undefined &&
+              typeLabel?.length > 0 && (
+                <code className={cn(`${nameBlock}__type`)}>{typeLabel}</code>
+              )}
         </div>
 
         {defaultValue && (

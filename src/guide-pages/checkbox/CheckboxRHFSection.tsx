@@ -59,16 +59,15 @@ export default function CheckboxRHFSection() {
     },
   });
 
-  const { control: statePreviewControl } = useForm<CheckboxStatePreviewFormValues>(
-    {
+  const { control: statePreviewControl } =
+    useForm<CheckboxStatePreviewFormValues>({
       mode: "onSubmit",
       defaultValues: {
         disabledConsent: true,
         readOnlyConsent: true,
         errorConsent: false,
       },
-    },
-  );
+    });
 
   const handleBasicFormSubmit = async (values: CheckboxBasicFormValues) => {
     console.log(values);
@@ -122,7 +121,7 @@ export default function CheckboxRHFSection() {
         name="shouldUnregister"
         typeLabel="boolean"
         defaultValue="false"
-        description="shouldUnregister가 true이면 조건부 렌더링으로 필드가 사라질 때 RHF 상태에서도 해당 값을 제거합니다. 동적으로 나타났다 사라지는 체크박스에 주로 사용합니다."
+        description="shouldUnregister가 true이면 조건부 렌더링으로 필드가 사라질 때 RHF 상태에서도 해당 값을 제거합니다."
       >
         <form onSubmit={handleOptionalSubmit(handleOptionalFormSubmit)}>
           <div className="guideFormStack">
@@ -188,7 +187,7 @@ export default function CheckboxRHFSection() {
               control={statePreviewControl}
               disabled
             />
-            <Field.Label>disabled 예시</Field.Label>
+            <Field.Label>disabled 상태</Field.Label>
           </Field.Item>
         </Field>
         <Field>
@@ -198,11 +197,8 @@ export default function CheckboxRHFSection() {
               control={statePreviewControl}
               readOnly
             />
-            <Field.Label>readOnly 예시</Field.Label>
+            <Field.Label>readOnly 상태</Field.Label>
           </Field.Item>
-          <Field.Description>
-            readOnly에서는 체크 상태를 유지한 채 변경만 막습니다.
-          </Field.Description>
         </Field>
         <Field>
           <Field.Item align="start">
@@ -211,9 +207,9 @@ export default function CheckboxRHFSection() {
               control={statePreviewControl}
               isError
             />
-            <Field.Label>isError 예시</Field.Label>
+            <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMessage="시각 에러 상태를 강제로 표시한 예시입니다." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
 

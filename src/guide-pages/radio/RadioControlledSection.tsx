@@ -3,7 +3,7 @@ import { GuideProp, GuideSection } from "@/components/Guide";
 import { useState } from "react";
 
 export default function RadioControlledSection() {
-  const [selectedPlan, setSelectedPlan] = useState("basic");
+  const [marketingChannel, setMarketingChannel] = useState("basic");
   const [selectedTheme, setSelectedTheme] = useState("system");
   const [disabledSelection] = useState("disabled");
   const [readOnlySelection] = useState("readonly");
@@ -23,36 +23,36 @@ export default function RadioControlledSection() {
         <RadioGroup name="plan">
           <Field.Item>
             <Radio
-              value="basic"
-              checked={selectedPlan === "basic"}
-              onChange={() => setSelectedPlan("basic")}
+              value="email"
+              checked={marketingChannel === "email"}
+              onChange={() => setMarketingChannel("email")}
             />
-            <Field.Label>기본 플랜</Field.Label>
+            <Field.Label>이메일 알림</Field.Label>
           </Field.Item>
           <Field.Item>
             <Radio
-              value="pro"
-              checked={selectedPlan === "pro"}
-              onChange={() => setSelectedPlan("pro")}
+              value="sms"
+              checked={marketingChannel === "sms"}
+              onChange={() => setMarketingChannel("sms")}
             />
-            <Field.Label>프로 플랜</Field.Label>
+            <Field.Label>문자 알림</Field.Label>
           </Field.Item>
           <Field.Item>
             <Radio
-              value="enterprise"
-              checked={selectedPlan === "enterprise"}
-              onChange={() => setSelectedPlan("enterprise")}
+              value="push"
+              checked={marketingChannel === "push"}
+              onChange={() => setMarketingChannel("push")}
             />
-            <Field.Label>엔터프라이즈 플랜</Field.Label>
+            <Field.Label>앱 푸시 알림</Field.Label>
           </Field.Item>
         </RadioGroup>
       </GuideProp>
 
       <GuideProp
         isWide
-        name="Field / RadioGroup"
-        typeLabel="layout"
-        description="Field는 각 Radio의 레이블 정렬을 담당하고, RadioGroup은 단일 선택 항목을 한 그룹으로 묶습니다. direction으로 row/column 배치를 바꿀 수 있습니다."
+        name="RadioGroup | direction"
+        typeLabel='name | "row" | "column"'
+        description="RadioGroup은 단일 선택 항목을 한 그룹으로 묶고, direction으로 row/column 배치를 바꿀 수 있습니다."
       >
         <RadioGroup name="theme" direction="row">
           <Field.Item>
@@ -86,7 +86,7 @@ export default function RadioControlledSection() {
         name="disabled | readOnly | isError"
         typeLabel="boolean"
         defaultValue="false"
-        description="disabled는 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. isError는 시각 상태를 강조할 때 사용합니다."
+        description="disabled는 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. isError는 상태를 강조할 때 사용합니다."
       >
         <RadioGroup name="disabledPreview">
           <Field.Item>
@@ -115,7 +115,7 @@ export default function RadioControlledSection() {
             <Radio isError />
             <Field.Label>isError 상태</Field.Label>
           </Field.Item>
-          <Field.Message errorMessage="하나의 옵션을 선택해주세요." />
+          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
     </GuideSection>
