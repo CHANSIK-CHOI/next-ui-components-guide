@@ -187,7 +187,7 @@ export default function TextareaControlledSection() {
     <GuideSection
       label="Textarea"
       title="Textarea / controlled usage"
-      description="Textarea는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 사용하는 멀티라인 입력 컴포넌트입니다."
+      description="Textarea는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 정리한 멀티라인 입력 컴포넌트입니다."
     >
       <ValueGuideProp />
       <ClearableGuideProp />

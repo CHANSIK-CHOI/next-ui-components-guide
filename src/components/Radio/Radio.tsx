@@ -1,6 +1,9 @@
 import { forwardRef, useId, type KeyboardEvent, type MouseEvent } from "react";
 import cn from "classnames";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 import { useRadioGroupContext } from "./RadioGroup.context";
 
 const nameBlock = "radio";
@@ -28,18 +31,28 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
       onClick,
       onKeyDown,
       onChange,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const radioGroupContext = useRadioGroupContext();
     const generatedId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
     const resolvedName = name ?? radioGroupContext.name;
     const resolvedDisabled = disabled ?? radioGroupContext.disabled ?? false;
     const resolvedReadOnly = readOnly ?? radioGroupContext.readOnly ?? false;
-    const resolvedIsError = isError ?? radioGroupContext.isError ?? false;
+    const resolvedIsError =
+      isFieldError || Boolean(radioGroupContext.isError) || Boolean(isError);
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+    );
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {
       if (resolvedReadOnly) {
@@ -74,6 +87,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(
           name={resolvedName}
           type="radio"
           disabled={resolvedDisabled}
+          aria-describedby={resolvedAriaDescribedBy}
           className={cn(`${nameBlock}__input`)}
           onClick={handleClick}
           onKeyDown={handleKeyDown}

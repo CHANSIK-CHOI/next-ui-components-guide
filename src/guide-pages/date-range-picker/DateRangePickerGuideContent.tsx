@@ -1,4 +1,6 @@
+import DateRangePickerPropsTableSection from "./DateRangePickerPropsTableSection";
 import DateRangePickerControlledSection from "./DateRangePickerControlledSection";
+import RHFDateRangePickerPropsTableSection from "./RHFDateRangePickerPropsTableSection";
 import DateRangePickerRHFSection from "./DateRangePickerRHFSection";
 
 export default function DateRangePickerGuideContent() {
@@ -7,6 +9,10 @@ export default function DateRangePickerGuideContent() {
       <DateRangePickerControlledSection />
       <hr />
       <DateRangePickerRHFSection />
+      <hr />
+      <DateRangePickerPropsTableSection />
+      <hr />
+      <RHFDateRangePickerPropsTableSection />
     </>
   );
 }

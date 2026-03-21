@@ -6,7 +6,10 @@ import type {
   SingleValue,
 } from "react-select";
 import ReactSelect from "react-select";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 import SelectBase, { SELECT_CLASS_NAME } from "./SelectBase";
 import {
   getResolvedSelectComponents,
@@ -66,15 +69,28 @@ const Select = forwardRef<
       backspaceRemovesValue,
       escapeClearsValue,
       tabSelectsValue,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const generatedId = useId();
+    const generatedMessageId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
     const resolvedValue = getResolvedSingleValue(options, value);
-    const resolvedIsError = isError || Boolean(errorMessage);
+    const hasOwnMessage = Boolean(infoMessage || errorMessage);
+    const resolvedIsError =
+      isFieldError || isError || Boolean(errorMessage);
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+      hasOwnMessage ? generatedMessageId : null,
+    );
 
     const handleChange = (
       nextOption: SingleValue<SelectOption>,
@@ -95,6 +111,7 @@ const Select = forwardRef<
         isError={resolvedIsError}
         infoMessage={infoMessage}
         errorMessage={errorMessage}
+        messageId={hasOwnMessage ? generatedMessageId : undefined}
       >
         <ReactSelect<SelectOption, false, GroupBase<SelectOption>>
           {...rest}
@@ -123,6 +140,7 @@ const Select = forwardRef<
           backspaceRemovesValue={readOnly ? false : backspaceRemovesValue}
           escapeClearsValue={readOnly ? false : escapeClearsValue}
           tabSelectsValue={readOnly ? false : tabSelectsValue}
+          aria-describedby={resolvedAriaDescribedBy}
           aria-invalid={resolvedIsError ? true : undefined}
         />
       </SelectBase>

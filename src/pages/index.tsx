@@ -104,6 +104,7 @@ const PROJECT_LIBRARIES: LibraryItem[] = [
 
 const UI_LIBRARIES: LibraryItem[] = [
   { label: "React Hook Form", icon: siReacthookform },
+  { label: "react-select", monogram: "rs" },
   { label: "react-day-picker", isCalendar: true },
   { label: "date-fns", icon: siDatefns },
   { label: "classnames", monogram: "cn" },
@@ -145,7 +146,7 @@ const UI_NAMING_RULES: NamingRuleItem[] = [
     description:
       "react-day-picker나 native input처럼 외부 라이브러리에서 제공하는 옵션은 wrapper에서도 이름을 바꾸지 않습니다. 공식 문서와 바로 연결되고 확장 시 혼동이 적습니다.",
     example:
-      "예: dayPickerProps.required, dayPickerProps.resetOnSelect, disabled, checked",
+      "예: dayPickerProps.required, dayPickerProps.resetOnSelect, captionLayout, menuPlacement, components",
   },
 ];
 
@@ -309,8 +310,10 @@ function createSignupDetailLayerPopup({
               />
             </Field>
 
-            <Field>
-              <p className="homeForm__groupLabel">운영 형태</p>
+            <Field errorMessage={popupErrors.workspaceType?.message}>
+              <Field.Label as="span" className="homeForm__groupLabel">
+                운영 형태
+              </Field.Label>
               <RadioGroup
                 name="workspaceType"
                 isError={Boolean(popupErrors.workspaceType)}
@@ -343,7 +346,6 @@ function createSignupDetailLayerPopup({
                   <Field.Label>대행 / 외주 운영</Field.Label>
                 </Field.Item>
               </RadioGroup>
-              <Field.Message errorMessage={popupErrors.workspaceType?.message} />
             </Field>
 
             <Field>
@@ -483,13 +485,14 @@ export default function Home() {
                 공용 UI 컴포넌트를 설계하고 확장해가는 과정을 정리한
                 포트폴리오로, 기본 인터랙션 컴포넌트부터 폼 입력, 오버레이, 복합
                 컴포넌트까지 범위를 넓혀가며 controlled 패턴과 React Hook Form
-                연동 방식도 함께 다룹니다.
+                연동 방식, 디자인 토큰 정리, 접근성 보완, motion 기준까지 함께
+                다룹니다.
               </p>
             </article>
 
             <div className="homeOverview__grid">
               <article className="homeOverview__card">
-                <h3 className="homeOverview__cardTitle">프로젝트 구성</h3>
+                <h3 className="homeOverview__cardTitle">프로젝트 스택</h3>
                 <LibraryList items={PROJECT_LIBRARIES} />
               </article>
 
@@ -617,8 +620,10 @@ export default function Home() {
                   />
                 </Field>
 
-                <Field>
-                  <p className="homeForm__groupLabel">알림 주기</p>
+                <Field errorMessage={errors.notificationCycle?.message}>
+                  <Field.Label as="span" className="homeForm__groupLabel">
+                    알림 주기
+                  </Field.Label>
                   <RadioGroup
                     name="notificationCycle"
                     isError={Boolean(errors.notificationCycle)}
@@ -651,12 +656,9 @@ export default function Home() {
                       <Field.Label>월 1회 받기</Field.Label>
                     </Field.Item>
                   </RadioGroup>
-                  <Field.Message
-                    errorMessage={errors.notificationCycle?.message}
-                  />
                 </Field>
 
-                <Field>
+                <Field errorMessage={errors.agreeTerms?.message}>
                   <Field.Item align="start">
                     <RHFCheckbox name="receiveEvent" control={control} />
                     <Field.Label>
@@ -676,7 +678,6 @@ export default function Home() {
                       서비스 이용약관 및 개인정보 처리방침에 동의합니다.
                     </Field.Label>
                   </Field.Item>
-                  <Field.Message errorMessage={errors.agreeTerms?.message} />
                 </Field>
 
                 <ButtonGroup>

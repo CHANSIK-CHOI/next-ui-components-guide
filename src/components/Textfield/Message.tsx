@@ -4,11 +4,13 @@ import { AttentionIcon } from "@/components/Icon";
 const nameBlock = "message";
 
 type MessageProps = {
+  id?: string;
   infoMessage?: string;
   errorMessage?: string;
 };
 
 export default function Message({
+  id,
   infoMessage = "",
   errorMessage = "",
 }: MessageProps) {
@@ -18,7 +20,7 @@ export default function Message({
   if (!hasInfoMessage && !hasErrorMessage) return null;
 
   return (
-    <div className={cn(`${nameBlock}`)}>
+    <div id={id} className={cn(`${nameBlock}`)}>
       {hasInfoMessage && (
         <span className={cn(`${nameBlock}__msg`)}>{infoMessage}</span>
       )}

@@ -1,4 +1,6 @@
+import DatepickerPropsTableSection from "./DatepickerPropsTableSection";
 import DatepickerControlledSection from "./DatepickerControlledSection";
+import RHFDatepickerPropsTableSection from "./RHFDatepickerPropsTableSection";
 import DatepickerRHFSection from "./DatepickerRHFSection";
 
 export default function DatepickerGuideContent() {
@@ -7,6 +9,10 @@ export default function DatepickerGuideContent() {
       <DatepickerControlledSection />
       <hr />
       <DatepickerRHFSection />
+      <hr />
+      <DatepickerPropsTableSection />
+      <hr />
+      <RHFDatepickerPropsTableSection />
     </>
   );
 }

@@ -397,7 +397,7 @@ export default function AlertSection() {
     <GuideSection
       label="Alert"
       title="Alert"
-      description="Alert는 전역 store와 PopupHost를 통해 어느 페이지에서든 호출할 수 있는 고정형 확인 팝업입니다. 이 페이지는 Alert에서 실제로 쓰는 props와 useAlert 훅 중심으로만 정리합니다."
+      description="Alert는 전역 store와 PopupHost를 통해 어느 페이지에서든 호출할 수 있는 고정형 확인 팝업입니다. 이 페이지에서는 실제로 쓰는 props와 useAlert 호출 흐름을 기준으로 정리합니다."
     >
       <AlertOptionsGuideProp />
       <AlertIconGuideProp />

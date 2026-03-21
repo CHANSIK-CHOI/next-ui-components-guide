@@ -9,13 +9,13 @@ export default function SelectGuidePage() {
         <title>Select Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="react-select 기반의 Select, MultiSelect, RHFSelect, RHFMultiSelect를 controlled usage, React Hook Form 연동, styles/components/menuPlacement 같은 props 확장 기준으로 정리한 가이드 페이지입니다."
+          content="react-select 기반 Select, MultiSelect, RHFSelect, RHFMultiSelect의 controlled usage, React Hook Form 연동, props 확장 패턴을 정리한 가이드 페이지입니다."
         />
       </Head>
 
       <GuideLayout
         title="Select / MultiSelect / RHFSelect / RHFMultiSelect"
-        description="react-select 기반의 Select, MultiSelect, RHFSelect, RHFMultiSelect를 controlled usage, React Hook Form 연동, styles/components/menuPlacement 같은 props 확장 기준으로 정리한 가이드 페이지입니다."
+        description="react-select 기반 Select, MultiSelect, RHFSelect, RHFMultiSelect의 controlled usage, React Hook Form 연동, props 확장 패턴을 정리한 가이드 페이지입니다."
       >
         <SelectGuideContent />
       </GuideLayout>

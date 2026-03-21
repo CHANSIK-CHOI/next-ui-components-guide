@@ -2,21 +2,11 @@ import cn from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useId } from "react";
 import { CloseIcon } from "@/components/Icon";
-import type { Transition } from "framer-motion";
+import { motionTransition } from "@/utils/motion";
 import type { PopupBaseProps, PopupVariant } from "./PopupBase.types";
 import usePopupPanelA11y from "./usePopupPanelA11y";
 
 const nameBlock = "popup";
-
-const overlayTransition: Transition = {
-  duration: 0.18,
-  ease: "easeOut",
-};
-
-const panelTransition: Transition = {
-  duration: 0.22,
-  ease: "easeOut",
-};
 
 function getPanelMotion(variant: PopupVariant) {
   if (variant === "bottomSheet") {
@@ -141,7 +131,7 @@ export default function PopupBase({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={overlayTransition}
+            transition={motionTransition.overlay}
             onClick={handleBackdropClick}
           />
 
@@ -158,7 +148,7 @@ export default function PopupBase({
               initial={panelMotion.initial}
               animate={panelMotion.animate}
               exit={panelMotion.exit}
-              transition={panelTransition}
+              transition={motionTransition.panel}
             >
               {headerContent}
 

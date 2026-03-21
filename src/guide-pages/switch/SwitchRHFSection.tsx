@@ -88,7 +88,7 @@ export default function SwitchRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFSwitch / 폼 연동"
-      description="RHFSwitch는 React Hook Form의 boolean 필드와 Switch를 연결하는 래퍼 컴포넌트입니다."
+      description="RHFSwitch는 Switch를 React Hook Form의 boolean 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide
@@ -200,17 +200,14 @@ export default function SwitchRHFSection() {
             <Field.Label>readOnly 예시</Field.Label>
           </Field.Item>
         </Field>
-        <Field>
-          <Field.Item>
-            <RHFSwitch
-              name="errorPreview"
-              control={statePreviewControl}
-              isError
-            />
-            <Field.Label>isError 예시</Field.Label>
-          </Field.Item>
-          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
-        </Field>
+        <Field.Item errorMessage="에러 상태를 표시한 예시입니다.">
+          <RHFSwitch
+            name="errorPreview"
+            control={statePreviewControl}
+            isError
+          />
+          <Field.Label>isError 예시</Field.Label>
+        </Field.Item>
       </GuideProp>
 
       <GuideProp
@@ -221,7 +218,7 @@ export default function SwitchRHFSection() {
       >
         <form onSubmit={handleValidationSubmit(handleValidationFormSubmit)}>
           <div className="guideFormStack">
-            <Field>
+            <Field errorMessage={errors.agreeAlarmPolicy?.message}>
               <Field.Item>
                 <RHFSwitch
                   name="agreeAlarmPolicy"
@@ -233,7 +230,6 @@ export default function SwitchRHFSection() {
                 />
                 <Field.Label>필수 알림 정책에 동의합니다.</Field.Label>
               </Field.Item>
-              <Field.Message errorMessage={errors.agreeAlarmPolicy?.message} />
             </Field>
             <Button
               color="primary"

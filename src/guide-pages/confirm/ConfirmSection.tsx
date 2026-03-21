@@ -384,7 +384,7 @@ export default function ConfirmSection() {
     <GuideSection
       label="Confirm"
       title="Confirm"
-      description="Confirm은 취소와 확인 두 선택지를 제공하는 고정형 확인 popup입니다. 이 페이지는 Confirm에서 실제로 쓰는 props와 useConfirm 훅 중심으로만 정리합니다."
+      description="Confirm은 취소와 확인 두 선택지를 제공하는 고정형 확인 popup입니다. 이 페이지에서는 실제로 쓰는 props와 useConfirm 호출 흐름을 기준으로 정리합니다."
     >
       <ConfirmOptionsGuideProp />
       <ConfirmBehaviorGuideProp />

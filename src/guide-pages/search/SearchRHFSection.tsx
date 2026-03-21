@@ -267,7 +267,7 @@ export default function SearchRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFSearch / 폼 연동"
-      description="RHFSearch는 RHFTextfield를 기반으로 Search UI를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
+      description="RHFSearch는 RHFTextfield를 기반으로 Search UI를 React Hook Form 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <RHFSearchPropsGuideProp />
       <RHFSearchRulesGuideProp />

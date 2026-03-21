@@ -1,3 +1,6 @@
+@use "../abstracts/functions" as func;
+@use "../abstracts/mixins" as mix;
+
 .checkbox,
 .radio,
 .switch {
@@ -28,7 +31,7 @@
     &:focus-visible + .radio__control,
     &:focus-visible + .switch__control {
       border-color: var(--focus-color);
-      box-shadow: 0 0 0 0.4rem rgba(28, 166, 115, 0.16);
+      box-shadow: func.shadow("focus-strong");
     }
   }
 
@@ -38,53 +41,46 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    border: 0.1rem solid var(--line-color-2);
-    background-color: var(--bg-color-1);
-    color: var(--color-white);
-    transition:
-      border-color 0.2s ease,
-      background-color 0.2s ease,
-      box-shadow 0.2s ease,
-      color 0.2s ease;
+    border: 0.1rem solid var(--control-border);
+    background-color: var(--control-bg);
+    color: var(--text-inverse-strong);
+    @include mix.motion-transition((border-color, background-color, box-shadow, color));
   }
 
   &__indicator {
     display: inline-block;
     opacity: 0;
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      background-color 0.2s ease;
+    @include mix.motion-transition((opacity, transform, background-color));
   }
 
   &:not(.is-disabled):not(.is-readonly):hover &__control {
-    border-color: var(--color-primary);
+    border-color: var(--control-accent);
   }
 
   &.is-error &__control {
-    border-color: var(--color-error);
+    border-color: var(--control-border-error);
   }
 
   &.is-disabled &__control {
-    border-color: var(--line-color-3);
-    background-color: var(--bg-color-3);
+    border-color: var(--control-border-disabled);
+    background-color: var(--control-bg-subtle);
   }
 
   &.is-readonly &__control {
-    background-color: var(--bg-color-2);
+    background-color: var(--control-bg-readonly);
   }
 }
 
 .checkbox,
 .radio {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: func.size("selector");
+  height: func.size("selector");
 }
 
 .checkbox-group,
 .radio-group {
   display: flex;
-  gap: 1.2rem;
+  gap: func.space("sm");
 
   &--row {
     flex-direction: row;
@@ -100,12 +96,12 @@
 
 .checkbox {
   &__control {
-    border-radius: 0.6rem;
+    border-radius: func.radius("sm");
   }
 
   &__indicator {
-    width: 0.6rem;
-    height: 1rem;
+    width: func.size("dot-xs");
+    height: func.size("icon-sm");
     border-right: 0.2rem solid currentColor;
     border-bottom: 0.2rem solid currentColor;
     transform: rotate(45deg) scale(0.6);
@@ -113,18 +109,18 @@
   }
 
   &__input:checked + .checkbox__control {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary);
+    border-color: var(--control-accent);
+    background-color: var(--control-accent);
   }
 
   &.is-error .checkbox__input:checked + .checkbox__control {
-    border-color: var(--color-error);
-    background-color: var(--color-error);
+    border-color: var(--control-accent-error);
+    background-color: var(--control-accent-error);
   }
 
   &.is-disabled .checkbox__input:checked + .checkbox__control {
-    border-color: var(--line-color-2);
-    background-color: var(--line-color-2);
+    border-color: var(--control-selection-disabled);
+    background-color: var(--control-selection-disabled);
   }
 
   &__input:checked + .checkbox__control .checkbox__indicator {
@@ -135,31 +131,31 @@
 
 .radio {
   &__control {
-    border-radius: 50%;
+    border-radius: func.radius("round");
   }
 
   &__indicator {
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 50%;
+    width: func.size("dot-sm");
+    height: func.size("dot-sm");
+    border-radius: func.radius("round");
     background-color: currentColor;
     transform: scale(0.4);
   }
 
   &__input:checked + .radio__control {
-    border-color: var(--color-primary);
-    background-color: var(--bg-color-1);
-    color: var(--color-primary);
+    border-color: var(--control-accent);
+    background-color: var(--control-bg);
+    color: var(--control-accent);
   }
 
   &.is-error .radio__input:checked + .radio__control {
-    border-color: var(--color-error);
-    color: var(--color-error);
+    border-color: var(--control-accent-error);
+    color: var(--control-accent-error);
   }
 
   &.is-disabled .radio__input:checked + .radio__control {
-    border-color: var(--line-color-2);
-    color: var(--line-color-2);
+    border-color: var(--control-selection-disabled);
+    color: var(--control-selection-disabled);
   }
 
   &__input:checked + .radio__control .radio__indicator {
@@ -169,62 +165,60 @@
 }
 
 .switch {
-  width: 4.6rem;
-  height: 2.6rem;
+  width: func.size("switch-track-w");
+  height: func.size("switch-track-h");
 
   &__control {
     justify-content: flex-start;
-    padding: 0.2rem;
-    border-radius: 999rem;
-    border-color: var(--line-color-3);
-    background-color: var(--line-color-3);
+    padding: func.space("2xs");
+    border-radius: func.radius("pill-fluid");
+    border-color: var(--control-border-disabled);
+    background-color: var(--control-border-disabled);
   }
 
   &__thumb {
     display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-color: var(--color-white);
-    box-shadow: 0 0.2rem 0.6rem rgba(15, 23, 42, 0.18);
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease;
+    width: func.size("icon-2xl");
+    height: func.size("icon-2xl");
+    border-radius: func.radius("round");
+    background-color: var(--text-inverse-strong);
+    box-shadow: func.shadow("thumb");
+    @include mix.motion-transition((transform, background-color));
   }
 
   &:not(.is-disabled):not(.is-readonly):hover
     &__input:not(:checked)
     &__control {
-    border-color: var(--color-primary);
-    background-color: var(--line-color-2);
+    border-color: var(--control-accent);
+    background-color: var(--control-selection-disabled);
   }
 
   &__input:checked + .switch__control {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary);
+    border-color: var(--control-accent);
+    background-color: var(--control-accent);
   }
 
   &__input:checked + .switch__control .switch__thumb {
-    transform: translateX(2rem);
+    transform: translateX(#{func.size("icon-2xl")});
   }
 
   &.is-error .switch__input:checked + .switch__control {
-    border-color: var(--color-error);
-    background-color: var(--color-error);
+    border-color: var(--control-accent-error);
+    background-color: var(--control-accent-error);
   }
 
   &.is-disabled .switch__control {
-    border-color: var(--line-color-3);
-    background-color: var(--line-color-3);
+    border-color: var(--control-border-disabled);
+    background-color: var(--control-border-disabled);
   }
 
   &.is-disabled .switch__input:checked + .switch__control {
-    border-color: var(--line-color-2);
-    background-color: var(--line-color-2);
+    border-color: var(--control-selection-disabled);
+    background-color: var(--control-selection-disabled);
   }
 
   &.is-readonly .switch__input:checked + .switch__control {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary);
+    border-color: var(--control-accent);
+    background-color: var(--control-accent);
   }
 }

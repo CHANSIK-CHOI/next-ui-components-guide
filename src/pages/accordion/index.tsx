@@ -9,12 +9,12 @@ export default function AccordionGuidePage() {
         <title>Accordion Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="compound 패턴의 Accordion 컴포넌트를 box/line variant, controlled activeIndices, shouldKeepMounted, buttonIndex usage 중심으로 정리한 가이드 페이지입니다."
+          content="compound 패턴의 Accordion을 box/line variant, activeIndices 제어, shouldKeepMounted, buttonIndex 기준으로 정리한 가이드 페이지입니다."
         />
       </Head>
       <GuideLayout
         title="Accordion"
-        description="compound 패턴의 Accordion 컴포넌트를 box/line variant, controlled activeIndices, shouldKeepMounted, buttonIndex usage 중심으로 정리한 가이드 페이지입니다."
+        description="compound 패턴의 Accordion을 box/line variant, activeIndices 제어, shouldKeepMounted, buttonIndex 기준으로 정리한 가이드 페이지입니다."
       >
         <AccordionGuideContent />
       </GuideLayout>

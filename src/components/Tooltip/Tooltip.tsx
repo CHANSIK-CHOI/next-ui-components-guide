@@ -1,5 +1,6 @@
 import cn from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
+import { motionTransition } from "@/utils/motion";
 import {
   cloneElement,
   isValidElement,
@@ -155,7 +156,7 @@ export default function Tooltip({
               initial={{ opacity: 0, y: animationOffset, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: animationOffset, scale: 0.98 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
+              transition={motionTransition.popover}
             >
               <div className={cn(`${nameBlock}__content`)}>{content}</div>
               <span className={cn(`${nameBlock}__arrow`)} aria-hidden="true" />

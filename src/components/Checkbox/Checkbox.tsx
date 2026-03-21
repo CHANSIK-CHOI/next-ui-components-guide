@@ -1,6 +1,9 @@
 import { forwardRef, useId, type KeyboardEvent, type MouseEvent } from "react";
 import cn from "classnames";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 import { useCheckboxGroupContext } from "./CheckboxGroup.context";
 
 const nameBlock = "checkbox";
@@ -28,18 +31,28 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       onClick,
       onKeyDown,
       onChange,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const checkboxGroupContext = useCheckboxGroupContext();
     const generatedId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
     const resolvedName = name ?? checkboxGroupContext.name;
     const resolvedDisabled = disabled ?? checkboxGroupContext.disabled ?? false;
     const resolvedReadOnly = readOnly ?? checkboxGroupContext.readOnly ?? false;
-    const resolvedIsError = isError ?? checkboxGroupContext.isError ?? false;
+    const resolvedIsError =
+      isFieldError || Boolean(checkboxGroupContext.isError) || Boolean(isError);
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+    );
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {
       if (resolvedReadOnly) {
@@ -74,6 +87,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           name={resolvedName}
           type="checkbox"
           disabled={resolvedDisabled}
+          aria-describedby={resolvedAriaDescribedBy}
           aria-invalid={resolvedIsError ? true : undefined}
           aria-readonly={resolvedReadOnly ? true : undefined}
           className={cn(`${nameBlock}__input`)}

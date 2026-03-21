@@ -89,7 +89,7 @@ export default function RadioRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFRadio / 폼 연동"
-      description="RHFRadio는 같은 name 아래 여러 옵션을 두고, 선택된 value를 RHF 상태로 관리하는 래퍼 컴포넌트입니다."
+      description="RHFRadio는 같은 name 아래 여러 옵션을 두고, 선택된 value를 React Hook Form 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide
@@ -100,7 +100,7 @@ export default function RadioRHFSection() {
         <form onSubmit={handleBasicSubmit(handleBasicFormSubmit)}>
           <div className="guideFormStack">
             <Field>
-              <RadioGroup name="notificationCycle">
+              <RadioGroup name="notificationCycle" aria-label="알림 주기">
                 <Field.Item>
                   <RHFRadio
                     name="notificationCycle"
@@ -154,7 +154,7 @@ export default function RadioRHFSection() {
             </Button>
             <Field>
               {showReminderWindow ? (
-                <RadioGroup name="reminderWindow">
+                <RadioGroup name="reminderWindow" aria-label="알림 시간">
                   <Field.Item>
                     <RHFRadio
                       name="reminderWindow"
@@ -218,7 +218,7 @@ export default function RadioRHFSection() {
         description="RHFRadio도 Radio 상태 props를 그대로 상속합니다. disabled는 입력 상호작용을 막고, readOnly는 현재 선택 상태를 유지한 채 변경만 막습니다. isError는 RHF 검증 상태에 시각 에러 상태를 추가할 때 사용할 수 있습니다."
       >
         <Field>
-          <RadioGroup name="disabledPreview">
+          <RadioGroup name="disabledPreview" aria-label="비활성 라디오 예시">
             <Field.Item>
               <RHFRadio
                 name="disabledPreview"
@@ -231,7 +231,7 @@ export default function RadioRHFSection() {
           </RadioGroup>
         </Field>
         <Field>
-          <RadioGroup name="readOnlyPreview">
+          <RadioGroup name="readOnlyPreview" aria-label="읽기 전용 라디오 예시">
             <Field.Item>
               <RHFRadio
                 name="readOnlyPreview"
@@ -243,8 +243,12 @@ export default function RadioRHFSection() {
             </Field.Item>
           </RadioGroup>
         </Field>
-        <Field>
-          <RadioGroup name="errorPreview" isError>
+        <Field errorMessage="에러 상태를 표시한 예시입니다.">
+          <RadioGroup
+            name="errorPreview"
+            isError
+            aria-label="에러 라디오 예시"
+          >
             <Field.Item>
               <RHFRadio
                 name="errorPreview"
@@ -255,7 +259,6 @@ export default function RadioRHFSection() {
               <Field.Label>isError 상태</Field.Label>
             </Field.Item>
           </RadioGroup>
-          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
         </Field>
       </GuideProp>
 
@@ -267,10 +270,11 @@ export default function RadioRHFSection() {
       >
         <form onSubmit={handleValidationSubmit(handleValidationFormSubmit)}>
           <div className="guideFormStack">
-            <Field>
+            <Field errorMessage={errors.paymentMethod?.message}>
               <RadioGroup
                 name="paymentMethod"
                 isError={Boolean(errors.paymentMethod)}
+                aria-label="결제 수단"
               >
                 <Field.Item>
                   <RHFRadio
@@ -300,7 +304,6 @@ export default function RadioRHFSection() {
                   <Field.Label>휴대폰 결제</Field.Label>
                 </Field.Item>
               </RadioGroup>
-              <Field.Message errorMessage={errors.paymentMethod?.message} />
             </Field>
             <Button
               color="primary"

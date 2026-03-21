@@ -9,26 +9,26 @@ $module: "datepicker";
 
   &__dropdown {
     position: absolute;
-    top: calc(100% + 0.8rem);
+    top: calc(100% + #{func.space("xs")});
     left: 0;
     z-index: func.z("tooltip");
     min-width: 31.2rem;
-    padding: 1.6rem;
-    border: 1px solid var(--line-color-3);
-    border-radius: 1.2rem;
-    background-color: var(--color-white);
-    box-shadow: 0 1.6rem 4rem rgba(17, 24, 39, 0.12);
+    padding: func.space("md");
+    border: 1px solid var(--control-border-disabled);
+    border-radius: func.radius("md");
+    background-color: var(--surface-panel-solid);
+    box-shadow: func.shadow("dropdown-strong");
   }
 
   &__daypicker {
     --rdp-accent-color: var(--color-primary);
     --rdp-accent-background-color: var(--color-primary-bright);
-    --rdp-day-width: 4rem;
-    --rdp-day-height: 4rem;
-    --rdp-day_button-width: 3.6rem;
-    --rdp-day_button-height: 3.6rem;
-    --rdp-day_button-border-radius: 1rem;
-    color: var(--text-color-1);
+    --rdp-day-width: #{func.size("control-lg")};
+    --rdp-day-height: #{func.size("control-lg")};
+    --rdp-day_button-width: #{func.size("control-md")};
+    --rdp-day_button-height: #{func.size("control-md")};
+    --rdp-day_button-border-radius: #{func.radius("sm")};
+    color: var(--control-text);
   }
 
   &__daypicker .rdp-root,
@@ -50,19 +50,19 @@ $module: "datepicker";
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    min-height: 4rem;
-    margin-bottom: 1rem;
+    min-height: func.size("control-lg");
+    margin-bottom: func.space("xs");
     padding-right: 7.6rem;
   }
 
   &__daypicker .rdp-caption_label {
-    @include mix.typo(1.6rem, 1.6rem, "semi-bold");
+    @include mix.type-scale("body", "semi-bold", 1.4);
   }
 
   &__daypicker .rdp-dropdowns {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__daypicker .rdp-dropdown {
@@ -80,18 +80,16 @@ $module: "datepicker";
 
   &__daypicker .rdp-dropdown_root {
     min-width: 8.8rem;
-    min-height: 3.6rem;
-    padding: 0 1.2rem;
+    min-height: func.size("control-md");
+    padding: 0 func.space("sm");
     position: relative;
     display: inline-flex;
     align-items: center;
-    border: 1px solid var(--line-color-3);
-    border-radius: 1rem;
-    background-color: var(--bg-color-1);
-    color: var(--text-color-1);
-    transition:
-      border-color 0.18s ease,
-      background-color 0.18s ease;
+    border: 1px solid var(--control-border);
+    border-radius: func.radius("sm");
+    background-color: var(--control-bg);
+    color: var(--control-text);
+    @include mix.motion-transition((border-color, background-color), "fast");
 
     &[data-disabled="true"] {
       opacity: 0.45;
@@ -99,55 +97,52 @@ $module: "datepicker";
   }
 
   &__daypicker .rdp-dropdown_root:hover {
-    border-color: var(--line-color-2);
-    background-color: var(--bg-color-2);
+    border-color: var(--control-border-hover);
+    background-color: var(--control-bg-subtle);
   }
 
   &__daypicker .rdp-dropdown:focus-visible + .rdp-caption_label {
     outline: none;
-    box-shadow: 0 0 0 0.3rem rgba(28, 166, 115, 0.16);
-    border-radius: 0.8rem;
+    box-shadow: func.shadow("focus-sm");
+    border-radius: func.radius("sm");
   }
 
   &__daypicker .rdp-dropdown_root .rdp-caption_label {
-    gap: 0.6rem;
+    gap: func.space("xs");
     width: 100%;
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    @include mix.typo(1.4rem, 1.4rem, "semi-bold");
+    @include mix.type-scale("body-sm", "semi-bold", 1.35, -0.01em);
   }
 
   &__daypicker .rdp-nav {
     position: absolute;
-    top: 0.4rem;
+    top: func.space("2xs");
     right: 0;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: func.space("2xs");
     pointer-events: none;
   }
 
   &__daypicker .rdp-button_previous,
   &__daypicker .rdp-button_next {
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 50%;
+    width: func.size("control-sm");
+    height: func.size("control-sm");
+    border-radius: func.radius("round");
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color-2);
+    color: var(--control-icon);
     pointer-events: auto;
-    transition:
-      background-color 0.18s ease,
-      color 0.18s ease,
-      opacity 0.18s ease;
+    @include mix.motion-transition((background-color, color, opacity), "fast");
   }
 
   &__daypicker .rdp-button_previous:hover,
   &__daypicker .rdp-button_next:hover {
-    background-color: var(--bg-color-3);
-    color: var(--text-color-1);
+    background-color: var(--control-bg-subtle);
+    color: var(--control-icon-strong);
   }
 
   &__daypicker .rdp-button_previous:disabled,
@@ -157,8 +152,8 @@ $module: "datepicker";
   }
 
   &__daypicker .rdp-chevron {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: func.size("icon-lg");
+    height: func.size("icon-lg");
     fill: currentColor;
   }
 
@@ -169,10 +164,10 @@ $module: "datepicker";
 
   &__daypicker .rdp-weekday {
     width: var(--rdp-day-width);
-    height: 3.2rem;
-    color: var(--text-color-3);
+    height: func.size("control-sm");
+    color: var(--text-tertiary);
     text-align: center;
-    @include mix.typo(1.2rem, 1.2rem, "semi-bold");
+    @include mix.type-scale("label", "semi-bold", 1.35, 0.04em);
   }
 
   &__daypicker .rdp-day {
@@ -192,23 +187,20 @@ $module: "datepicker";
     justify-content: center;
     background: transparent;
     color: inherit;
-    transition:
-      background-color 0.18s ease,
-      border-color 0.18s ease,
-      color 0.18s ease;
-    @include mix.typo(1.4rem, 1.4rem, "medium");
+    @include mix.motion-transition((background-color, border-color, color), "fast");
+    @include mix.type-scale("body-sm", "medium", 1.4, -0.01em);
   }
 
   &__daypicker
     .rdp-day:not(.rdp-selected)
     .rdp-day_button:hover:not(:disabled) {
-    background-color: var(--bg-color-3);
+    background-color: var(--control-bg-subtle);
   }
 
   &__daypicker .rdp-day_button:focus-visible {
     outline: none;
     border-color: var(--focus-color);
-    box-shadow: 0 0 0 0.3rem rgba(28, 166, 115, 0.16);
+    box-shadow: func.shadow("focus-sm");
   }
 
   &__daypicker
@@ -216,7 +208,7 @@ $module: "datepicker";
       .rdp-range_start
     ):not(.rdp-range_end)
     .rdp-day_button {
-    color: blue;
+    color: var(--text-info);
   }
 
   &__daypicker
@@ -224,39 +216,39 @@ $module: "datepicker";
       .rdp-range_start
     ):not(.rdp-range_end)
     .rdp-day_button {
-    color: red;
+    color: var(--text-danger);
   }
 
   &__daypicker .rdp-outside {
-    color: var(--text-color-4);
+    color: var(--text-quaternary);
   }
 
   &__daypicker .rdp-disabled .rdp-day_button {
-    color: var(--text-color-4);
+    color: var(--text-quaternary);
     opacity: 0.45;
     cursor: not-allowed;
   }
 
   &__daypicker .rdp-today:not(.rdp-selected) .rdp-day_button {
-    border-color: var(--color-primary) !important;
-    color: var(--color-primary) !important;
+    border-color: var(--control-accent) !important;
+    color: var(--control-accent) !important;
   }
 
   &__daypicker .rdp-selected .rdp-day_button,
   &__daypicker .rdp-range_start .rdp-day_button,
   &__daypicker .rdp-range_end .rdp-day_button {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: var(--control-accent);
+    border-color: var(--control-accent);
+    color: var(--text-inverse-strong);
   }
 
   &__daypicker .rdp-range_middle {
-    background-color: var(--color-primary-bright);
+    background-color: var(--control-accent-soft);
   }
 
   &__daypicker .rdp-range_middle .rdp-day_button {
     background-color: transparent;
     border-color: transparent;
-    color: var(--text-color-1);
+    color: var(--text-primary);
   }
 }

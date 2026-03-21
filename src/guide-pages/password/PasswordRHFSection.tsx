@@ -217,7 +217,7 @@ export default function PasswordRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFPassword / 폼 연동"
-      description="RHFPassword는 RHFTextfield를 기반으로 Password UI를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
+      description="RHFPassword는 RHFTextfield를 기반으로 Password UI를 React Hook Form 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <RHFPasswordPropsGuideProp />
       <RHFPasswordRulesGuideProp />

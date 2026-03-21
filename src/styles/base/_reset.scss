@@ -97,11 +97,7 @@ body {
   font-family: $font-pretendard;
   word-break: keep-all;
   overflow-wrap: break-word;
-
-  font-size: 1.6rem;
-  font-weight: func.get-font-weight("regular");
-  line-height: 1.4;
-  letter-spacing: -0.05em;
+  @include mix.type-scale("body");
   background: var(--bg-color-1);
   color: var(--text-color-1);
 }
@@ -113,7 +109,7 @@ body {
 hr {
   border: 0;
   border-top: 1px solid var(--line-color-2);
-  margin: 3.2rem 0;
+  margin: func.space("xl") 0;
 }
 
 input,

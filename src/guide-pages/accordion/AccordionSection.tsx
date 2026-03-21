@@ -27,7 +27,7 @@ export default function AccordionSection() {
   );
   const [taskTitle, setTaskTitle] = useState("3월 UI 점검 배포");
   const [reviewMemo, setReviewMemo] = useState(
-    "아코디언 패널 안에 입력 요소를 넣었을 때 높이 전환과 상태 유지가 자연스러운지 같이 확인합니다.",
+    "아코디언 패널 안에 입력 요소를 넣었을 때 열림 전환과 상태 유지가 자연스러운지 같이 확인합니다.",
   );
   const [shouldNotifySlack, setShouldNotifySlack] = useState(true);
   const [agreeRequiredTerms, setAgreeRequiredTerms] = useState(false);
@@ -37,13 +37,13 @@ export default function AccordionSection() {
     <GuideSection
       label="Accordion"
       title="Accordion / usage"
-      description="Accordion은 필요한 정보만 접고 펼치는 compound UI입니다. 이번 버전은 처음 사용하신 구조를 유지하면서, shouldKeepMounted와 buttonIndex로 패널 유지와 헤더 토글 위치를 분리할 수 있게 정리했습니다."
+      description="Accordion은 필요한 정보만 접고 펼치는 compound UI입니다. 이 페이지에서는 box/line variant, activeIndices 제어, shouldKeepMounted, buttonIndex 패턴을 기준으로 정리합니다."
     >
       <GuideProp
         name="children | type | variant | defaultActiveIndices"
         typeLabel={["ReactNode", '"single" | "multiple"', '"box" | "line"']}
         defaultValue='type="multiple", variant="box", defaultActiveIndices=[]'
-        description="기본 구조는 Accordion 안에 Item, Button, Head, Panel을 조합하는 형태입니다. 아래 예시는 처음 공유해주신 Step 형태에 가깝게 맞춘 단일 열림 box variant입니다."
+        description="기본 구조는 Accordion 안에 Item, Button, Head, Panel을 조합하는 형태입니다. 아래 예시는 단일 패널만 열리는 box variant의 기본 패턴입니다."
         isWide
       >
         <Accordion variant="box" type="single" defaultActiveIndices={[1]}>
@@ -216,7 +216,7 @@ export default function AccordionSection() {
         isWide
         name="buttonIndex"
         typeLabel="number"
-        description="Accordion.Head에 buttonIndex를 주면 헤더 전체를 버튼으로 감싸지 않고, 오른쪽 화살표만 토글 버튼으로 쓸 수 있습니다. 약관 동의처럼 헤더 안에 체크박스나 다른 인터랙션을 넣을 때 이 패턴이 더 안전합니다."
+        description="Accordion.Head에 buttonIndex를 주면 헤더 전체를 버튼으로 감싸지 않고, 오른쪽 화살표만 토글 버튼으로 쓸 수 있습니다. 헤더 텍스트는 토글 버튼과 panel의 접근성 이름으로 함께 연결되며, 약관 동의처럼 헤더 안에 체크박스나 다른 인터랙션을 넣을 때 이 패턴이 더 안전합니다."
       >
         <Accordion variant="box" type="multiple" defaultActiveIndices={[0]}>
           <Accordion.Item index={0}>

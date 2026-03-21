@@ -1,6 +1,9 @@
 import { forwardRef, useId, type KeyboardEvent, type MouseEvent } from "react";
 import cn from "classnames";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 
 const nameBlock = "switch";
 const INTERACTION_KEYS = new Set([" ", "Enter"]);
@@ -29,13 +32,23 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       onClick,
       onKeyDown,
       onChange,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const generatedId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
+    const resolvedIsError = isFieldError || isError;
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+    );
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {
       if (readOnly) {
@@ -59,7 +72,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       <span
         className={cn(nameBlock, className, {
           "is-disabled": disabled,
-          "is-error": isError,
+          "is-error": resolvedIsError,
           "is-readonly": readOnly,
         })}
       >
@@ -70,7 +83,8 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
           type="checkbox"
           role="switch"
           disabled={disabled}
-          aria-invalid={isError ? true : undefined}
+          aria-describedby={resolvedAriaDescribedBy}
+          aria-invalid={resolvedIsError ? true : undefined}
           aria-readonly={readOnly ? true : undefined}
           className={cn(`${nameBlock}__input`)}
           onClick={handleClick}

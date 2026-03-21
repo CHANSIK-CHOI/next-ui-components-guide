@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:list";
 @use "sass:math";
 @use "sass:meta";
 @use "./variables" as var;
@@ -160,4 +161,60 @@
   @include respond-to("desktop") {
     font-size: $font-size-pc;
   }
+}
+
+@mixin type-scale(
+  $token,
+  $weight: null,
+  $line-height: null,
+  $letter-spacing: null
+) {
+  $resolved-weight: if(
+    $weight != null,
+    $weight,
+    func.type-scale($token, "font-weight")
+  );
+  $resolved-line-height: if(
+    $line-height != null,
+    $line-height,
+    func.type-scale($token, "line-height")
+  );
+  $resolved-letter-spacing: if(
+    $letter-spacing != null,
+    $letter-spacing,
+    func.type-scale($token, "letter-spacing")
+  );
+
+  @include typo(
+    func.type-scale($token, "font-size-mobile"),
+    func.type-scale($token, "font-size-desktop"),
+    $resolved-weight,
+    $resolved-line-height
+  );
+
+  @if $resolved-letter-spacing != null {
+    letter-spacing: $resolved-letter-spacing;
+  }
+}
+
+@mixin motion-transition(
+  $properties,
+  $duration: "base",
+  $easing: "standard"
+) {
+  $transitions: ();
+
+  @if meta.type-of($properties) != list {
+    $properties: ($properties,);
+  }
+
+  @each $property in $properties {
+    $transitions: list.append(
+      $transitions,
+      func.transition-token($property, $duration, $easing),
+      comma
+    );
+  }
+
+  transition: $transitions;
 }

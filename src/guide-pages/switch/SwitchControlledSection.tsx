@@ -11,7 +11,7 @@ export default function SwitchControlledSection() {
     <GuideSection
       label="Switch"
       title="Switch / controlled usage"
-      description="Switch는 checked와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 사용하는 boolean 토글 컴포넌트입니다."
+      description="Switch는 checked와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 정리한 boolean 토글 컴포넌트입니다."
     >
       <GuideProp
         name="checked | onChange"
@@ -49,13 +49,10 @@ export default function SwitchControlledSection() {
           />
           <Field.Label>readOnly 상태</Field.Label>
         </Field.Item>
-        <Field>
-          <Field.Item>
-            <Switch isError />
-            <Field.Label>isError 상태</Field.Label>
-          </Field.Item>
-          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
-        </Field>
+        <Field.Item errorMessage="에러 상태를 표시한 예시입니다.">
+          <Switch isError />
+          <Field.Label>isError 상태</Field.Label>
+        </Field.Item>
       </GuideProp>
     </GuideSection>
   );

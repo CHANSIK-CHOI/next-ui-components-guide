@@ -6,7 +6,7 @@ const nameBlock = "accordion";
 
 export type AccordionButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "children" | "onClick"
+  "children" | "onClick" | "id"
 > & {
   children: React.ReactNode;
   index: number;
@@ -17,7 +17,6 @@ export default function AccordionButton({
   children,
   index,
   className,
-  id,
   onClick,
   "aria-controls": ariaControls,
   "aria-expanded": ariaExpanded,
@@ -37,7 +36,7 @@ export default function AccordionButton({
     <button
       {...rest}
       type="button"
-      id={id ?? `${accordionId}-button-${index}`}
+      id={`${accordionId}-button-${index}`}
       className={cn(`${nameBlock}__button`, className)}
       aria-controls={
         ariaControls ?? (shouldKeepMounted || isItemOpen ? panelId : undefined)

@@ -26,57 +26,57 @@ $module: "tooltip";
 
   &__bubble {
     position: relative;
-    padding: 1rem 1.2rem;
-    border-radius: 1.2rem;
-    background-color: var(--text-color-1);
-    box-shadow: 0 1.6rem 3.2rem rgba(15, 23, 42, 0.16);
+    padding: func.space("xs") func.space("sm");
+    border-radius: func.radius("md");
+    background-color: var(--surface-inverse);
+    box-shadow: func.shadow("dropdown");
   }
 
   &__content {
     display: block;
-    color: var(--color-white);
+    color: var(--text-inverse-strong);
     white-space: normal;
     word-break: keep-all;
-    @include mix.typo(1.4rem, 1.4rem, "regular", 1.6);
+    @include mix.type-scale("body-sm", "regular", 1.6, 0);
   }
 
   &__arrow {
     position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background-color: var(--text-color-1);
+    width: func.size("icon-sm");
+    height: func.size("icon-sm");
+    background-color: var(--surface-inverse);
     transform: rotate(45deg);
   }
 
   &--topCenter &__panel {
-    bottom: calc(100% + 1.2rem);
+    bottom: calc(100% + #{func.space("sm")});
     left: 50%;
     transform: translateX(-50%);
   }
 
   &--topLeft &__panel {
-    bottom: calc(100% + 1.2rem);
+    bottom: calc(100% + #{func.space("sm")});
     left: 0;
   }
 
   &--topRight &__panel {
     right: 0;
-    bottom: calc(100% + 1.2rem);
+    bottom: calc(100% + #{func.space("sm")});
   }
 
   &--bottomCenter &__panel {
-    top: calc(100% + 1.2rem);
+    top: calc(100% + #{func.space("sm")});
     left: 50%;
     transform: translateX(-50%);
   }
 
   &--bottomLeft &__panel {
-    top: calc(100% + 1.2rem);
+    top: calc(100% + #{func.space("sm")});
     left: 0;
   }
 
   &--bottomRight &__panel {
-    top: calc(100% + 1.2rem);
+    top: calc(100% + #{func.space("sm")});
     right: 0;
   }
 
@@ -100,12 +100,12 @@ $module: "tooltip";
 
   &--topLeft &__arrow,
   &--bottomLeft &__arrow {
-    left: 1.6rem;
+    left: func.space("md");
   }
 
   &--topRight &__arrow,
   &--bottomRight &__arrow {
-    right: 1.6rem;
+    right: func.space("md");
   }
 
   &.is-disabled {

@@ -114,7 +114,7 @@ export default function SelectRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFSelect / RHFMultiSelect / 폼 연동"
-      description="RHFSelect는 단일 선택, RHFMultiSelect는 다중 선택을 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
+      description="RHFSelect는 단일 선택, RHFMultiSelect는 다중 선택을 React Hook Form 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide

@@ -90,7 +90,7 @@ export default function CheckboxRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFCheckbox / 폼 연동"
-      description="RHFCheckbox는 React Hook Form의 boolean 필드와 Checkbox를 연결하는 래퍼 컴포넌트입니다."
+      description="RHFCheckbox는 Checkbox를 React Hook Form의 boolean 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide
@@ -200,17 +200,17 @@ export default function CheckboxRHFSection() {
             <Field.Label>readOnly 상태</Field.Label>
           </Field.Item>
         </Field>
-        <Field>
-          <Field.Item align="start">
+        <Field.Item
+          align="start"
+          errorMessage="에러 상태를 표시한 예시입니다."
+        >
             <RHFCheckbox
               name="errorConsent"
               control={statePreviewControl}
               isError
             />
             <Field.Label>isError 상태</Field.Label>
-          </Field.Item>
-          <Field.Message errorMessage="에러 상태를 표시한 예시입니다." />
-        </Field>
+        </Field.Item>
       </GuideProp>
 
       <GuideProp
@@ -221,7 +221,7 @@ export default function CheckboxRHFSection() {
       >
         <form onSubmit={handleValidationSubmit(handleValidationFormSubmit)}>
           <div className="guideFormStack">
-            <Field>
+            <Field errorMessage={errors.agreeTerms?.message}>
               <Field.Item align="start">
                 <RHFCheckbox
                   name="agreeTerms"
@@ -234,7 +234,6 @@ export default function CheckboxRHFSection() {
                   이용약관 및 개인정보 처리방침에 동의합니다.
                 </Field.Label>
               </Field.Item>
-              <Field.Message errorMessage={errors.agreeTerms?.message} />
             </Field>
             <Button
               color="primary"

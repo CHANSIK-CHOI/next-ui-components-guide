@@ -2,7 +2,10 @@ import { useId, forwardRef } from "react";
 import TextfieldBtn from "./TextfieldBtn";
 import cn from "classnames";
 import Message from "./Message";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 
 const nameBlock = "textfield";
 
@@ -60,13 +63,26 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
       unit = "",
       isClearable = false,
       onClear,
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const generatedId = useId();
+    const generatedMessageId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
+    const hasOwnMessage = Boolean(infoMessage || errorMessage);
+    const resolvedIsError = isFieldError || Boolean(errorMessage);
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+      hasOwnMessage ? generatedMessageId : null,
+    );
     const hasValue = value != null && String(value).length > 0;
     const canClear =
       isClearable &&
@@ -79,7 +95,7 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
       <div
         className={cn(nameBlock, className, {
           "is-disabled": disabled,
-          "is-error": Boolean(errorMessage),
+          "is-error": resolvedIsError,
           "is-readonly": readOnly,
           [`${nameBlock}--text-right`]: unit,
         })}
@@ -96,7 +112,8 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
               placeholder={placeholder}
               disabled={disabled}
               readOnly={readOnly || isTextInputBlocked}
-              aria-invalid={errorMessage ? true : undefined}
+              aria-describedby={resolvedAriaDescribedBy}
+              aria-invalid={resolvedIsError ? true : undefined}
             />
           </div>
           <div className={cn(`${nameBlock}__actions`)}>
@@ -113,7 +130,11 @@ const Textfield = forwardRef<HTMLInputElement, TextfieldProps>(
             {unit && <span className={cn(`${nameBlock}__unit`)}>{unit}</span>}
           </div>
         </div>
-        <Message infoMessage={infoMessage} errorMessage={errorMessage} />
+        <Message
+          id={hasOwnMessage ? generatedMessageId : undefined}
+          infoMessage={infoMessage}
+          errorMessage={errorMessage}
+        />
       </div>
     );
   },

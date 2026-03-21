@@ -96,7 +96,7 @@ export default function TextareaRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFTextarea / 폼 연동"
-      description="RHFTextarea는 useController를 사용해 Textarea를 React Hook Form 필드와 연결하는 래퍼 컴포넌트입니다."
+      description="RHFTextarea는 useController로 Textarea를 React Hook Form 필드와 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide

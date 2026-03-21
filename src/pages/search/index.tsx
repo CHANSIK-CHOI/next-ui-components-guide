@@ -9,14 +9,14 @@ export default function SearchGuidePage() {
         <title>Search Guide | Next UI Components Guide</title>
         <meta
           name="description"
-          content="controlled usage와 React Hook Form 연동 기준으로 Search와 RHFSearch의 props와 예시를 정리한 가이드 페이지입니다."
+          content="controlled usage와 React Hook Form 연동 기준으로 Search와 RHFSearch의 주요 props와 사용 패턴을 정리한 가이드 페이지입니다."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <GuideLayout
         title="Search / RHFSearch"
-        description="controlled usage와 React Hook Form 연동 기준으로 Search와 RHFSearch의 props와 예시를 정리한 가이드 페이지입니다."
+        description="controlled usage와 React Hook Form 연동 기준으로 Search와 RHFSearch의 주요 props와 사용 패턴을 정리한 가이드 페이지입니다."
       >
         <SearchGuideContent />
       </GuideLayout>

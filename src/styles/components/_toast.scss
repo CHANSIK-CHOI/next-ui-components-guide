@@ -18,36 +18,34 @@ $module: "toast";
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  gap: func.space("sm");
   padding:
     0
-    2rem
-    calc(2rem + env(safe-area-inset-bottom))
-    2rem;
+    func.surface-space("card")
+    calc(#{func.surface-space("card")} + env(safe-area-inset-bottom))
+    func.surface-space("card");
 }
 
 .#{$module} {
   width: min(100%, 42rem);
   display: flex;
   align-items: flex-start;
-  gap: 1.2rem;
-  padding: 1.4rem 1.6rem;
-  border-radius: 1.8rem;
-  background: rgba(17, 24, 39, 0.94);
-  color: var(--color-white);
-  box-shadow:
-    0 1.4rem 3.2rem rgba(17, 24, 39, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  gap: func.space("sm");
+  padding: func.space("sm") func.surface-space("compact");
+  border-radius: func.radius("lg");
+  background: var(--surface-inverse);
+  color: var(--text-inverse-strong);
+  box-shadow: func.shadow("toast"), func.shadow("inset-inverse");
   pointer-events: auto;
 
   &__indicator {
-    width: 1rem;
-    height: 1rem;
+    width: func.size("icon-sm");
+    height: func.size("icon-sm");
     flex-shrink: 0;
     margin-top: 0.5rem;
-    border-radius: 999px;
-    background: var(--color-primary-bright);
-    box-shadow: 0 0 0 0.4rem rgba(220, 252, 231, 0.18);
+    border-radius: func.radius("pill");
+    background: var(--control-accent-soft);
+    box-shadow: func.shadow("ring-brand");
   }
 
   &__content {
@@ -63,15 +61,15 @@ $module: "toast";
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    @include mix.typo(1.4rem, 1.5rem, "medium", 1.5);
+    @include mix.type-scale("body-sm", "medium", 1.5);
   }
 
   &--error {
-    background: rgba(127, 29, 29, 0.96);
+    background: var(--surface-toast-error);
 
     .#{$module}__indicator {
       background: var(--color-error-soft);
-      box-shadow: 0 0 0 0.4rem rgba(254, 226, 226, 0.18);
+      box-shadow: func.shadow("ring-error");
     }
   }
 }

@@ -1,3 +1,4 @@
+@use "../abstracts/functions" as func;
 @use "../abstracts/mixins" as mix;
 
 $module: "accordion";
@@ -8,44 +9,41 @@ $module: "accordion";
   &--box {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: func.space("sm");
   }
 
   &--line {
-    border-top: 1px solid var(--line-color-2);
+    border-top: 1px solid var(--control-border);
   }
 
   &__item {
+    position: relative;
     overflow: hidden;
-    transition:
-      border-color 0.18s ease,
-      box-shadow 0.18s ease,
-      background-color 0.18s ease;
+    @include mix.motion-transition(
+      (border-color, box-shadow, background-color),
+      "fast"
+    );
   }
 
   &--box &__item {
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2rem;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(249, 250, 251, 0.92) 100%
-    );
-    box-shadow: 0 1.2rem 2.8rem rgba(17, 24, 39, 0.06);
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("lg");
+    background: var(--gradient-panel-soft);
+    box-shadow: func.shadow("soft");
   }
 
   &--box &__item.is-active {
-    border-color: rgba(28, 166, 115, 0.22);
-    box-shadow: 0 1.8rem 4rem rgba(1, 64, 41, 0.1);
+    border-color: var(--border-brand-active);
+    box-shadow: func.shadow("brand");
   }
 
   &--line &__item {
-    border-bottom: 1px solid var(--line-color-2);
+    border-bottom: 1px solid var(--control-border);
     background-color: transparent;
   }
 
   &--line &__item.is-active {
-    border-bottom-color: rgba(28, 166, 115, 0.3);
+    border-bottom-color: var(--border-brand-line);
   }
 
   &__button {
@@ -54,9 +52,7 @@ $module: "accordion";
     color: inherit;
     text-align: left;
     border-radius: inherit;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
+    @include mix.motion-transition((background-color, color));
 
     &:focus-visible {
       outline: 2px solid var(--focus-color);
@@ -64,7 +60,7 @@ $module: "accordion";
     }
 
     &:not(.#{$module}__button--icon):not(:disabled):hover .#{$module}__head {
-      background-color: rgba(17, 24, 39, 0.02);
+      background-color: var(--surface-neutral-softest);
     }
   }
 
@@ -79,16 +75,16 @@ $module: "accordion";
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
+    border-radius: func.radius("pill");
   }
 
   &__head {
     display: flex;
     align-items: center;
-    gap: 1.6rem;
+    gap: func.space("md");
     width: 100%;
-    padding: 1.8rem 2rem;
-    transition: background-color 0.18s ease;
+    padding: func.surface-space("compact") func.surface-space("card");
+    @include mix.motion-transition(background-color, "fast");
   }
 
   // &--line &__head {
@@ -102,8 +98,8 @@ $module: "accordion";
   }
 
   &__title {
-    color: var(--text-color-1);
-    @include mix.typo(1.6rem, 1.8rem, "semi-bold", 1.45);
+    color: var(--text-primary);
+    @include mix.type-scale("body", "semi-bold", 1.45, -0.02em);
   }
 
   &__title > .field,
@@ -116,26 +112,26 @@ $module: "accordion";
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: func.size("control-md");
+    height: func.size("control-md");
     margin-top: 0.1rem;
-    border-radius: 999px;
-    background: var(--bg-color-2);
-    color: var(--text-color-2);
+    border-radius: func.radius("pill");
+    background: var(--surface-panel-muted);
+    color: var(--text-secondary);
   }
 
   &__button--icon:not(:disabled):hover,
   &__button--icon:not(:disabled):focus-visible {
-    background: var(--bg-color-3);
-    color: var(--text-color-1);
+    background: var(--control-bg-subtle);
+    color: var(--text-primary);
   }
 
   &__arrowIcon {
     position: relative;
     display: block;
-    width: 1.6rem;
-    height: 1.6rem;
-    transition: transform 0.18s ease;
+    width: func.size("icon-lg");
+    height: func.size("icon-lg");
+    @include mix.motion-transition(transform, "fast");
   }
 
   &__arrowIcon::before {
@@ -143,8 +139,8 @@ $module: "accordion";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 0.8rem;
-    height: 0.8rem;
+    width: func.size("dot-sm");
+    height: func.size("dot-sm");
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: translate(-50%, -65%) rotate(45deg);
@@ -152,16 +148,18 @@ $module: "accordion";
 
   &__panel {
     width: 100%;
+    will-change: transform, opacity;
   }
 
   &__panelBox {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    padding: 1.6rem 2rem 2rem;
-    border-top: 1px solid var(--line-color-3);
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 1.5rem, "regular", 1.7);
+    gap: func.space("sm");
+    padding: func.surface-space("compact") func.surface-space("card")
+      func.surface-space("card");
+    border-top: 1px solid var(--control-border-disabled);
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
 
     > * {
       margin: 0;
@@ -174,7 +172,7 @@ $module: "accordion";
   }
 
   &__item.is-active &__panelBox {
-    border-top-color: rgba(28, 166, 115, 0.14);
+    border-top-color: var(--border-brand-divider);
   }
 
   &__item.is-active &__arrowIcon {

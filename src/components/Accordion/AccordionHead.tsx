@@ -1,5 +1,6 @@
 import cn from "classnames";
 import AccordionButton from "./AccordionButton";
+import { useAccordionContext } from "./Accordion.context";
 
 const nameBlock = "accordion";
 
@@ -14,8 +15,11 @@ export default function AccordionHead({
   className,
   ...rest
 }: AccordionHeadProps) {
+  const { accordionId } = useAccordionContext();
   const hasToggleButton =
     typeof buttonIndex === "number" && !Number.isNaN(buttonIndex);
+  const titleId =
+    hasToggleButton && children ? `${accordionId}-title-${buttonIndex}` : undefined;
 
   return (
     <div
@@ -26,7 +30,7 @@ export default function AccordionHead({
         hasToggleButton && `${nameBlock}__head--withButton`,
       )}
     >
-      <div className={cn(`${nameBlock}__titleBox`)}>
+      <div id={titleId} className={cn(`${nameBlock}__titleBox`)}>
         {children ? (
           <div className={cn(`${nameBlock}__title`)}>{children}</div>
         ) : null}
@@ -37,7 +41,8 @@ export default function AccordionHead({
           <AccordionButton
             index={buttonIndex}
             className={cn(`${nameBlock}__button--icon`)}
-            aria-label="아코디언 패널 토글"
+            aria-label={titleId ? undefined : "아코디언 패널 토글"}
+            aria-labelledby={titleId}
           >
             <span
               className={cn(`${nameBlock}__arrowIcon`)}

@@ -59,7 +59,7 @@ export default function SelectControlledSection() {
     <GuideSection
       label="Select"
       title="Select / controlled usage"
-      description="Select는 react-select를 기반으로 하고, value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 사용하는 선택 컴포넌트입니다."
+      description="Select는 react-select를 기반으로 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 정리한 선택 컴포넌트입니다."
     >
       <GuideProp
         isWide

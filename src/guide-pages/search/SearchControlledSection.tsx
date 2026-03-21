@@ -145,7 +145,7 @@ export default function SearchControlledSection() {
     <GuideSection
       label="Search"
       title="Search / controlled usage"
-      description="Search는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로, Textfield 디자인과 동작에 검색 버튼을 추가한 입력 컴포넌트입니다."
+      description="Search는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 정리한 검색 입력 컴포넌트입니다. Textfield UI에 검색 버튼 동작을 더한 형태입니다."
     >
       <SearchPropsGuideProp />
       <SearchActionGuideProp />

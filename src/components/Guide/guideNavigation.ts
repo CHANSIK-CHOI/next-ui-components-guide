@@ -68,7 +68,7 @@ export const guideNavigation: GuideNavigationItem[] = [
   {
     href: "/field",
     label: "Field",
-    description: "Field / Field.Label / Field.Description / Field.Message",
+    description: "Field / Field.Item / Field.Grid / Field.Label / Field.Description",
   },
   {
     href: "/alert",

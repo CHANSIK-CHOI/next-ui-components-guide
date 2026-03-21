@@ -1,15 +1,10 @@
+@use "../abstracts/functions" as func;
 @use "../abstracts/mixins" as mix;
 @use "../abstracts/variables" as var;
 
 .guideLayout {
   min-height: 100%;
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(28, 166, 115, 0.16),
-      transparent 28%
-    ),
-    linear-gradient(180deg, #f6fbf9 0%, #ffffff 22%, #f7fafc 100%);
+  background: var(--gradient-page);
 
   &__header {
     position: fixed;
@@ -17,8 +12,8 @@
     left: 0;
     right: 0;
     z-index: 10;
-    border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-    background: rgba(255, 255, 255, 0.86);
+    border-bottom: 1px solid var(--border-default);
+    background: var(--surface-glass);
     backdrop-filter: blur(18px);
     height: var.$header-height;
   }
@@ -27,10 +22,10 @@
     display: flex;
     align-items: center;
     height: 100%;
-    gap: 1.6rem;
+    gap: func.space("md");
     max-width: 144rem;
     margin: 0 auto;
-    padding: 1.6rem 2rem;
+    padding: func.space("md") func.surface-space("card");
 
     @include mix.respond-to("tablet") {
       align-items: center;
@@ -42,35 +37,30 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
-    min-width: 4rem;
-    min-height: 4rem;
-    height: 4rem;
-    width: 4rem;
-    padding: 0 1.2rem;
-    border: 1px solid rgba(1, 64, 41, 0.12);
-    border-radius: 999px;
-    background: linear-gradient(135deg, #ffffff 0%, #eefbf5 100%);
-    color: var(--color-primary-dark);
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1;
-    transition:
-      transform 0.2s ease,
-      box-shadow 0.2s ease,
-      border-color 0.2s ease;
+    gap: func.space("xs");
+    min-width: func.size("control-lg");
+    min-height: func.size("control-lg");
+    height: func.size("control-lg");
+    width: func.size("control-lg");
+    padding: 0 func.space("sm");
+    border: 1px solid var(--border-brand);
+    border-radius: func.radius("pill");
+    background: var(--gradient-brand-panel);
+    color: var(--text-brand);
+    @include mix.type-scale("body-sm", "bold", 1, -0.01em);
+    @include mix.motion-transition((transform, box-shadow, border-color));
 
     @include mix.respond-to("tablet") {
       min-width: 9.6rem;
-      padding: 0 1.8rem;
+      padding: 0 func.space("md");
       width: auto;
       height: auto;
     }
 
     &:hover {
       transform: translateY(-1px);
-      box-shadow: 0 1rem 2rem rgba(1, 64, 41, 0.08);
-      border-color: rgba(1, 64, 41, 0.18);
+      box-shadow: func.shadow("brand");
+      border-color: var(--border-brand-strong);
     }
   }
 
@@ -78,8 +68,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: func.size("icon-xl");
+    height: func.size("icon-xl");
     flex: 0 0 auto;
     flex-shrink: 0;
 
@@ -101,22 +91,21 @@
   &__headerContent {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: func.space("2xs");
   }
 
   &__headerTitle {
-    color: var(--text-color-1);
-    font-size: 1.8rem;
-    font-weight: 700;
+    color: var(--text-primary);
+    @include mix.type-scale("body", "bold", 1.25, -0.03em);
   }
 
   &__content {
     display: flex;
     align-items: flex-start;
-    gap: 3.2rem;
+    gap: func.space("xl");
     max-width: 144rem;
     margin: 0 auto;
-    padding: 3.2rem 2rem 6rem;
+    padding: func.surface-space("section") func.surface-space("card") 6rem;
     flex-direction: column;
     margin-top: var.$header-height;
 
@@ -134,26 +123,16 @@
   &__hero {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    padding: 2.4rem;
-    border: 1px solid rgba(17, 24, 39, 0.06);
-    border-radius: 2.4rem;
-    background:
-      radial-gradient(
-        circle at top right,
-        rgba(28, 166, 115, 0.18),
-        transparent 30%
-      ),
-      linear-gradient(
-        160deg,
-        rgba(255, 255, 255, 0.98) 0%,
-        rgba(240, 251, 245, 0.96) 100%
-      );
-    box-shadow: 0 2.4rem 5rem rgba(17, 24, 39, 0.08);
+    gap: func.space("sm");
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-subtle);
+    border-radius: func.radius("xl");
+    background: var(--gradient-hero);
+    box-shadow: func.shadow("strong");
 
     @include mix.respond-to("tablet") {
-      padding: 3.2rem;
-      border-radius: 3.2rem;
+      padding: func.surface-space("section");
+      border-radius: func.radius("2xl");
     }
   }
 
@@ -161,45 +140,31 @@
     display: inline-flex;
     align-items: center;
     width: fit-content;
-    min-height: 3rem;
-    padding: 0 1.2rem;
-    border-radius: 999px;
-    background: rgba(1, 64, 41, 0.08);
-    color: var(--color-primary-dark);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    min-height: func.size("chip-md");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("pill");
+    background: var(--surface-brand-accent);
+    color: var(--text-brand);
+    @include mix.type-scale("label", "bold", 1, 0.12em);
     text-transform: uppercase;
   }
 
   &__title {
-    color: var(--text-color-1);
-    font-size: 3.6rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.05em;
-
-    @include mix.respond-to("tablet") {
-      font-size: 4.8rem;
-    }
+    color: var(--text-primary);
+    @include mix.type-scale("display");
   }
 
   &__description {
     max-width: 72rem;
-    color: var(--text-color-2);
-    font-size: 1.6rem;
-    line-height: 1.7;
-
-    @include mix.respond-to("tablet") {
-      font-size: 1.8rem;
-    }
+    color: var(--text-secondary);
+    @include mix.type-scale("body", "regular", 1.7);
   }
 
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-top: 2.4rem;
+    gap: func.space("lg");
+    margin-top: func.space("lg");
   }
 
   &__aside {
@@ -212,35 +177,33 @@
       width: auto;
 
       position: sticky;
-      top: calc(var.$header-height + 3.2rem);
+      top: calc(var.$header-height + #{func.surface-space("section")});
     }
   }
 
   &__asideCard {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    padding: 2rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.08);
+    gap: func.space("sm");
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    background: var(--surface-panel);
+    box-shadow: func.shadow("base");
     max-height: calc(100vh - (var.$header-height + 6.4rem));
     max-height: calc(100dvh - (var.$header-height + 6.4rem));
   }
 
   &__asideLabel {
-    color: var(--text-color-3);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "bold", 1.3, 0.12em);
     text-transform: uppercase;
   }
 
   &__nav {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
     max-height: 30rem;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -252,43 +215,33 @@
   &__navLink {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.4rem 1.6rem;
+    gap: func.space("2xs");
+    padding: func.space("sm") func.surface-space("compact");
     border: 1px solid transparent;
-    border-radius: 1.8rem;
-    color: var(--text-color-2);
-    transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      transform 0.2s ease,
-      box-shadow 0.2s ease;
+    border-radius: func.radius("lg");
+    color: var(--text-secondary);
+    @include mix.motion-transition((background-color, border-color, transform, box-shadow));
 
     &:hover {
       transform: translateX(-2px);
-      border-color: rgba(1, 64, 41, 0.12);
-      background: rgba(240, 251, 245, 0.72);
+      border-color: var(--border-brand);
+      background: var(--surface-brand-soft);
     }
 
     &--current {
-      border-color: rgba(1, 64, 41, 0.14);
-      background: linear-gradient(
-        135deg,
-        rgba(240, 251, 245, 0.98) 0%,
-        rgba(220, 252, 231, 0.78) 100%
-      );
-      box-shadow: inset 0 0 0 1px rgba(1, 64, 41, 0.04);
+      border-color: var(--border-brand-divider);
+      background: var(--gradient-nav-current);
+      box-shadow: func.shadow("inset-accent");
     }
   }
 
   &__navTitle {
-    color: var(--text-color-1);
-    font-size: 1.5rem;
-    font-weight: 700;
+    color: var(--text-primary);
+    @include mix.type-scale("body-sm", "bold", 1.35, -0.01em);
   }
 
   &__navDescription {
-    color: var(--text-color-3);
-    font-size: 1.3rem;
-    line-height: 1.5;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "regular", 1.5, 0);
   }
 }

@@ -1,4 +1,5 @@
 @use "../abstracts/mixins.scss" as mix;
+@use "../abstracts/functions" as func;
 
 $module: "textarea";
 
@@ -7,24 +8,23 @@ $module: "textarea";
 
   &__wrap {
     position: relative;
-    border: 1px solid var(--line-color-2);
-    border-radius: 0.8rem;
-    background-color: var(--color-white);
-    transition:
-      border-color 0.18s ease,
-      background-color 0.18s ease,
-      box-shadow 0.18s ease,
-      border-width 0.18s ease;
+    border: 1px solid var(--control-border);
+    border-radius: func.radius("sm");
+    background-color: var(--control-bg);
+    @include mix.motion-transition(
+      (border-color, background-color, box-shadow, border-width),
+      "fast"
+    );
   }
 
   &__input {
     display: block;
     width: 100%;
-    min-height: 11.2rem;
-    padding: 1.6rem 5rem 1.6rem 1.6rem;
-    color: var(--text-color-1);
-    caret-color: var(--text-color-1);
-    @include mix.typo(1.6rem, 1.6rem, "regular", 1.5);
+    min-height: calc(#{func.size("field")} * 2);
+    padding: func.space("md") 5rem func.space("md") func.space("md");
+    color: var(--control-text);
+    caret-color: var(--control-text);
+    @include mix.type-scale("body", "regular", 1.6);
   }
 
   &__input:focus,
@@ -33,72 +33,72 @@ $module: "textarea";
   }
 
   &__input::placeholder {
-    color: var(--text-color-3);
-    @include mix.typo(1.6rem, 1.6rem, "regular", 1.5);
+    color: var(--control-text-placeholder);
+    @include mix.type-scale("body", "regular", 1.6);
   }
 
   &__actions {
     position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
+    top: func.space("sm");
+    right: func.space("sm");
     display: inline-flex;
     align-items: center;
   }
 
   &__clear {
-    color: var(--text-color-3);
+    color: var(--control-icon);
   }
 
   &:not(.is-disabled):not(.is-readonly):hover &__wrap {
-    border-color: var(--text-color-3);
+    border-color: var(--control-border-hover);
   }
 
   &:not(.is-disabled):not(.is-readonly):focus-within &__wrap {
     border-color: var(--focus-color);
     border-width: 2px;
-    box-shadow: 0 0 0 0.4rem rgba(28, 166, 115, 0.14);
+    box-shadow: func.shadow("focus");
   }
 
   &:not(.is-disabled):not(.is-readonly) &__clear:hover {
-    color: var(--text-color-1);
+    color: var(--control-icon-strong);
   }
 
   &.is-disabled &__wrap {
-    background-color: var(--bg-color-2);
-    border-color: var(--line-color-3);
+    background-color: var(--control-bg-disabled);
+    border-color: var(--control-border-disabled);
   }
 
   &__input[disabled] {
-    color: var(--text-color-3);
+    color: var(--control-text-disabled);
     cursor: not-allowed;
   }
 
   &.is-readonly &__wrap {
-    background-color: var(--bg-color-2);
-    border-color: var(--line-color-3);
+    background-color: var(--control-bg-readonly);
+    border-color: var(--control-border-disabled);
   }
 
   &.is-readonly &__input {
-    color: var(--text-color-2);
+    color: var(--control-text-muted);
     cursor: default;
   }
 
   &.is-error &__wrap {
-    border-color: var(--color-error);
-    background-color: var(--color-white);
+    border-color: var(--control-border-error);
+    background-color: var(--control-bg);
   }
 
   &.is-error &__input {
-    caret-color: var(--color-error);
+    caret-color: var(--control-text-error);
   }
 
   &.is-error:not(.is-disabled):not(.is-readonly):hover &__wrap {
-    border-color: var(--color-error);
+    border-color: var(--control-border-error);
   }
 
   &.is-error:not(.is-disabled):not(.is-readonly):focus-within &__wrap {
-    border-color: var(--color-error);
-    box-shadow: 0 0 0 0.4rem rgba(220, 38, 38, 0.12);
+    border-color: var(--control-border-error);
+    box-shadow: func.shadow("focus-error");
   }
 
   &--resize-none &__input {

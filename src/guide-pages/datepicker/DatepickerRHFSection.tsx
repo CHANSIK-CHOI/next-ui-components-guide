@@ -125,7 +125,7 @@ export default function DatepickerRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFDatepicker / 폼 연동"
-      description="RHFDatepicker는 Datepicker props를 유지하면서 useController로 단일 날짜 필드를 React Hook Form에 연결하는 래퍼 컴포넌트입니다."
+      description="RHFDatepicker는 Datepicker props를 유지하면서 useController로 단일 날짜 필드를 React Hook Form에 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide

@@ -134,7 +134,7 @@ export default function PasswordControlledSection() {
     <GuideSection
       label="Password"
       title="Password / controlled usage"
-      description="Password는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로, Textfield 디자인과 동작에 비밀번호 보기/숨기기 토글을 추가한 입력 컴포넌트입니다."
+      description="Password는 value와 onChange를 외부 상태로 관리하는 controlled usage를 기준으로 정리한 비밀번호 입력 컴포넌트입니다. Textfield UI에 보기/숨기기 토글을 더한 형태입니다."
     >
       <PasswordPropsGuideProp />
       <PasswordToggleGuideProp />

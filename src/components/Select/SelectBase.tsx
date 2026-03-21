@@ -11,6 +11,7 @@ type SelectBaseProps = {
   isError?: boolean;
   infoMessage?: string;
   errorMessage?: string;
+  messageId?: string;
   children: ReactNode;
 };
 
@@ -23,6 +24,7 @@ export default function SelectBase({
   isError = false,
   infoMessage = "",
   errorMessage = "",
+  messageId,
   children,
 }: SelectBaseProps) {
   const resolvedIsError = isError || Boolean(errorMessage);
@@ -36,7 +38,11 @@ export default function SelectBase({
       })}
     >
       {children}
-      <Message infoMessage={infoMessage} errorMessage={errorMessage} />
+      <Message
+        id={messageId}
+        infoMessage={infoMessage}
+        errorMessage={errorMessage}
+      />
     </div>
   );
 }

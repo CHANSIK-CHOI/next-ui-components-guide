@@ -30,6 +30,80 @@
   @return null;
 }
 
+@function type-scale($key, $property: null) {
+  @if map.has-key(var.$type-scale, $key) {
+    $scale: map.get(var.$type-scale, $key);
+
+    @if $property == null {
+      @return $scale;
+    }
+
+    @if map.has-key($scale, $property) {
+      @return map.get($scale, $property);
+    }
+
+    @warn "Unknown type-scale property: #{$property} for #{$key}.";
+    @return null;
+  }
+
+  @warn "Unknown type-scale key: #{$key}.";
+  @return null;
+}
+
+@function space($key) {
+  @if map.has-key(var.$space-scale, $key) {
+    @return map.get(var.$space-scale, $key);
+  }
+
+  @warn "Unknown spacing key: #{$key}.";
+  @return null;
+}
+
+@function size($key) {
+  @if map.has-key(var.$size-scale, $key) {
+    @return map.get(var.$size-scale, $key);
+  }
+
+  @warn "Unknown size key: #{$key}.";
+  @return null;
+}
+
+@function surface-space($key) {
+  @if map.has-key(var.$surface-space-scale, $key) {
+    @return map.get(var.$surface-space-scale, $key);
+  }
+
+  @warn "Unknown surface spacing key: #{$key}.";
+  @return null;
+}
+
+@function radius($key) {
+  @if map.has-key(var.$radius-scale, $key) {
+    @return map.get(var.$radius-scale, $key);
+  }
+
+  @warn "Unknown radius key: #{$key}.";
+  @return null;
+}
+
+@function shadow($key) {
+  @if map.has-key(var.$shadow-scale, $key) {
+    @return map.get(var.$shadow-scale, $key);
+  }
+
+  @warn "Unknown shadow key: #{$key}.";
+  @return null;
+}
+
+@function duration($key) {
+  @if map.has-key(var.$motion-duration-scale, $key) {
+    @return map.get(var.$motion-duration-scale, $key);
+  }
+
+  @warn "Unknown motion duration key: #{$key}.";
+  @return null;
+}
+
 @function get-responsive-size($key) {
   @if map.has-key(var.$breakpoints, $key) {
     @return map.get(var.$breakpoints, $key);
@@ -55,4 +129,12 @@
 
   @warn "Unknown easing key: #{$keyword}.";
   @return null;
+}
+
+@function transition-token(
+  $property,
+  $duration: "base",
+  $easing: "standard"
+) {
+  @return $property duration($duration) ease($easing);
 }

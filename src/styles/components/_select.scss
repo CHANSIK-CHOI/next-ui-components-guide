@@ -11,25 +11,28 @@ $module: "select";
   }
 
   &__control {
-    min-height: 5.6rem;
-    border: 1px solid var(--line-color-2);
-    border-radius: 0.8rem;
-    background-color: var(--color-white);
+    min-height: func.size("field");
+    border: 1px solid var(--control-border);
+    border-radius: func.radius("sm");
+    background-color: var(--control-bg);
     display: flex;
     align-items: center;
-    transition:
-      border-color 0.18s ease,
-      background-color 0.18s ease,
-      box-shadow 0.18s ease,
-      border-width 0.18s ease;
+    @include mix.motion-transition(
+      (border-color, background-color, box-shadow, border-width),
+      "fast"
+    );
   }
 
   &__value-container {
-    min-height: 5.6rem;
-    padding: 0.6rem 0.5rem 0.6rem 1.6rem;
+    min-height: func.size("field");
+    padding:
+      func.space("xs")
+      func.space("2xs")
+      func.space("xs")
+      func.space("md");
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: func.space("xs");
     flex: 1;
     min-width: 0;
     flex-wrap: wrap;
@@ -38,52 +41,52 @@ $module: "select";
   &__input-container {
     margin: 0;
     padding: 0;
-    color: var(--text-color-1);
-    @include mix.typo(1.6rem, 1.6rem, "regular");
+    color: var(--control-text);
+    @include mix.type-scale("body", "regular", 1.5);
   }
 
   &__input-container input {
-    color: var(--text-color-1);
-    caret-color: var(--text-color-1);
+    color: var(--control-text);
+    caret-color: var(--control-text);
   }
 
   &__single-value {
-    color: var(--text-color-1);
-    @include mix.typo(1.6rem, 1.6rem, "regular");
+    color: var(--control-text);
+    @include mix.type-scale("body", "regular", 1.5);
   }
 
   &__placeholder {
-    color: var(--text-color-3);
-    @include mix.typo(1.6rem, 1.6rem, "regular");
+    color: var(--control-text-placeholder);
+    @include mix.type-scale("body", "regular", 1.5);
   }
 
   &__indicators {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    padding: 0 1.6rem;
+    padding: 0 func.space("md");
     height: 100%;
   }
   &__clear-indicator {
-    background-color: var(--bg-color-3);
+    background-color: var(--control-bg-subtle);
   }
   &__clear-indicator,
   &__dropdown-indicator {
-    width: 2.4rem;
-    height: 2.4rem;
-    margin-left: 1rem;
-    padding: 0.2rem;
-    border-radius: 50%;
+    width: func.size("icon-3xl");
+    height: func.size("icon-3xl");
+    margin-left: func.space("xs");
+    padding: func.space("2xs");
+    border-radius: func.radius("round");
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color-3);
+    color: var(--control-icon);
     cursor: pointer;
     transition:
-      color 0.18s ease,
-      background-color 0.18s ease,
-      transform 0.12s ease,
-      opacity 0.18s ease;
+      func.transition-token(color, "fast"),
+      func.transition-token(background-color, "fast"),
+      func.transition-token(transform, "quick"),
+      func.transition-token(opacity, "fast");
   }
 
   &__clear-indicator:first-child,
@@ -102,12 +105,12 @@ $module: "select";
   }
 
   &__menu {
-    margin-top: 0.8rem;
-    padding: 0.8rem;
-    border: 1px solid var(--line-color-3);
-    border-radius: 1.2rem;
-    background-color: var(--color-white);
-    box-shadow: 0 1.6rem 3.2rem rgba(15, 23, 42, 0.12);
+    margin-top: func.space("xs");
+    padding: func.space("xs");
+    border: 1px solid var(--control-border-disabled);
+    border-radius: func.radius("md");
+    background-color: var(--control-bg);
+    box-shadow: func.shadow("dropdown");
     z-index: func.z("tooltip");
   }
 
@@ -116,99 +119,103 @@ $module: "select";
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: func.space("2xs");
   }
 
   &__group {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: func.space("2xs");
   }
 
   &__group-heading {
-    padding: 0.8rem 1.2rem 0.4rem;
-    color: var(--text-color-3);
+    padding: func.space("xs") func.space("sm") func.space("2xs");
+    color: var(--text-tertiary);
     text-transform: none;
-    @include mix.typo(1.3rem, 1.3rem, "medium");
+    @include mix.type-scale("label", "medium", 1.5, 0);
   }
 
   &__option {
-    min-height: 4.4rem;
-    padding: 0 1.2rem;
-    border-radius: 0.8rem;
+    min-height: func.size("control-option");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("sm");
     display: flex !important;
     align-items: center;
     cursor: pointer !important;
-    color: var(--text-color-1);
-    transition:
-      background-color 0.18s ease,
-      color 0.18s ease;
-    @include mix.typo(1.6rem, 1.6rem, "regular");
+    color: var(--text-primary);
+    @include mix.motion-transition((background-color, color), "fast");
+    @include mix.type-scale("body", "regular", 1.5);
   }
 
   &__option--is-focused {
-    background-color: var(--bg-color-3);
+    background-color: var(--control-bg-subtle);
   }
 
   &__option--is-selected {
-    background-color: var(--color-primary-bright);
-    color: var(--color-primary-dark);
+    background-color: var(--control-accent-soft);
+    color: var(--control-selection-text);
     font-weight: func.get-font-weight("medium");
   }
 
   &__option--is-disabled {
-    color: var(--text-color-4);
+    color: var(--text-quaternary);
     cursor: not-allowed;
   }
 
   &__multi-value {
     display: inline-flex;
     align-items: center;
-    border-radius: 999rem;
-    background-color: var(--bg-color-3);
-    color: var(--text-color-1);
+    border-radius: func.radius("pill-fluid");
+    background-color: var(--control-bg-subtle);
+    color: var(--text-primary);
   }
 
   &__multi-value__label {
-    padding: 0.6rem 0.4rem 0.6rem 1rem;
-    @include mix.typo(1.4rem, 1.4rem, "medium");
+    padding:
+      func.space("xs")
+      func.space("2xs")
+      func.space("xs")
+      func.space("sm");
+    @include mix.type-scale("body-sm", "medium", 1.35, -0.01em);
   }
 
   &__multi-value__remove {
-    padding: 0.6rem 0.8rem 0.6rem 0.4rem;
-    color: var(--text-color-2);
+    padding:
+      func.space("xs")
+      func.space("xs")
+    func.space("xs")
+      func.space("2xs");
+    color: var(--text-secondary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition:
-      color 0.18s ease,
-      background-color 0.18s ease;
+    @include mix.motion-transition((color, background-color), "fast");
   }
 
   &__multi-value__remove svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: func.size("icon-md");
+    height: func.size("icon-md");
   }
 
   &__menu-notice {
-    padding: 1.6rem 1.2rem;
-    color: var(--text-color-3);
+    padding: func.space("md") func.space("sm");
+    color: var(--text-tertiary);
     text-align: center;
-    @include mix.typo(1.4rem, 1.4rem, "regular");
+    @include mix.type-scale("body-sm", "regular", 1.6);
   }
 
   &__indicators {
-    height: 5.8rem;
+    height: func.size("field-frame");
   }
 
   &:not(.is-disabled):not(.is-readonly) .#{$module}__control:hover {
-    border-color: var(--text-color-3);
+    border-color: var(--control-border-hover);
   }
 
   &:not(.is-disabled):not(.is-readonly) .#{$module}__control--is-focused {
     border-color: var(--focus-color);
     border-width: 2px;
-    box-shadow: 0 0 0 0.4rem rgba(28, 166, 115, 0.14);
+    box-shadow: func.shadow("focus");
   }
 
   // &:not(.is-disabled):not(.is-readonly) .#{$module}__clear-indicator:hover,
@@ -226,15 +233,15 @@ $module: "select";
   }
 
   &.is-disabled .#{$module}__control {
-    background-color: var(--bg-color-2);
-    border-color: var(--line-color-3);
+    background-color: var(--control-bg-disabled);
+    border-color: var(--control-border-disabled);
   }
 
   &.is-disabled .#{$module}__placeholder,
   &.is-disabled .#{$module}__single-value,
   &.is-disabled .#{$module}__clear-indicator,
   &.is-disabled .#{$module}__dropdown-indicator {
-    color: var(--text-color-3);
+    color: var(--control-text-disabled);
   }
 
   &.is-disabled .#{$module}__clear-indicator,
@@ -247,15 +254,15 @@ $module: "select";
   }
 
   &.is-readonly .#{$module}__control {
-    background-color: var(--bg-color-2);
-    border-color: var(--line-color-3);
+    background-color: var(--control-bg-readonly);
+    border-color: var(--control-border-disabled);
   }
 
   &.is-readonly .#{$module}__single-value,
   &.is-readonly .#{$module}__placeholder,
   &.is-readonly .#{$module}__clear-indicator,
   &.is-readonly .#{$module}__dropdown-indicator {
-    color: var(--text-color-2);
+    color: var(--control-text-muted);
   }
 
   &.is-readonly .#{$module}__clear-indicator,
@@ -264,17 +271,17 @@ $module: "select";
   }
 
   &.is-error .#{$module}__control {
-    border-color: var(--color-error);
-    background-color: var(--color-white);
+    border-color: var(--control-border-error);
+    background-color: var(--control-bg);
   }
 
   &.is-error:not(.is-disabled):not(.is-readonly) .#{$module}__control:hover {
-    border-color: var(--color-error);
+    border-color: var(--control-border-error);
   }
 
   &.is-error:not(.is-disabled):not(.is-readonly)
     .#{$module}__control--is-focused {
-    border-color: var(--color-error);
-    box-shadow: 0 0 0 0.4rem rgba(220, 38, 38, 0.12);
+    border-color: var(--control-border-error);
+    box-shadow: func.shadow("focus-error");
   }
 }

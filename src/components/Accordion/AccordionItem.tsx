@@ -1,9 +1,11 @@
 import cn from "classnames";
+import { motion, type HTMLMotionProps } from "framer-motion";
+import { motionTransition } from "@/utils/motion";
 import { useAccordionContext } from "./Accordion.context";
 
 const nameBlock = "accordion";
 
-export type AccordionItemProps = React.HTMLAttributes<HTMLDivElement> & {
+export type AccordionItemProps = HTMLMotionProps<"div"> & {
   children: React.ReactNode;
   index: number;
 };
@@ -18,11 +20,12 @@ export default function AccordionItem({
   const isItemOpen = activeIndices.includes(index);
 
   return (
-    <div
+    <motion.div
       {...rest}
+      transition={{ layout: motionTransition.panel }}
       className={cn(`${nameBlock}__item`, className, isItemOpen && "is-active")}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

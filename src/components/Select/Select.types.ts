@@ -37,6 +37,7 @@ export type SelectSharedProps<IsMulti extends boolean> = Omit<
   id?: string;
   className?: string;
   name?: string;
+  "aria-describedby"?: string;
   options: OptionsOrGroups<SelectOption, GroupBase<SelectOption>>;
   placeholder?: string;
   disabled?: boolean;

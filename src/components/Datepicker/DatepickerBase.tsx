@@ -19,6 +19,7 @@ import {
   type DayPickerProps,
   type OnSelectHandler,
 } from "react-day-picker";
+import { motionTransition } from "@/utils/motion";
 import Textfield, { type TextfieldProps } from "../Textfield/Textfield";
 import TextfieldBtn from "../Textfield/TextfieldBtn";
 
@@ -304,7 +305,7 @@ export default function DatepickerBase<
             initial={{ opacity: 0, y: -8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            transition={motionTransition.popover}
             role="dialog"
             aria-label="날짜 선택 캘린더"
           >

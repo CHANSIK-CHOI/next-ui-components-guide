@@ -4,25 +4,25 @@
 $module: "message";
 
 .#{$module} {
-  margin-top: 0.8rem;
-  padding-left: 0.8rem;
+  margin-top: func.space("xs");
+  padding-left: func.space("xs");
 
   &__msg {
-    color: var(--text-color-2);
+    color: var(--text-secondary);
     display: block;
-    @include mix.typo(1.3rem, 1.3rem, "regular");
+    @include mix.type-scale("label", "regular", 1.55, 0);
   }
   &__msg--error {
-    color: var(--color-error);
+    color: var(--text-danger);
     display: flex;
     align-items: center;
   }
   &__error-icon {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: func.size("icon-lg");
+    height: func.size("icon-lg");
     display: block;
-    margin-right: 0.4rem;
+    margin-right: func.space("2xs");
     flex-shrink: 0;
-    --iconColor: var(--color-error);
+    --iconColor: var(--text-danger);
   }
 }

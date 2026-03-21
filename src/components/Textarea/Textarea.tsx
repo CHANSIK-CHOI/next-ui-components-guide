@@ -2,7 +2,10 @@ import { useId, forwardRef } from "react";
 import cn from "classnames";
 import Message from "../Textfield/Message";
 import TextfieldBtn from "../Textfield/TextfieldBtn";
-import { useFieldContext } from "../Field/Field.context";
+import {
+  getMergedAriaIds,
+  useFieldContext,
+} from "../Field/Field.context";
 
 const nameBlock = "textarea";
 
@@ -49,13 +52,26 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       isClearable = false,
       onClear,
       resize = "vertical",
+      "aria-describedby": ariaDescribedBy,
       ...rest
     },
     ref,
   ) => {
-    const { inputId: fieldContextId } = useFieldContext();
+    const {
+      inputId: fieldContextId,
+      describedByIds: fieldDescribedByIds,
+      isError: isFieldError,
+    } = useFieldContext();
     const generatedId = useId();
+    const generatedMessageId = useId();
     const resolvedId = id ?? fieldContextId ?? generatedId;
+    const hasOwnMessage = Boolean(infoMessage || errorMessage);
+    const resolvedIsError = isFieldError || Boolean(errorMessage);
+    const resolvedAriaDescribedBy = getMergedAriaIds(
+      ariaDescribedBy,
+      ...fieldDescribedByIds,
+      hasOwnMessage ? generatedMessageId : null,
+    );
     const hasValue = value != null && String(value).length > 0;
     const canClear =
       isClearable &&
@@ -72,7 +88,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           className,
           {
             "is-disabled": disabled,
-            "is-error": Boolean(errorMessage),
+            "is-error": resolvedIsError,
             "is-readonly": readOnly,
           },
         )}
@@ -89,7 +105,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             placeholder={placeholder}
             disabled={disabled}
             readOnly={readOnly}
-            aria-invalid={errorMessage ? true : undefined}
+            aria-describedby={resolvedAriaDescribedBy}
+            aria-invalid={resolvedIsError ? true : undefined}
           />
           {canClear && (
             <div className={cn(`${nameBlock}__actions`)}>
@@ -103,7 +120,11 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             </div>
           )}
         </div>
-        <Message infoMessage={infoMessage} errorMessage={errorMessage} />
+        <Message
+          id={hasOwnMessage ? generatedMessageId : undefined}
+          infoMessage={infoMessage}
+          errorMessage={errorMessage}
+        />
       </div>
     );
   },

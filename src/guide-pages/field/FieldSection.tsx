@@ -26,58 +26,62 @@ export default function FieldSection() {
     <GuideSection
       label="Field"
       title="Field / form layout"
-      description="Field는 label, description, message, input을 한 흐름으로 묶는 폼 레이아웃 컴포넌트입니다."
+      description="Field는 label, description, message와 입력 요소를 한 흐름으로 묶고, Field.Item과 Field.Grid로 행/열 레이아웃을 조합하는 폼 레이아웃 컴포넌트입니다."
     >
       <GuideProp
         isWide
-        name="inputId | direction | align | Field.Label | Field.Description | Field.Message"
+        name="inputId | direction | align | infoMessage | errorMessage | Field.Label | Field.Description | Field.Message"
         typeLabel='string | "row" | "column" | "start" | "center"'
-        description="Field root는 inputId로 label 연결을 고정하고, direction과 align으로 기본 배치를 제어합니다. Label, Description, Message는 같은 맥락의 보조 정보로 묶어 두는 용도입니다."
+        description="Field root는 하나의 폼 블록 스코프입니다. inputId로 label 연결을 고정하고, infoMessage/errorMessage 또는 Field.Message로 안내 문구를 배치할 수 있습니다. error 상태는 내부 입력 컴포넌트와 자동으로 공유됩니다."
       >
-        <Field inputId="field-preview-textfield">
+        <Field
+          inputId="field-preview-textfield"
+          errorMessage="Field 레벨 에러 메시지입니다."
+        >
           <Field.Label>라벨 영역</Field.Label>
-          <Textfield
-            isClearable
-            placeholder="텍스트를 입력해주세요"
-            errorMessage="필수 입력란입니다."
-          />
+          <Textfield isClearable placeholder="텍스트를 입력해주세요" />
           <Field.Description>
-            Field.Label은 htmlFor를 자동 연결하고, Description은 같은 블록의
-            보조 설명을 붙입니다.
+            Label은 htmlFor를 자동 연결하고, Field에 errorMessage가 있으면
+            Textfield도 같은 에러 스타일을 받습니다.
           </Field.Description>
         </Field>
 
         <Field inputId="field-preview-switch" direction="row" align="center">
           <Field.Label>라벨 영역</Field.Label>
           <Switch />
+          <Field.Message infoMessage="Field.Message를 직접 두면 현재 스코프 아래에 안내 문구를 별도로 배치할 수 있습니다." />
         </Field>
       </GuideProp>
 
       <GuideProp
         isWide
         name="Field.Item"
-        typeLabel={[`align?: "start" | "center"`, `as?: "label" | "span"`]}
-        description="Checkbox, Switch, Radio처럼 input과 label이 한 줄에 붙는 컴포넌트는
-            Field.Item으로 항목 단위 정렬을 맞추는 편이 레이아웃 구성에
-            편리합니다."
+        typeLabel={[
+          `direction?: "row" | "column"`,
+          `align?: "start" | "center"`,
+          `infoMessage?: string`,
+          `errorMessage?: string`,
+        ]}
+        description="Field.Item은 하나의 행 스코프입니다. 독립적으로 써도 되고 Field 안에 넣어도 되며, 자신의 infoMessage/errorMessage만으로도 내부 input이 동일한 상태를 받습니다."
       >
-        <Field>
-          <Field.Item align="start" inputId="alignStartEx">
-            <Checkbox />
-            <Field.Label>
-              label의 텍스트가 길 때 예시입니다. 안녕하세요 최찬식입니다.
-              퍼블리싱 경험을 바탕으로 Next.js 환경에서 구현한 UI 컴포넌트들을
-              정리한 가이드 페이지입니다. 저는 애니메이션 라이브러리 중 GSAP와
-              Framer Motion을 사용이 가능합니다. 이번 프로젝트에서는 Framer
-              Motion을 선택했는데 그 이유는 애니메이션 구현이 컴포넌트로 구성이
-              되어있어 리엑트와 상성이 잘 맞는다고 생각했기 때문입니다.
-            </Field.Label>
-          </Field.Item>
+        <Field.Item
+          align="start"
+          inputId="alignStartEx"
+          infoMessage="Field.Item 레벨 안내 메시지입니다."
+          errorMessage="Field.Item 레벨 에러 메시지입니다."
+        >
+          <Checkbox />
+          <Field.Label>
+            label의 텍스트가 길 때 예시입니다. 약관 제목이나 긴 안내 문구처럼
+            두 줄 이상으로 내려가더라도 체크박스와 label, description이 같은
+            행 스코프 안에서 자연스럽게 정렬되는지 확인하기 위한 샘플
+            문구입니다.
+          </Field.Label>
           <Field.Description>
             align=start는 label의 텍스트와 input의 레이아웃을 상단으로
             수정합니다.
           </Field.Description>
-        </Field>
+        </Field.Item>
 
         <Field>
           <Field.Label as="span">span label</Field.Label>
@@ -96,17 +100,39 @@ export default function FieldSection() {
             </Field.Item>
           </RadioGroup>
           <Field.Description>
-            as=span은 input과 label의 id & htmlFor 연결이 불필요하여 label
-            태그가 아닌 span 태그로 출력할 때 사용합니다.
+            as=span은 input과 label의 id, htmlFor 연결이 불필요한 그룹
+            제목이나 보조 라벨에 사용합니다.
           </Field.Description>
         </Field>
       </GuideProp>
 
       <GuideProp
         isWide
+        name="Field.Grid"
+        typeLabel="columns?: 1 | 2 | 3 | 4"
+        description="좌우 배치는 별도 div 대신 Field.Grid으로 처리합니다. Field.Grid은 레이아웃만 담당하고, 각 자식 Field/Field.Item의 inputId 스코프는 건드리지 않습니다."
+      >
+        <Field.Grid>
+          <Field>
+            <Field.Label>카테고리</Field.Label>
+            <Select
+              options={CATEGORY_OPTIONS}
+              placeholder="카테고리를 선택해주세요"
+            />
+          </Field>
+
+          <Field>
+            <Field.Label>작업 날짜</Field.Label>
+            <Datepicker placeholder="날짜를 선택해주세요" isClearable />
+          </Field>
+        </Field.Grid>
+      </GuideProp>
+
+      <GuideProp
+        isWide
         name="form composition"
         typeLabel="layout example"
-        description="지금까지 만든 입력 컴포넌트를 Field로 묶어 실제 폼 흐름으로 배치한 예시입니다. label, description, message을 한 눈에 볼 수 있도록 구성했습니다."
+        description="지금까지 만든 입력 컴포넌트를 Field로 묶어 실제 폼 흐름으로 배치한 예시입니다. label, description, message를 함께 보면서도 레이아웃은 Field, Field.Item, Field.Grid만으로 구성합니다."
       >
         <Field>
           <Field.Label>담당자 검색</Field.Label>
@@ -133,7 +159,7 @@ export default function FieldSection() {
           />
         </Field>
 
-        <div className="guideFieldForm__grid">
+        <Field.Grid>
           <Field>
             <Field.Label>카테고리</Field.Label>
             <Select
@@ -146,10 +172,12 @@ export default function FieldSection() {
             <Field.Label>작업 날짜</Field.Label>
             <Datepicker placeholder="날짜를 선택해주세요" isClearable />
           </Field>
-        </div>
+        </Field.Grid>
 
         <Field>
-          <p className="guideFieldForm__groupLabel">공개 범위</p>
+          <Field.Label as="span" className="guideFieldForm__groupLabel">
+            공개 범위
+          </Field.Label>
           <RadioGroup name="fieldVisibility" direction="row">
             <Field.Item>
               <Radio />

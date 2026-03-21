@@ -125,7 +125,7 @@ export default function DateMultiplePickerRHFSection() {
     <GuideSection
       label="React Hook Form"
       title="RHFDateMultiplePicker / 폼 연동"
-      description="RHFDateMultiplePicker는 DateMultiplePicker props를 유지하면서 Date[] 필드를 React Hook Form에 연결합니다."
+      description="RHFDateMultiplePicker는 DateMultiplePicker props를 유지하면서 Date[] 필드를 React Hook Form에 연결한 래퍼 컴포넌트입니다."
     >
       <GuideProp
         isWide

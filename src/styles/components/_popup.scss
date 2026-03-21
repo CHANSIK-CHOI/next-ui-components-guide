@@ -13,7 +13,7 @@ $confirm: "popupConfirm";
   &__dim {
     position: absolute;
     inset: 0;
-    background: rgba(17, 24, 39, 0.54);
+    background: var(--surface-overlay-dim);
     backdrop-filter: blur(0.6rem);
     pointer-events: auto;
   }
@@ -25,10 +25,10 @@ $confirm: "popupConfirm";
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: func.surface-space("card");
 
     @include mix.respond-to("desktop") {
-      padding: 2.4rem;
+      padding: func.surface-space("section");
     }
   }
 
@@ -36,16 +36,10 @@ $confirm: "popupConfirm";
     width: min(100%, 48rem);
     max-height: min(calc(100vh - 4rem), 72rem);
     max-height: min(calc(100dvh - 4rem), 72rem);
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(249, 250, 251, 0.96) 100%
-    );
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.72),
-      0 1.8rem 4.8rem rgba(17, 24, 39, 0.14);
+    background: var(--gradient-panel-strong);
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    box-shadow: func.shadow("inset-soft"), func.shadow("overlay");
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -58,14 +52,14 @@ $confirm: "popupConfirm";
 
   &__head {
     flex-shrink: 0;
-    padding: 2.4rem 2.4rem 0;
+    padding: func.surface-space("card") func.surface-space("card") 0;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1.6rem;
+    gap: func.space("md");
 
     @include mix.respond-to("desktop") {
-      padding: 3.2rem 3.2rem 0;
+      padding: func.surface-space("section") func.surface-space("section") 0;
     }
   }
 
@@ -79,26 +73,25 @@ $confirm: "popupConfirm";
   }
 
   &__title {
-    color: var(--text-color-1);
-    letter-spacing: -0.02em;
-    @include mix.typo(2rem, 2.2rem, "bold", 1.2);
+    color: var(--text-primary);
+    @include mix.type-scale("title", "bold", 1.15);
   }
 
   &__close {
-    width: 4rem;
-    height: 4rem;
+    width: func.size("control-lg");
+    height: func.size("control-lg");
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
+    border-radius: func.radius("pill");
     background: transparent;
-    color: var(--text-color-2);
+    color: var(--text-secondary);
     transition:
-      background-color 0.2s ease,
-      border-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.18s ease;
+      func.transition-token(background-color),
+      func.transition-token(border-color),
+      func.transition-token(color),
+      func.transition-token(transform, "fast");
 
     &:not([disabled]) {
       border: 1px solid transparent;
@@ -110,9 +103,9 @@ $confirm: "popupConfirm";
     }
 
     &:hover {
-      background: var(--bg-color-3);
-      border-color: rgba(17, 24, 39, 0.06);
-      color: var(--text-color-1);
+      background: var(--control-bg-subtle);
+      border-color: var(--border-subtle);
+      color: var(--text-primary);
     }
 
     &:active {
@@ -123,46 +116,48 @@ $confirm: "popupConfirm";
   &__body {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding: 1.6rem 2.4rem 2.4rem;
+    padding:
+      func.surface-space("compact")
+      func.surface-space("card")
+      func.surface-space("card");
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: func.space("sm");
 
     @include mix.respond-to("desktop") {
-      padding: 1.8rem 3.2rem 3.2rem;
+      padding:
+        func.surface-space("compact")
+        func.surface-space("section")
+        func.surface-space("section");
     }
   }
 
   &__icon {
-    width: 5.6rem;
-    height: 5.6rem;
+    width: func.size("field");
+    height: func.size("field");
     display: inline-flex;
     align-items: center;
     justify-content: center;
     align-self: center;
     flex-shrink: 0;
-    border-radius: 999px;
-    border: 1px solid rgba(17, 24, 39, 0.06);
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(249, 250, 251, 0.92) 100%
-    );
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76);
+    border-radius: func.radius("pill");
+    border: 1px solid var(--border-subtle);
+    background: var(--gradient-panel-soft);
+    box-shadow: func.shadow("inset-soft");
     color: var(--color-info);
   }
 
   &__description {
-    color: var(--text-color-2);
-    @include mix.typo(1.5rem, 1.6rem, "regular", 1.7);
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__foot {
     flex-shrink: 0;
-    padding: 0 2.4rem 2.4rem;
+    padding: 0 func.surface-space("card") func.surface-space("card");
 
     @include mix.respond-to("desktop") {
-      padding: 0 3.2rem 3.2rem;
+      padding: 0 func.surface-space("section") func.surface-space("section");
     }
   }
 
@@ -188,7 +183,7 @@ $confirm: "popupConfirm";
     width: 100%;
     max-height: min(88vh, 72rem);
     max-height: min(88dvh, 72rem);
-    border-radius: 2.4rem 2.4rem 0 0;
+    border-radius: func.radius("xl") func.radius("xl") 0 0;
   }
 
   &--full &__positioner {
@@ -207,81 +202,81 @@ $confirm: "popupConfirm";
 
   &--full &__head {
     padding:
-      calc(2.4rem + env(safe-area-inset-top))
-      calc(2.4rem + env(safe-area-inset-right))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-top))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-right))
       0
-      calc(2.4rem + env(safe-area-inset-left));
+      calc(#{func.surface-space("card")} + env(safe-area-inset-left));
 
     @include mix.respond-to("desktop") {
       padding:
-        calc(3.2rem + env(safe-area-inset-top))
-        calc(3.2rem + env(safe-area-inset-right))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-top))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-right))
         0
-        calc(3.2rem + env(safe-area-inset-left));
+        calc(#{func.surface-space("section")} + env(safe-area-inset-left));
     }
   }
 
   &--full &__body {
     padding:
-      1.6rem
-      calc(2.4rem + env(safe-area-inset-right))
-      calc(2.4rem + env(safe-area-inset-bottom))
-      calc(2.4rem + env(safe-area-inset-left));
+      func.space("md")
+      calc(#{func.surface-space("card")} + env(safe-area-inset-right))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-bottom))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-left));
 
     @include mix.respond-to("desktop") {
       padding:
-        1.8rem
-        calc(3.2rem + env(safe-area-inset-right))
-        calc(3.2rem + env(safe-area-inset-bottom))
-        calc(3.2rem + env(safe-area-inset-left));
+        func.space("md")
+        calc(#{func.surface-space("section")} + env(safe-area-inset-right))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-bottom))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-left));
     }
   }
 
   &--full &__foot {
     padding:
       0
-      calc(2.4rem + env(safe-area-inset-right))
-      calc(2.4rem + env(safe-area-inset-bottom))
-      calc(2.4rem + env(safe-area-inset-left));
+      calc(#{func.surface-space("card")} + env(safe-area-inset-right))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-bottom))
+      calc(#{func.surface-space("card")} + env(safe-area-inset-left));
 
     @include mix.respond-to("desktop") {
       padding:
         0
-        calc(3.2rem + env(safe-area-inset-right))
-        calc(3.2rem + env(safe-area-inset-bottom))
-        calc(3.2rem + env(safe-area-inset-left));
+        calc(#{func.surface-space("section")} + env(safe-area-inset-right))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-bottom))
+        calc(#{func.surface-space("section")} + env(safe-area-inset-left));
     }
   }
 
   &--noHeader &__body {
-    padding-top: 2.4rem;
+    padding-top: func.surface-space("card");
 
     @include mix.respond-to("desktop") {
-      padding-top: 3.2rem;
+      padding-top: func.surface-space("section");
     }
   }
 
   &--full.#{$module}--noHeader &__body {
-    padding-top: calc(2.4rem + env(safe-area-inset-top));
+    padding-top: calc(#{func.surface-space("card")} + env(safe-area-inset-top));
 
     @include mix.respond-to("desktop") {
-      padding-top: calc(3.2rem + env(safe-area-inset-top));
+      padding-top: calc(#{func.surface-space("section")} + env(safe-area-inset-top));
     }
   }
 
   &--noFooter &__body {
-    padding-bottom: 2.4rem;
+    padding-bottom: func.surface-space("card");
 
     @include mix.respond-to("desktop") {
-      padding-bottom: 3.2rem;
+      padding-bottom: func.surface-space("section");
     }
   }
 
   &--full.#{$module}--noFooter &__body {
-    padding-bottom: calc(2.4rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(#{func.surface-space("card")} + env(safe-area-inset-bottom));
 
     @include mix.respond-to("desktop") {
-      padding-bottom: calc(3.2rem + env(safe-area-inset-bottom));
+      padding-bottom: calc(#{func.surface-space("section")} + env(safe-area-inset-bottom));
     }
   }
 }
@@ -293,19 +288,19 @@ $confirm: "popupConfirm";
   }
 
   .popup__title {
-    @include mix.typo(2rem, 2.2rem, "bold", 1.15);
+    @include mix.type-scale("title", "bold", 1.12);
   }
 
   .popup__description {
     max-width: 36rem;
-    color: var(--text-color-2);
+    color: var(--text-secondary);
   }
 
   &.#{$module}--noHeader {
     .popup__body {
       justify-content: center;
       min-height: 18rem;
-      gap: 1.6rem;
+      gap: func.space("md");
     }
 
     .popup__description {

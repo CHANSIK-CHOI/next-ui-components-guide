@@ -4,93 +4,79 @@
 $guideState: "guidePopupState";
 $guideActions: "guidePopupActions";
 $guidePopupDemo: "guidePopupDemo";
+$guidePropsTable: "guidePropsTable";
+$guideTypeTooltip: "guideTypeTooltip";
 
 .guideSection {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  padding: 2rem;
-  border: 1px solid rgba(17, 24, 39, 0.06);
-  border-radius: 2.4rem;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.06);
+  gap: func.space("md");
+  padding: func.surface-space("card");
+  border: 1px solid var(--border-subtle);
+  border-radius: func.radius("xl");
+  background: var(--surface-panel);
+  box-shadow: func.shadow("soft");
 
   @include mix.respond-to("tablet") {
-    padding: 2.4rem;
-    border-radius: 2.8rem;
+    padding: func.surface-space("section");
+    border-radius: func.radius("xl");
   }
 
   &__head {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__label {
     display: inline-flex;
     align-items: center;
     width: fit-content;
-    min-height: 2.8rem;
-    padding: 0 1rem;
-    border-radius: 999px;
-    background: var(--bg-color-3);
-    color: var(--text-color-2);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    min-height: func.size("chip-sm");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("pill");
+    background: var(--surface-neutral-subtle);
+    color: var(--text-secondary);
+    @include mix.type-scale("label", "bold", 1, 0.12em);
     text-transform: uppercase;
   }
 
   &__title {
-    color: var(--text-color-1);
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.04em;
-
-    @include mix.respond-to("tablet") {
-      font-size: 2.8rem;
-    }
+    color: var(--text-primary);
+    @include mix.type-scale("title");
   }
 
   &__description {
-    color: var(--text-color-2);
-    font-size: 1.6rem;
-    line-height: 1.7;
+    color: var(--text-secondary);
+    @include mix.type-scale("body", "regular", 1.7);
   }
 
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    gap: func.space("md");
   }
 }
 
 .guideProp {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  padding: 2rem;
-  border: 1px solid rgba(17, 24, 39, 0.08);
-  border-radius: 2.4rem;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(249, 250, 251, 0.94) 100%
-  );
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  gap: func.space("md");
+  padding: func.surface-space("card");
+  border: 1px solid var(--border-default);
+  border-radius: func.radius("xl");
+  background: var(--gradient-panel);
+  box-shadow: func.shadow("inset");
 
   &__head {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__label {
-    color: var(--text-color-3);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "bold", 1.3, 0.12em);
     text-transform: uppercase;
   }
 
@@ -98,56 +84,47 @@ $guidePopupDemo: "guidePopupDemo";
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__title {
-    color: var(--text-color-1);
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1.1;
+    color: var(--text-primary);
+    @include mix.type-scale("title");
   }
 
   &__type {
     display: inline-flex;
     align-items: center;
-    min-height: 3.2rem;
-    padding: 0 1.2rem;
-    border-radius: 999px;
-    background: var(--bg-color-2);
-    color: var(--text-color-2);
-    font-size: 1.3rem;
-    font-weight: 600;
+    min-height: func.size("control-sm");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("pill");
+    background: var(--surface-neutral-soft);
+    color: var(--text-secondary);
+    @include mix.type-scale("label", "semi-bold", 1.3, 0);
   }
 
   &__default {
-    color: var(--text-color-3);
-    font-size: 1.3rem;
-    font-weight: 600;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "semi-bold", 1.3, 0);
   }
 
   &__description {
-    color: var(--text-color-2);
-    font-size: 1.5rem;
-    line-height: 1.7;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__preview {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1.2rem;
-    padding: 1.6rem;
-    border: 1px dashed rgba(17, 24, 39, 0.12);
-    border-radius: 2rem;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(240, 251, 245, 0.72) 100%
-    );
+    gap: func.space("sm");
+    padding: func.surface-space("compact");
+    border: 1px dashed var(--border-strong);
+    border-radius: func.radius("lg");
+    background: var(--gradient-brand-panel-soft);
 
     @include mix.respond-to("tablet") {
-      padding: 2rem;
+      padding: func.surface-space("card");
     }
   }
 
@@ -157,8 +134,8 @@ $guidePopupDemo: "guidePopupDemo";
     max-width: none;
 
     @include mix.respond-to("tablet") {
-      flex: 1 1 calc(50% - 0.6rem);
-      max-width: calc(50% - 0.6rem);
+      flex: 1 1 calc(50% - #{func.space("xs")});
+      max-width: calc(50% - #{func.space("xs")});
     }
   }
 
@@ -171,54 +148,233 @@ $guidePopupDemo: "guidePopupDemo";
 .guideCardLink {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  border: 1px solid rgba(1, 64, 41, 0.1);
-  border-radius: 2.4rem;
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(28, 166, 115, 0.14),
-      transparent 34%
-    ),
-    linear-gradient(135deg, #ffffff 0%, #f0fbf5 100%);
-  box-shadow: 0 1.8rem 4rem rgba(1, 64, 41, 0.08);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+  gap: func.space("xs");
+  padding: func.surface-space("card");
+  border: 1px solid var(--border-brand-soft);
+  border-radius: func.radius("xl");
+  background: var(--gradient-hero);
+  box-shadow: func.shadow("brand");
+  @include mix.motion-transition((transform, box-shadow, border-color));
 
   &:hover {
     transform: translateY(-2px);
-    border-color: rgba(1, 64, 41, 0.18);
-    box-shadow: 0 2.4rem 4.8rem rgba(1, 64, 41, 0.12);
+    border-color: var(--border-brand-strong);
+    box-shadow: func.shadow("brand-strong");
   }
 
   &__label {
-    color: var(--text-color-3);
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "bold", 1.3, 0.12em);
     text-transform: uppercase;
   }
 
   &__title {
-    color: var(--text-color-1);
-    font-size: 2.4rem;
-    font-weight: 700;
-    line-height: 1.1;
+    color: var(--text-primary);
+    @include mix.type-scale("title");
   }
 
   &__description {
-    color: var(--text-color-2);
-    font-size: 1.5rem;
-    line-height: 1.7;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__action {
-    color: var(--color-primary-dark);
-    font-size: 1.4rem;
-    font-weight: 700;
+    color: var(--text-brand);
+    @include mix.type-scale("body-sm", "bold", 1.35, -0.01em);
+  }
+}
+
+.#{$guidePropsTable} {
+  display: flex;
+  flex-direction: column;
+  gap: func.space("sm");
+  width: 100%;
+  padding: func.surface-space("card");
+  border: 1px solid var(--border-default);
+  border-radius: func.radius("xl");
+  background: var(--gradient-panel);
+  box-shadow: func.shadow("inset");
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: func.space("2xs");
+  }
+
+  &__title {
+    color: var(--text-primary);
+    @include mix.type-scale("body", "semi-bold", 1.35, -0.02em);
+  }
+
+  &__summary {
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.65);
+  }
+
+  &__scroll {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("lg");
+    background: var(--surface-panel-strong);
+  }
+
+  &__table {
+    width: 100%;
+    min-width: 72rem;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  &__headCell,
+  &__cell {
+    padding: func.space("sm") func.surface-space("compact");
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-default);
+    white-space: nowrap;
+  }
+
+  &__headCell {
+    color: var(--text-tertiary);
+    background: var(--surface-panel-muted);
+    @include mix.type-scale("label", "bold", 1.3, 0.08em);
+    text-transform: uppercase;
+  }
+
+  &__bodyRow:last-child &__cell {
+    border-bottom: none;
+  }
+
+  &__code {
+    display: inline-flex;
+    align-items: center;
+    min-height: func.size("control-sm");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("pill");
+    background: var(--surface-neutral-soft);
+    color: var(--text-primary);
+    @include mix.type-scale("label", "semi-bold", 1.4, 0);
+    white-space: nowrap;
+  }
+
+  &__muted {
+    color: var(--text-tertiary);
+    @include mix.type-scale("body-sm", "regular", 1.5);
+  }
+
+  &__required {
+    display: inline-flex;
+    align-items: center;
+    min-height: func.size("control-sm");
+    padding: 0 func.space("sm");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("pill");
+    @include mix.type-scale("label", "bold", 1.3, 0);
+
+    &--yes {
+      color: var(--text-brand);
+      border-color: var(--border-brand);
+      background: var(--surface-brand-soft);
+    }
+
+    &--no {
+      color: var(--text-secondary);
+      background: var(--surface-neutral-soft);
+    }
+  }
+
+  &__description {
+    min-width: 26rem;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
+    white-space: normal;
+
+    code {
+      color: var(--text-primary);
+      @include mix.type-scale("label", "semi-bold", 1.4, 0);
+    }
+  }
+
+  &__note {
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
+
+    code {
+      color: var(--text-primary);
+      @include mix.type-scale("label", "semi-bold", 1.4, 0);
+    }
+  }
+
+  &__noteActions {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: func.space("xs");
+    gap: func.space("xs");
+  }
+}
+
+.#{$guideTypeTooltip} {
+  display: inline-flex;
+  align-items: center;
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    min-height: func.size("control-sm");
+    padding: 0 func.space("sm");
+    border: 1px solid var(--border-brand);
+    border-radius: func.radius("pill");
+    background: var(--surface-brand-soft);
+    color: var(--text-brand);
+    @include mix.type-scale("label", "bold", 1.3, 0);
+    @include mix.motion-transition((transform, border-color, box-shadow));
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+      border-color: var(--border-brand-strong);
+      box-shadow: func.shadow("brand");
+    }
+  }
+
+  &__popover.tooltip .tooltip__panel {
+    max-width: min(56rem, calc(100vw - 3.2rem));
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: func.space("xs");
+    width: min(52rem, calc(100vw - 3.2rem));
+  }
+
+  &__title {
+    color: var(--text-inverse-strong);
+    @include mix.type-scale("body-sm", "bold", 1.45, -0.01em);
+  }
+
+  &__description {
+    color: var(--text-inverse);
+    @include mix.type-scale("label", "regular", 1.6, 0);
+  }
+
+  &__code {
+    width: 100%;
+    padding: func.surface-space("compact");
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: func.radius("md");
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-inverse-strong);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    @include mix.type-scale("body-sm", "regular", 1.7, 0);
+
+    code {
+      color: var(--text-inverse-strong);
+    }
   }
 }
 
@@ -226,123 +382,127 @@ $guidePopupDemo: "guidePopupDemo";
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1.2rem;
+  gap: func.space("sm");
   width: 100%;
 }
 
 .#{$guideState} {
   width: 100%;
-  padding: 2rem;
-  border-radius: 1.6rem;
-  background: var(--bg-color-2);
-  border: 1px solid var(--line-color-3);
+  padding: func.surface-space("card");
+  border-radius: func.radius("lg");
+  background: var(--surface-panel-muted);
+  border: 1px solid var(--border-default);
   text-align: left;
 
   &__title {
     display: block;
-    color: var(--text-color-1);
-    @include mix.typo(1.4rem, 2rem, "semi-bold");
+    color: var(--text-primary);
+    @include mix.type-scale("body", "semi-bold", 1.4, -0.02em);
   }
 
   &__list {
-    margin-top: 1.2rem;
+    margin-top: func.space("sm");
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__item,
   &__empty {
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 2rem, "regular");
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.65);
   }
 
   &__empty {
-    margin-top: 1.2rem;
+    margin-top: func.space("sm");
   }
 
   &--floating {
     position: fixed;
-    top: 2rem;
+    top: func.space("lg");
     // left: 2rem;
-    right: 2rem;
+    right: func.space("lg");
     width: auto;
     max-width: 36rem;
     z-index: func.z("overlay-layer") + 1;
-    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid var(--border-default);
+    background: var(--surface-panel-strong);
     backdrop-filter: blur(0.8rem);
-    box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.14);
+    box-shadow: func.shadow("overlay");
 
     @include mix.respond-to("desktop") {
-      top: 3.2rem;
+      top: func.space("xl");
       left: auto;
-      right: 2rem;
+      right: func.space("lg");
     }
   }
 }
 
 .#{$guideActions} {
   position: fixed;
-  top: 2rem;
-  left: 2rem;
-  right: 2rem;
+  top: func.space("lg");
+  left: func.space("lg");
+  right: func.space("lg");
   width: auto;
   max-width: 36rem;
   z-index: func.z("overlay-layer") + 1;
-  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--border-default);
+  background: var(--surface-panel-strong);
   backdrop-filter: blur(0.8rem);
-  box-shadow: 0 1.8rem 4rem rgba(17, 24, 39, 0.14);
+  box-shadow: func.shadow("overlay");
   @include mix.respond-to("desktop") {
-    top: 3.2rem;
+    top: func.space("xl");
     left: auto;
-    right: 2rem;
+    right: func.space("lg");
   }
 }
 
 .guideCodeBlock {
   width: 100%;
-  padding: 1.6rem;
-  border: 1px solid rgba(17, 24, 39, 0.08);
-  border-radius: 1.6rem;
-  background: rgba(17, 24, 39, 0.96);
-  color: rgba(255, 255, 255, 0.92);
+  padding: func.surface-space("compact");
+  border: 1px solid var(--border-default);
+  border-radius: func.radius("lg");
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
   overflow-x: auto;
   white-space: pre-wrap;
-  @include mix.typo(1.3rem, 1.4rem, "regular", 1.7);
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  @include mix.type-scale("body-sm", "regular", 1.75, 0);
 }
 
 .#{$guidePopupDemo} {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: func.space("sm");
 
   &__intro {
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 1.8rem, "regular");
+    color: var(--text-secondary);
+    @include mix.type-scale("body", "regular", 1.7);
   }
 
   &__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__badge {
     display: inline-flex;
     align-items: center;
-    min-height: 3rem;
-    padding: 0 1rem;
-    border-radius: 999px;
-    background: rgba(17, 24, 39, 0.06);
-    color: var(--text-color-2);
-    @include mix.typo(1.2rem, 1.8rem, "semi-bold");
+    min-height: func.size("chip-md");
+    padding: 0 func.space("sm");
+    border-radius: func.radius("pill");
+    background: var(--surface-neutral-subtle);
+    color: var(--text-secondary);
+    @include mix.type-scale("label", "semi-bold", 1, 0.04em);
   }
 
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: func.space("xs");
 
     @include mix.respond-to("tablet") {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -350,58 +510,57 @@ $guidePopupDemo: "guidePopupDemo";
   }
 
   &__card {
-    padding: 1.6rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 1.6rem;
-    background: rgba(255, 255, 255, 0.9);
+    padding: func.surface-space("compact");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("lg");
+    background: var(--surface-panel);
   }
 
   &__cardLabel {
-    color: var(--text-color-3);
-    @include mix.typo(1.1rem, 1.6rem, "bold");
-    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "bold", 1.2, 0.08em);
     text-transform: uppercase;
   }
 
   &__cardTitle {
     display: block;
-    margin-top: 0.6rem;
-    color: var(--text-color-1);
-    @include mix.typo(1.5rem, 2.1rem, "semi-bold");
+    margin-top: func.space("xs");
+    color: var(--text-primary);
+    @include mix.type-scale("body", "semi-bold", 1.35, -0.02em);
   }
 
   &__cardText {
-    margin-top: 0.6rem;
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 2rem, "regular");
+    margin-top: func.space("xs");
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__sectionTitle {
     display: block;
-    color: var(--text-color-1);
-    @include mix.typo(1.4rem, 2rem, "semi-bold");
+    color: var(--text-primary);
+    @include mix.type-scale("body", "semi-bold", 1.4, -0.02em);
   }
 
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__listItem {
     position: relative;
     padding-left: 1.4rem;
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 2rem, "regular");
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
 
     &::before {
       content: "";
       position: absolute;
       top: 0.7rem;
       left: 0;
-      width: 0.6rem;
-      height: 0.6rem;
-      border-radius: 999px;
+      width: func.size("dot-xs");
+      height: func.size("dot-xs");
+      border-radius: func.radius("pill");
       background: var(--color-primary);
     }
   }
@@ -410,50 +569,41 @@ $guidePopupDemo: "guidePopupDemo";
 .homeOverview {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: func.space("md");
 
   &__hero {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    padding: 2rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    background:
-      radial-gradient(
-        circle at top right,
-        rgba(28, 166, 115, 0.16),
-        transparent 34%
-      ),
-      linear-gradient(135deg, #ffffff 0%, #f0fbf5 100%);
-    box-shadow: 0 1.8rem 4rem rgba(1, 64, 41, 0.08);
+    gap: func.space("sm");
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    background: var(--gradient-hero);
+    box-shadow: func.shadow("brand");
   }
 
   &__heroBadge {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: func.space("xs");
     width: fit-content;
   }
 
   &__heroLabel {
-    color: var(--text-color-1);
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    @include mix.type-scale("body-sm", "bold", 1.35, -0.02em);
   }
 
   &__heroDescription {
-    color: var(--text-color-2);
-    font-size: 1.6rem;
-    line-height: 1.8;
+    color: var(--text-secondary);
+    @include mix.type-scale("body", "regular", 1.8);
   }
 
   &__grid {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    gap: func.space("sm");
 
     // @include mix.respond-to("tablet") {
     //   flex-direction: row;
@@ -463,15 +613,11 @@ $guidePopupDemo: "guidePopupDemo";
   &__card {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    padding: 2rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(249, 250, 251, 0.94) 100%
-    );
+    gap: func.space("sm");
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    background: var(--gradient-panel);
 
     // @include mix.respond-to("tablet") {
     //   flex: 1 1 calc(33.333% - 0.8rem);
@@ -480,17 +626,14 @@ $guidePopupDemo: "guidePopupDemo";
   }
 
   &__cardTitle {
-    color: var(--text-color-1);
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    @include mix.type-scale("body", "bold", 1.35, -0.03em);
   }
 
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: func.space("xs");
     margin: 0;
     padding: 0;
     list-style: none;
@@ -499,15 +642,13 @@ $guidePopupDemo: "guidePopupDemo";
   &__listItem {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    min-height: 4.4rem;
+    gap: func.space("xs");
+    min-height: func.size("control-option");
   }
 
   &__listLabel {
-    color: var(--text-color-2);
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "semi-bold", 1.5, -0.01em);
   }
 
   &__logo {
@@ -515,24 +656,22 @@ $guidePopupDemo: "guidePopupDemo";
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 4rem;
-    height: 4rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 1.2rem;
-    background: var(--bg-color-1);
-    color: var(--text-color-1);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    width: func.size("control-lg");
+    height: func.size("control-lg");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("md");
+    background: var(--surface-panel-solid);
+    color: var(--text-primary);
+    box-shadow: func.shadow("inset");
 
     svg {
-      width: 2rem;
-      height: 2rem;
+      width: func.size("icon-2xl");
+      height: func.size("icon-2xl");
     }
   }
 
   &__logoText {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    @include mix.type-scale("body-sm", "bold", 1.2, -0.03em);
     text-transform: lowercase;
   }
 }
@@ -540,7 +679,7 @@ $guidePopupDemo: "guidePopupDemo";
 .homeNaming {
   &__grid {
     display: grid;
-    gap: 1.2rem;
+    gap: func.space("sm");
 
     @include mix.respond-to("tablet") {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -550,63 +689,46 @@ $guidePopupDemo: "guidePopupDemo";
   &__card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 2rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    background:
-      radial-gradient(
-        circle at top right,
-        rgba(14, 165, 233, 0.12),
-        transparent 34%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.98) 0%,
-        rgba(248, 250, 252, 0.94) 100%
-      );
+    gap: func.space("xs");
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    background: var(--gradient-info-panel);
   }
 
   &__label {
     display: inline-flex;
     width: fit-content;
-    padding: 0.4rem 0.8rem;
-    border-radius: 999px;
-    background: rgba(14, 165, 233, 0.12);
-    color: #0369a1;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    padding: func.space("2xs") func.space("xs");
+    border-radius: func.radius("pill");
+    background: var(--surface-info-soft);
+    color: var(--text-info);
+    @include mix.type-scale("label", "bold", 1.3, 0.02em);
   }
 
   &__title {
-    color: var(--text-color-1);
-    font-size: 1.7rem;
-    font-weight: 700;
-    line-height: 1.5;
+    color: var(--text-primary);
+    @include mix.type-scale("body", "bold", 1.45, -0.02em);
   }
 
   &__description {
-    color: var(--text-color-2);
-    font-size: 1.5rem;
-    line-height: 1.7;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__example {
-    padding: 1.2rem 1.4rem;
-    border-radius: 1.6rem;
-    background: rgba(241, 245, 249, 0.9);
-    color: var(--text-color-1);
-    font-size: 1.4rem;
-    font-weight: 600;
-    line-height: 1.6;
+    padding: func.space("sm") func.surface-space("compact");
+    border-radius: func.radius("lg");
+    background: var(--surface-info-muted);
+    color: var(--text-primary);
+    @include mix.type-scale("body-sm", "semi-bold", 1.6, -0.01em);
   }
 }
 
 .homeForm {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: func.space("md");
 
   @include mix.respond-to("tablet") {
     flex-direction: row;
@@ -617,14 +739,10 @@ $guidePopupDemo: "guidePopupDemo";
   &__summary {
     flex: 1 1 100%;
     min-width: 0;
-    padding: 2rem;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 2.4rem;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(249, 250, 251, 0.94) 100%
-    );
+    padding: func.surface-space("card");
+    border: 1px solid var(--border-default);
+    border-radius: func.radius("xl");
+    background: var(--gradient-panel);
   }
 
   &__form {
@@ -636,11 +754,11 @@ $guidePopupDemo: "guidePopupDemo";
   &__summary {
     display: flex;
     flex-direction: column;
-    gap: 1.6rem;
+    gap: func.space("md");
 
     @include mix.respond-to("tablet") {
       position: sticky;
-      top: 2rem;
+      top: func.space("lg");
       flex: 1 1 calc(38% - 0.8rem);
     }
   }
@@ -648,34 +766,28 @@ $guidePopupDemo: "guidePopupDemo";
   &__summarySection {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: func.space("sm");
   }
 
   &__summarySectionTitle {
-    color: var(--text-color-1);
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    @include mix.type-scale("body-sm", "bold", 1.35, -0.01em);
   }
 
   &__groupLabel {
-    color: var(--text-color-1);
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 1.4;
+    color: var(--text-primary);
+    @include mix.type-scale("body", "bold", 1.35, -0.02em);
   }
 
   &__summaryDescription {
-    color: var(--text-color-2);
-    font-size: 1.5rem;
-    line-height: 1.7;
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.7);
   }
 
   &__summaryList {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: func.space("sm");
     margin: 0;
     padding: 0;
     list-style: none;
@@ -683,23 +795,20 @@ $guidePopupDemo: "guidePopupDemo";
     li {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      padding: 1.2rem 1.4rem;
-      border-radius: 1.6rem;
-      background: rgba(240, 251, 245, 0.68);
+      gap: func.space("2xs");
+      padding: func.space("sm") func.surface-space("compact");
+      border-radius: func.radius("lg");
+      background: var(--surface-brand-muted);
     }
 
     span {
-      color: var(--text-color-3);
-      font-size: 1.3rem;
-      font-weight: 600;
+      color: var(--text-tertiary);
+      @include mix.type-scale("label", "semi-bold", 1.35, 0);
     }
 
     strong {
-      color: var(--text-color-1);
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1.5;
+      color: var(--text-primary);
+      @include mix.type-scale("body-sm", "bold", 1.5, -0.01em);
     }
   }
 }
@@ -707,12 +816,12 @@ $guidePopupDemo: "guidePopupDemo";
 .homeSignupPopup {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: func.space("md");
   width: 100%;
 
   &__summary {
     display: grid;
-    gap: 1rem;
+    gap: func.space("xs");
 
     @include mix.respond-to("tablet") {
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -722,53 +831,48 @@ $guidePopupDemo: "guidePopupDemo";
   &__summaryCard {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.4rem 1.6rem;
-    border-radius: 1.6rem;
-    background: rgba(240, 251, 245, 0.72);
-    border: 1px solid rgba(28, 166, 115, 0.12);
+    gap: func.space("2xs");
+    padding: func.space("sm") func.surface-space("compact");
+    border-radius: func.radius("lg");
+    background: var(--surface-brand-soft);
+    border: 1px solid var(--border-brand);
   }
 
   &__summaryLabel {
-    color: var(--text-color-3);
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: 1.4;
-    letter-spacing: 0.02em;
+    color: var(--text-tertiary);
+    @include mix.type-scale("label", "bold", 1.3, 0.02em);
   }
 
   &__summaryValue {
-    color: var(--text-color-1);
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.5;
+    color: var(--text-primary);
+    @include mix.type-scale("body-sm", "bold", 1.5, -0.01em);
   }
 }
 
 .guideAccordionFlow {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: func.space("md");
   width: 100%;
 }
 
 .guideAccordionToolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: func.space("xs");
   width: 100%;
 }
 
 .guideAccordionPanel {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: func.space("md");
   width: 100%;
 
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: func.space("sm");
 
     @include mix.respond-to("tablet") {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -778,73 +882,61 @@ $guidePopupDemo: "guidePopupDemo";
 
 .guideAccordionNote {
   width: 100%;
-  padding: 1.6rem 1.8rem;
-  border: 1px solid rgba(28, 166, 115, 0.12);
-  border-radius: 1.6rem;
-  background: rgba(240, 251, 245, 0.68);
-  color: var(--text-color-2);
-  @include mix.typo(1.4rem, 1.5rem, "regular", 1.7);
+  padding: func.surface-space("compact") func.surface-space("card");
+  border: 1px solid var(--border-brand);
+  border-radius: func.radius("lg");
+  background: var(--surface-brand-muted);
+  color: var(--text-secondary);
+  @include mix.type-scale("body-sm", "regular", 1.7);
 }
 
 .guideAccordionBadgeRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: func.space("xs");
 }
 
 .guideAccordionBadge {
   display: inline-flex;
   align-items: center;
-  min-height: 3rem;
-  padding: 0 1rem;
-  border-radius: 999px;
-  background: rgba(17, 24, 39, 0.06);
-  color: var(--text-color-2);
-  @include mix.typo(1.2rem, 1.3rem, "semi-bold");
+  min-height: func.size("chip-md");
+  padding: 0 func.space("sm");
+  border-radius: func.radius("pill");
+  background: var(--surface-neutral-subtle);
+  color: var(--text-secondary);
+  @include mix.type-scale("label", "semi-bold", 1, 0.04em);
 }
 
 .guideAccordionTerms {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: func.space("sm");
   width: 100%;
-  padding: 1.6rem;
-  border: 1px solid var(--line-color-3);
-  border-radius: 1.6rem;
-  background: var(--bg-color-2);
+  padding: func.surface-space("compact");
+  border: 1px solid var(--border-default);
+  border-radius: func.radius("lg");
+  background: var(--surface-panel-muted);
 
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: func.space("xs");
   }
 
   &__item {
-    color: var(--text-color-2);
-    @include mix.typo(1.4rem, 1.5rem, "regular", 1.65);
+    color: var(--text-secondary);
+    @include mix.type-scale("body-sm", "regular", 1.65);
   }
 }
 
 .guideFieldForm {
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-
-    @include mix.respond-to("tablet") {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
   &__groupLabel,
   &__summaryTitle {
-    color: var(--text-color-1);
-    font-size: 1.6rem;
-    font-weight: 700;
-    line-height: 1.4;
+    color: var(--text-primary);
+    @include mix.type-scale("body", "bold", 1.35, -0.02em);
   }
 
   &__actions {
-    margin-top: 1.6rem;
+    margin-top: func.space("md");
   }
 }
