@@ -15,8 +15,6 @@ type SelectBaseProps = {
   children: ReactNode;
 };
 
-// 이 파일은 select의 "공통 껍데기"만 담당합니다.
-// 실제 single/multi 값 변환은 각각 Select, MultiSelect에서 처리합니다.
 export default function SelectBase({
   className,
   disabled = false,

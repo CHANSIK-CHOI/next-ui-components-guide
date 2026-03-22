@@ -93,7 +93,6 @@ function appendPopupItem(
   return [...items, nextItem];
 }
 
-// set : store 상태를 바꾸는 함수
 export const usePopupStore = create<PopupStore>()((set) => ({
   items: [],
   openAlert: (options) => {

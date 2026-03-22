@@ -357,39 +357,6 @@ const LayerPopupRegistrationGuideProp = memo(
   },
 );
 
-// const LayerPopupUsageGuideProp = memo(function LayerPopupUsageGuideProp() {
-//   return (
-//     <GuideProp
-//       isWide
-//       name="LayerPopup 사용 기준"
-//       typeLabel="상세 정보 / 짧은 입력 / 보조 결정"
-//       description={
-//         <>
-//           - LayerPopup은 현재 화면을 유지한 채 추가 정보를 확인하거나 간단한
-//           입력을 받는 흐름에 적합합니다.
-//           <br /> - Alert/Confirm처럼 메시지 구조가 고정되지 않으므로, 카드형
-//           정보 묶음, 요약 정보, 보조 액션까지 함께 담는 데 유리합니다.
-//         </>
-//       }
-//     >
-//       <div className="guidePopupState">
-//         <strong className="guidePopupState__title">When to use LayerPopup</strong>
-//         <ul className="guidePopupState__list">
-//           <li className="guidePopupState__item">
-//             가격 비교, 요금제 혜택, 계약 전 요약처럼 중앙 집중형 상세 정보
-//           </li>
-//           <li className="guidePopupState__item">
-//             현재 화면을 완전히 벗어나지 않는 짧은 설정 편집
-//           </li>
-//           <li className="guidePopupState__item">
-//             하나의 confirm 문구보다 더 풍부한 설명과 보조 액션이 필요한 경우
-//           </li>
-//         </ul>
-//       </div>
-//     </GuideProp>
-//   );
-// });
-
 const LayerPopupHookGuideProp = memo(function LayerPopupHookGuideProp() {
   const layerPopup = useLayerPopup();
   const demoLayerPopups = layerPopup.layerPopups.filter(
@@ -513,7 +480,6 @@ export default function LayerPopupSection() {
       <LayerPopupStructureGuideProp />
       <PopupShellGuideProp popupName="LayerPopup" />
       <LayerPopupRegistrationGuideProp />
-      {/* <LayerPopupUsageGuideProp /> */}
       <LayerPopupHookGuideProp />
       <StackGuideProp />
     </GuideSection>

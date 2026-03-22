@@ -87,11 +87,6 @@ $module: "accordion";
     @include mix.motion-transition(background-color, "fast");
   }
 
-  // &--line &__head {
-  //   padding-left: 0;
-  //   padding-right: 0;
-  // }
-
   &__titleBox {
     flex: 1;
     min-width: 0;

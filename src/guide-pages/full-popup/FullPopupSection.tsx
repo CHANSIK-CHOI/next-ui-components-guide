@@ -336,39 +336,6 @@ const FullPopupRegistrationGuideProp = memo(
   },
 );
 
-// const FullPopupUsageGuideProp = memo(function FullPopupUsageGuideProp() {
-//   return (
-//     <GuideProp
-//       isWide
-//       name="FullPopup 사용 기준"
-//       typeLabel="다단계 편집 / 긴 검토 / 라우트 대체"
-//       description={
-//         <>
-//           - FullPopup은 단순 확인보다 긴 집중 흐름이 필요할 때 사용합니다.
-//           <br /> - 하나의 layer popup에 담기엔 정보량이 많고, 별도 페이지 이동은
-//           과할 때 가장 적합합니다.
-//         </>
-//       }
-//     >
-//       <div className="guidePopupState">
-//         <strong className="guidePopupState__title">When to use FullPopup</strong>
-//         <ul className="guidePopupState__list">
-//           <li className="guidePopupState__item">
-//             단계별 설정, 긴 검토, 다수 입력 필드를 포함한 작업 흐름
-//           </li>
-//           <li className="guidePopupState__item">
-//             현재 컨텍스트를 유지하면서도 거의 페이지 전환에 가까운 집중 화면이
-//             필요한 경우
-//           </li>
-//           <li className="guidePopupState__item">
-//             상세 편집 화면을 route 분기 없이 overlay로 처리하고 싶은 경우
-//           </li>
-//         </ul>
-//       </div>
-//     </GuideProp>
-//   );
-// });
-
 const FullPopupHookGuideProp = memo(function FullPopupHookGuideProp() {
   const fullPopup = useFullPopup();
   const demoFullPopups = fullPopup.fullPopups.filter(
@@ -492,7 +459,6 @@ export default function FullPopupSection() {
       <FullPopupStructureGuideProp />
       <PopupShellGuideProp popupName="FullPopup" />
       <FullPopupRegistrationGuideProp />
-      {/* <FullPopupUsageGuideProp /> */}
       <FullPopupHookGuideProp />
       <StackGuideProp />
     </GuideSection>

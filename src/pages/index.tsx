@@ -88,13 +88,6 @@ type LibraryItem = {
   isCalendar?: boolean;
 };
 
-type NamingRuleItem = {
-  label: string;
-  title: string;
-  description: string;
-  example: string;
-};
-
 const PROJECT_LIBRARIES: LibraryItem[] = [
   { label: "Next.js 14", icon: siNextdotjs },
   { label: "React 18", icon: siReact },
@@ -113,41 +106,6 @@ const UI_LIBRARIES: LibraryItem[] = [
 
 const MOTION_LIBRARIES: LibraryItem[] = [
   { label: "framer-motion", icon: siFramer },
-];
-
-const UI_NAMING_RULES: NamingRuleItem[] = [
-  {
-    label: "Functions",
-    title: "동작은 동사, 이벤트는 on, 내부 핸들러는 handle",
-    description:
-      "일반 함수는 get, set, open, close, create, remove처럼 동사로 시작하고, 이벤트 핸들러 prop은 on..., 내부 구현용 함수는 handle...로 구분합니다.",
-    example:
-      "예: getValues, setIsCalendarOpen, openAlert, onConfirm, handleReset",
-  },
-  {
-    label: "Booleans",
-    title: "boolean은 의미에 따라 is, has, can, should를 나눠서 사용",
-    description:
-      "상태는 is..., 보유 여부는 has..., 가능 여부는 can..., 정책이나 의도는 should...를 사용합니다. 단, disabled, checked, open 같은 표준 HTML/React prop은 그대로 둡니다.",
-    example:
-      "예: isClearable, hasCloseButton, canClear, shouldCloseOnEscape",
-  },
-  {
-    label: "Values",
-    title: "값은 명사형으로 두고, 같은 의미는 같은 이름을 유지",
-    description:
-      "데이터와 표시값은 title, description, icon처럼 명사로 두고, Base와 wrapper에서 같은 의미의 prop은 같은 이름으로 그대로 넘깁니다.",
-    example:
-      "예: Textfield와 Search의 isClearable, PopupBase와 Alert의 description",
-  },
-  {
-    label: "Library",
-    title: "라이브러리 pass-through props는 원래 이름을 유지",
-    description:
-      "react-day-picker나 native input처럼 외부 라이브러리에서 제공하는 옵션은 wrapper에서도 이름을 바꾸지 않습니다. 공식 문서와 바로 연결되고 확장 시 혼동이 적습니다.",
-    example:
-      "예: dayPickerProps.required, dayPickerProps.resetOnSelect, captionLayout, menuPlacement, components",
-  },
 ];
 
 const NOTIFICATION_CYCLE_LABEL: Record<string, string> = {
@@ -507,25 +465,6 @@ export default function Home() {
                 </h3>
                 <LibraryList items={MOTION_LIBRARIES} />
               </article>
-            </div>
-          </div>
-        </GuideSection>
-
-        <GuideSection
-          label="Naming Rules"
-          title="UI Prop Naming Rules"
-          description="UI 컴포넌트 네이밍을 통일하기 위한 규칙 메모입니다. 이후 컴포넌트 정리는 이 기준으로 맞춥니다."
-        >
-          <div className="homeNaming">
-            <div className="homeNaming__grid">
-              {UI_NAMING_RULES.map((rule) => (
-                <article key={rule.label} className="homeNaming__card">
-                  <span className="homeNaming__label">{rule.label}</span>
-                  <strong className="homeNaming__title">{rule.title}</strong>
-                  <p className="homeNaming__description">{rule.description}</p>
-                  <p className="homeNaming__example">{rule.example}</p>
-                </article>
-              ))}
             </div>
           </div>
         </GuideSection>

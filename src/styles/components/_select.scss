@@ -218,13 +218,6 @@ $module: "select";
     box-shadow: func.shadow("focus");
   }
 
-  // &:not(.is-disabled):not(.is-readonly) .#{$module}__clear-indicator:hover,
-  // &:not(.is-disabled):not(.is-readonly) .#{$module}__dropdown-indicator:hover,
-  // &:not(.is-disabled):not(.is-readonly) .#{$module}__multi-value__remove:hover {
-  //   color: var(--text-color-1);
-  //   background-color: var(--bg-color-3);
-  // }
-
   &:not(.is-disabled):not(.is-readonly) .#{$module}__clear-indicator:active,
   &:not(.is-disabled):not(.is-readonly) .#{$module}__dropdown-indicator:active,
   &:not(.is-disabled):not(.is-readonly)

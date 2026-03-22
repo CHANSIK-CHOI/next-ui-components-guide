@@ -286,41 +286,6 @@ const BottomSheetRegistrationGuideProp = memo(
   },
 );
 
-// const BottomSheetUsageGuideProp = memo(function BottomSheetUsageGuideProp() {
-//   return (
-//     <GuideProp
-//       isWide
-//       name="BottomSheet 사용 기준"
-//       typeLabel="필터 / 액션 선택 / 모바일 단건 결정"
-//       description={
-//         <>
-//           - BottomSheet는 메인 화면을 유지한 채 즉시 선택하고 돌아와야 하는 흐름에
-//           가장 적합합니다.
-//           <br /> - 상세 읽기보다 액션 선택과 빠른 조정이 목적일 때 LayerPopup보다
-//           더 자연스럽습니다.
-//         </>
-//       }
-//     >
-//       <div className="guidePopupState">
-//         <strong className="guidePopupState__title">
-//           When to use BottomSheet
-//         </strong>
-//         <ul className="guidePopupState__list">
-//           <li className="guidePopupState__item">
-//             모바일 필터, 정렬, 옵션 선택처럼 하단에서 바로 올려 쓰는 경우
-//           </li>
-//           <li className="guidePopupState__item">
-//             간단한 액션 메뉴나 시간대 선택처럼 짧은 선택지 리스트
-//           </li>
-//           <li className="guidePopupState__item">
-//             현재 페이지 컨텍스트를 유지한 채 빠르게 반응해야 하는 흐름
-//           </li>
-//         </ul>
-//       </div>
-//     </GuideProp>
-//   );
-// });
-
 const BottomSheetHookGuideProp = memo(function BottomSheetHookGuideProp() {
   const bottomSheet = useBottomSheet();
   const demoBottomSheets = bottomSheet.bottomSheets.filter(
@@ -445,7 +410,6 @@ export default function BottomSheetSection() {
       <BottomSheetStructureGuideProp />
       <PopupShellGuideProp popupName="BottomSheet" />
       <BottomSheetRegistrationGuideProp />
-      {/* <BottomSheetUsageGuideProp /> */}
       <BottomSheetHookGuideProp />
       <StackGuideProp />
     </GuideSection>

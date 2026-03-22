@@ -38,7 +38,6 @@ export type SelectProps = SelectSharedProps<false> & {
   ) => void;
 };
 
-// 단일 선택은 value가 primitive 하나라는 사실만 이해하면 되도록 유지합니다.
 const Select = forwardRef<
   SelectInstance<SelectOption, false, GroupBase<SelectOption>>,
   SelectProps

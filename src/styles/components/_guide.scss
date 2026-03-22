@@ -420,7 +420,6 @@ $guideTypeTooltip: "guideTypeTooltip";
   &--floating {
     position: fixed;
     top: func.space("lg");
-    // left: 2rem;
     right: func.space("lg");
     width: auto;
     max-width: 36rem;
@@ -604,10 +603,6 @@ $guideTypeTooltip: "guideTypeTooltip";
     flex-direction: column;
     flex-wrap: wrap;
     gap: func.space("sm");
-
-    // @include mix.respond-to("tablet") {
-    //   flex-direction: row;
-    // }
   }
 
   &__card {
@@ -618,11 +613,6 @@ $guideTypeTooltip: "guideTypeTooltip";
     border: 1px solid var(--border-default);
     border-radius: func.radius("xl");
     background: var(--gradient-panel);
-
-    // @include mix.respond-to("tablet") {
-    //   flex: 1 1 calc(33.333% - 0.8rem);
-    //   max-width: calc(33.333% - 0.8rem);
-    // }
   }
 
   &__cardTitle {
@@ -673,55 +663,6 @@ $guideTypeTooltip: "guideTypeTooltip";
   &__logoText {
     @include mix.type-scale("body-sm", "bold", 1.2, -0.03em);
     text-transform: lowercase;
-  }
-}
-
-.homeNaming {
-  &__grid {
-    display: grid;
-    gap: func.space("sm");
-
-    @include mix.respond-to("tablet") {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  &__card {
-    display: flex;
-    flex-direction: column;
-    gap: func.space("xs");
-    padding: func.surface-space("card");
-    border: 1px solid var(--border-default);
-    border-radius: func.radius("xl");
-    background: var(--gradient-info-panel);
-  }
-
-  &__label {
-    display: inline-flex;
-    width: fit-content;
-    padding: func.space("2xs") func.space("xs");
-    border-radius: func.radius("pill");
-    background: var(--surface-info-soft);
-    color: var(--text-info);
-    @include mix.type-scale("label", "bold", 1.3, 0.02em);
-  }
-
-  &__title {
-    color: var(--text-primary);
-    @include mix.type-scale("body", "bold", 1.45, -0.02em);
-  }
-
-  &__description {
-    color: var(--text-secondary);
-    @include mix.type-scale("body-sm", "regular", 1.7);
-  }
-
-  &__example {
-    padding: func.space("sm") func.surface-space("compact");
-    border-radius: func.radius("lg");
-    background: var(--surface-info-muted);
-    color: var(--text-primary);
-    @include mix.type-scale("body-sm", "semi-bold", 1.6, -0.01em);
   }
 }
 

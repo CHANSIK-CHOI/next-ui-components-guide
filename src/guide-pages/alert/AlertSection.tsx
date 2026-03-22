@@ -212,41 +212,6 @@ const AlertBehaviorGuideProp = memo(function AlertBehaviorGuideProp() {
   );
 });
 
-// const AlertUsageGuideProp = memo(function AlertUsageGuideProp() {
-//   return (
-//     <GuideProp
-//       isWide
-//       name="Alert 사용 기준"
-//       typeLabel="안내 / 완료 / 오류 / 정보"
-//       description={
-//         <>
-//           - Alert는 사용자의 선택을 받기보다, 현재 상태를 알려주고 확인 한
-//           번으로 마무리하는 경우에 적합합니다.
-//           <br /> - 저장 완료, 오류 안내, 권한 안내, 필수 공지처럼 액션 분기보다
-//           메시지 전달이 중요한 경우에 사용합니다.
-//           <br /> - 사용자의 의사결정이 필요하면 Alert보다 Confirm을 사용하는
-//           편이 더 자연스럽습니다.
-//         </>
-//       }
-//     >
-//       <div className="guidePopupState">
-//         <strong className="guidePopupState__title">When to use Alert</strong>
-//         <ul className="guidePopupState__list">
-//           <li className="guidePopupState__item">
-//             저장 완료, 처리 완료 같은 완료 알림
-//           </li>
-//           <li className="guidePopupState__item">
-//             네트워크 오류, 권한 부족 같은 상태 안내
-//           </li>
-//           <li className="guidePopupState__item">
-//             사용자가 선택하지 않아도 되는 단순 공지
-//           </li>
-//         </ul>
-//       </div>
-//     </GuideProp>
-//   );
-// });
-
 const AlertIdGuideProp = memo(function AlertIdGuideProp() {
   return (
     <GuideProp
@@ -402,7 +367,6 @@ export default function AlertSection() {
       <AlertOptionsGuideProp />
       <AlertIconGuideProp />
       <AlertBehaviorGuideProp />
-      {/* <AlertUsageGuideProp /> */}
       <AlertIdGuideProp />
       <AlertHookGuideProp />
       <StackGuideProp />

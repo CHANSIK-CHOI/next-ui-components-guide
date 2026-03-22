@@ -31,7 +31,6 @@ export type MultiSelectProps = SelectSharedProps<true> & {
   ) => void;
 };
 
-// 멀티 선택은 value가 배열이라는 사실만 유지하면 됩니다.
 const MultiSelect = forwardRef<
   SelectInstance<SelectOption, true, GroupBase<SelectOption>>,
   MultiSelectProps

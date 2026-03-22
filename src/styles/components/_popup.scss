@@ -338,7 +338,6 @@ $confirm: "popupConfirm";
 
 .popupPortal {
   position: fixed;
-  // inset: 0;
   z-index: func.z("overlay-layer");
   pointer-events: none;
 }

@@ -145,39 +145,6 @@ const ConfirmBehaviorGuideProp = memo(function ConfirmBehaviorGuideProp() {
   );
 });
 
-// const ConfirmUsageGuideProp = memo(function ConfirmUsageGuideProp() {
-//   return (
-//     <GuideProp
-//       isWide
-//       name="Confirm 사용 기준"
-//       typeLabel="선택 / 삭제 / 이탈 / 비동기 분기"
-//       description={
-//         <>
-//           - Confirm은 사용자가 실제로 선택해야 하는 상황에 사용합니다.
-//           <br /> - 삭제, 작성 취소, 페이지 이탈, 결제 진행처럼 선택 결과에 따라
-//           다음 로직이 달라지는 경우에 적합합니다.
-//           <br /> - 단순 안내만 필요하면 Confirm보다 Alert가 더 맞습니다.
-//         </>
-//       }
-//     >
-//       <div className="guidePopupState">
-//         <strong className="guidePopupState__title">When to use Confirm</strong>
-//         <ul className="guidePopupState__list">
-//           <li className="guidePopupState__item">
-//             삭제, 탈퇴처럼 되돌리기 어려운 동작 전 확인
-//           </li>
-//           <li className="guidePopupState__item">
-//             저장하지 않고 나가기 같은 이탈 확인
-//           </li>
-//           <li className="guidePopupState__item">
-//             확인 결과에 따라 다음 비즈니스 로직이 달라지는 경우
-//           </li>
-//         </ul>
-//       </div>
-//     </GuideProp>
-//   );
-// });
-
 const ConfirmAsyncGuideProp = memo(function ConfirmAsyncGuideProp() {
   return (
     <GuideProp
@@ -388,7 +355,6 @@ export default function ConfirmSection() {
     >
       <ConfirmOptionsGuideProp />
       <ConfirmBehaviorGuideProp />
-      {/* <ConfirmUsageGuideProp /> */}
       <ConfirmAsyncGuideProp />
       <ConfirmIdGuideProp />
       <ConfirmHookGuideProp />

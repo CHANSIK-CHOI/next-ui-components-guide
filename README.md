@@ -8,7 +8,7 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 이 프로젝트는 단순히 컴포넌트를 나열하는 데서 끝나지 않고, 실제로 확장 가능한 UI 시스템을 만드는 과정을 정리하는 데 목적이 있습니다.
 
 - Next 기반 UI 컴포넌트 설계 및 가이드 페이지 구성
-- controlled / uncontrolled 사용 흐름 정리
+- controlled 입력 컴포넌트와 RHF 래퍼 연결 규칙 정리
 - React Hook Form 연동 예제 제공
 - Field 중심 폼 레이아웃 규칙 정립
 - 공통 디자인 토큰 정리
@@ -24,7 +24,7 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 
 현재 가이드에 포함된 주요 컴포넌트는 아래와 같습니다.
 
-### Input / Form
+### Input / Form / Form Layout
 
 - `Textfield`
 - `Textarea`
@@ -46,14 +46,14 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 - `Field.Label`
 - `Field.Description`
 
-### Button / Action
+### Button / Link / Button Layout
 
 - `Button`
 - `ButtonLink`
 - `IconButton`
 - `ButtonGroup`
 
-### Overlay / Feedback
+### Popup / Feedback
 
 - `Alert`
 - `Confirm`
@@ -63,7 +63,7 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 - `Toast`
 - `Tooltip`
 
-### Composite / Interaction
+### ETC.
 
 - `Accordion`
 
@@ -109,11 +109,11 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 
 ## 폴더 구조
 
-프로젝트는 컴포넌트 구현, 가이드 콘텐츠, 페이지 라우팅, 스타일 시스템이 분리된 구조로 정리되어 있습니다.
+컴포넌트 구현에 관련된 파일의 폴더 구조입니다.
 
 ```text
 src
-├─ components
+├─ components     # 실제 UI 컴포넌트 구현
 │  ├─ Accordion
 │  ├─ Button
 │  ├─ Checkbox
@@ -129,72 +129,15 @@ src
 │  ├─ Textfield
 │  ├─ Toast
 │  └─ Tooltip
-├─ guide-pages
-│  ├─ accordion
-│  ├─ alert
-│  ├─ bottom-sheet
-│  ├─ button
-│  ├─ checkbox
-│  ├─ confirm
-│  ├─ date-multiple-picker
-│  ├─ date-range-picker
-│  ├─ datepicker
-│  ├─ field
-│  ├─ full-popup
-│  ├─ layer-popup
-│  ├─ password
-│  ├─ radio
-│  ├─ search
-│  ├─ select
-│  ├─ switch
-│  ├─ textarea
-│  ├─ textfield
-│  ├─ toast
-│  └─ tooltip
-├─ hooks
-├─ pages
-│  ├─ index.tsx
-│  ├─ button
-│  ├─ checkbox
-│  ├─ radio
-│  ├─ textfield
-│  ├─ textarea
-│  ├─ select
-│  ├─ search
-│  ├─ password
-│  ├─ datepicker
-│  ├─ date-range-picker
-│  ├─ date-multiple-picker
-│  ├─ field
-│  ├─ alert
-│  ├─ confirm
-│  ├─ layer-popup
-│  ├─ bottom-sheet
-│  ├─ full-popup
-│  ├─ toast
-│  ├─ tooltip
-│  └─ accordion
-├─ styles
+│
+├─ styles           # 디자인 시스템 토큰과 컴포넌트 스타일
 │  ├─ abstracts
 │  ├─ base
 │  ├─ components
-│  └─ layout
+│  └─ ...
 ├─ types
-└─ utils
+└─ utils            # 공통 유틸리티와 JS 모션 토큰
 ```
-
-### 디렉터리 역할
-
-- `src/components`
-  - 실제 UI 컴포넌트 구현
-- `src/guide-pages`
-  - 각 컴포넌트 가이드에 들어가는 섹션 단위 콘텐츠
-- `src/pages`
-  - Next.js 라우팅 페이지
-- `src/styles`
-  - 디자인 시스템 토큰과 컴포넌트 스타일
-- `src/utils`
-  - 공통 유틸리티와 JS 모션 토큰
 
 ## 네이밍 규칙
 
@@ -214,17 +157,24 @@ src
 
 ## 디자인 시스템 규칙
 
-프로젝트 UI 규칙은 아래 문서를 기준으로 관리합니다.
+프로젝트 UI 규칙은 아래 문서 폴더를 기준으로 관리합니다.
 
-- [docs/ui-system-rules.md](docs/ui-system-rules.md)
+- [docs/ui-system-rules/README.md](docs/ui-system-rules/README.md)
+- [docs/ui-system-rules/components.md](docs/ui-system-rules/components.md)
+- [docs/ui-system-rules/styles.md](docs/ui-system-rules/styles.md)
+- [docs/ui-system-rules/accessibility.md](docs/ui-system-rules/accessibility.md)
 
-이 문서에는 아래 기준이 정리되어 있습니다.
+각 문서에는 아래 기준이 나뉘어 정리되어 있습니다.
 
-- `Field / Field.Item / Field.Grid` 사용 규칙
+- 컴포넌트 구조, `Field / Field.Item / Field.Grid` 사용 규칙
+- controlled 컴포넌트와 RHF 래퍼의 값 소유권 규칙
+- popup / toast host와 portal 구조
 - typography scale
 - spacing / size / radius / shadow 규칙
 - color / state token 규칙
 - SCSS motion / Framer Motion 사용 규칙
+- `id / aria-describedby / aria-invalid` 접근성 연결 규칙
+- 그룹 컨트롤과 아이콘 전용 UI의 accessible name 규칙
 
 ## 실행 방법
 
@@ -259,12 +209,13 @@ npm run lint
 - 공용 UI 컴포넌트의 일관성
 - 가이드 페이지를 통한 사용 예시 제공
 - 실제 폼 흐름에서의 조합 가능성
-- RHF 연동을 고려한 래퍼 구성
-- compound component와 접근성 구조
+- controlled 컴포넌트와 RHF 래퍼의 역할 분리
+- compound component와 접근성 연결 구조
+- popup / toast host와 portal 레이어 구조
 - 토큰 기반 디자인 시스템 정리
 
 ## 참고
 
 - 홈 페이지: `src/pages/index.tsx`
 - 가이드 네비게이션 정의: `src/components/Guide/guideNavigation.ts`
-- 디자인 시스템 규칙: `docs/ui-system-rules.md`
+- 디자인 시스템 규칙: `docs/ui-system-rules/README.md`
