@@ -2,7 +2,7 @@ import cn from "classnames";
 import Link from "next/link";
 import { memo } from "react";
 
-import { HomeIcon } from "../Icon";
+import { GitHubIcon, HomeIcon } from "../Icon";
 import { guideNavigation } from "./guideNavigation";
 
 const nameBlock = "guideLayout";
@@ -16,16 +16,31 @@ const GuideHeader = memo(function GuideHeader() {
   return (
     <header className={cn(`${nameBlock}__header`)}>
       <div className={cn(`${nameBlock}__headerInner`)}>
-        <Link
-          href="/"
-          className={cn(`${nameBlock}__homeButton`)}
-          aria-label="Go to home"
-        >
-          <span className={cn(`${nameBlock}__homeIcon`)}>
-            <HomeIcon />
-          </span>
-          <span className={cn(`${nameBlock}__homeText`)}>Home</span>
-        </Link>
+        <div className={cn(`${nameBlock}__headerActions`)}>
+          <Link
+            href="/"
+            className={cn(`${nameBlock}__actionButton`)}
+            aria-label="Go to home"
+          >
+            <span className={cn(`${nameBlock}__actionIcon`)}>
+              <HomeIcon />
+            </span>
+            <span className={cn(`${nameBlock}__actionText`)}>Home</span>
+          </Link>
+
+          <a
+            href="https://github.com/CHANSIK-CHOI/next-ui-components-guide"
+            target="_blank"
+            rel="noreferrer"
+            className={cn(`${nameBlock}__actionButton`)}
+            aria-label="Open GitHub repository"
+          >
+            <span className={cn(`${nameBlock}__actionIcon`)}>
+              <GitHubIcon />
+            </span>
+            <span className={cn(`${nameBlock}__actionText`)}>GitHub</span>
+          </a>
+        </div>
 
         <div className={cn(`${nameBlock}__headerContent`)}>
           <strong className={cn(`${nameBlock}__headerTitle`)}>

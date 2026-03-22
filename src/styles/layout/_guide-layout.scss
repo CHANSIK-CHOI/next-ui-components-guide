@@ -33,7 +33,14 @@
     }
   }
 
-  &__homeButton {
+  &__headerActions {
+    display: flex;
+    align-items: center;
+    gap: func.space("xs");
+    flex: 0 0 auto;
+  }
+
+  &__actionButton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +71,7 @@
     }
   }
 
-  &__homeIcon {
+  &__actionIcon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -80,7 +87,7 @@
     }
   }
 
-  &__homeText {
+  &__actionText {
     display: none;
 
     @include mix.respond-to("tablet") {
@@ -92,6 +99,7 @@
     display: flex;
     flex-direction: column;
     gap: func.space("2xs");
+    min-width: 0;
   }
 
   &__headerTitle {

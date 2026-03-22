@@ -178,10 +178,7 @@ function createSignupDetailLayerPopup({
     const {
       control: popupControl,
       handleSubmit: handlePopupSubmit,
-      formState: {
-        errors: popupErrors,
-        isSubmitting: isPopupSubmitting,
-      },
+      formState: { errors: popupErrors, isSubmitting: isPopupSubmitting },
     } = useForm<SIGNUP_DETAIL_FORM_TYPE>({
       mode: "onSubmit",
       defaultValues: defaultDetailForm,
@@ -423,7 +420,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <GuideLayout
-        title="프로젝트 개요"
+        title="Next UI Components Guide"
         description="Next 환경에서 사용 가능한 공용 UI를 한눈에 확인할 수 있도록 가이드 형태로 제작한 프로젝트입니다."
       >
         <GuideSection
@@ -537,7 +534,9 @@ export default function Home() {
                     placeholder="관심 있는 키워드를 검색해보세요"
                     isClearable
                     onSearch={handleSearchKeyword}
-                    infoMessage={lastSearchKeyword ? `"${lastSearchKeyword}"` : ""}
+                    infoMessage={
+                      lastSearchKeyword ? `"${lastSearchKeyword}"` : ""
+                    }
                   />
                 </Field>
 
@@ -655,11 +654,15 @@ export default function Home() {
                     <ul className="homeForm__summaryList">
                       <li>
                         <span>이름</span>
-                        <strong>{submittedSignupResult.signupForm.fullName}</strong>
+                        <strong>
+                          {submittedSignupResult.signupForm.fullName}
+                        </strong>
                       </li>
                       <li>
                         <span>이메일</span>
-                        <strong>{submittedSignupResult.signupForm.email}</strong>
+                        <strong>
+                          {submittedSignupResult.signupForm.email}
+                        </strong>
                       </li>
                       <li>
                         <span>관심 키워드</span>
@@ -725,7 +728,10 @@ export default function Home() {
                       <li>
                         <span>도입 목적</span>
                         <strong>
-                          {submittedSignupResult.signupDetailForm.onboardingGoal}
+                          {
+                            submittedSignupResult.signupDetailForm
+                              .onboardingGoal
+                          }
                         </strong>
                       </li>
                       <li>
@@ -742,8 +748,8 @@ export default function Home() {
                 </>
               ) : (
                 <p className="homeForm__summaryDescription">
-                  메인 폼을 통과한 뒤 LayerPopup 확인까지 완료하면 입력한 값이 이
-                  영역에 정리됩니다.
+                  메인 폼을 통과한 뒤 LayerPopup 확인까지 완료하면 입력한 값이
+                  이 영역에 정리됩니다.
                 </p>
               )}
             </div>
