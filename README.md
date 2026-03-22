@@ -203,19 +203,3 @@ npm run start
 ```bash
 npm run lint
 ```
-
-## 이 프로젝트에서 중점적으로 본 부분
-
-- 공용 UI 컴포넌트의 일관성
-- 가이드 페이지를 통한 사용 예시 제공
-- 실제 폼 흐름에서의 조합 가능성
-- controlled 컴포넌트와 RHF 래퍼의 역할 분리
-- compound component와 접근성 연결 구조
-- popup / toast host와 portal 레이어 구조
-- 토큰 기반 디자인 시스템 정리
-
-## 참고
-
-- 홈 페이지: `src/pages/index.tsx`
-- 가이드 네비게이션 정의: `src/components/Guide/guideNavigation.ts`
-- 디자인 시스템 규칙: `docs/ui-system-rules/README.md`
