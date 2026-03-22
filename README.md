@@ -1,24 +1,22 @@
 # Next UI Components Guide
 
-Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 형태로 정리한 프로젝트입니다.  
-기본 인터랙션 컴포넌트부터 폼 입력, 오버레이, 복합 컴포넌트까지 범위를 넓혀가며, controlled 패턴과 React Hook Form 연동 방식까지 함께 다룹니다.
+Next.js 기반 공통 UI 컴포넌트를 직접 구현하고, 가이드 페이지와 예제 폼으로 사용 흐름까지 정리한 프로젝트입니다.  
+기본 인터랙션 컴포넌트부터 폼 입력, 오버레이, 복합 컴포넌트까지 범위를 넓혀가며, `Field` 중심 폼 구조, 접근성, 디자인 토큰, motion 기준까지 함께 다룹니다.
+
+- Demo: [https://next-ui-components-guide.vercel.app/](https://next-ui-components-guide.vercel.app/)
+- Docs: [docs/ui-system-rules/README.md](docs/ui-system-rules/README.md)
+- Core Stack: `Next.js 14`, `React 18`, `TypeScript 5`, `react-hook-form`, `react-select`, `react-day-picker`, `zustand`, `framer-motion`, `Sass`
 
 ## 프로젝트 소개
 
 이 프로젝트는 단순히 컴포넌트를 나열하는 데서 끝나지 않고, 실제로 확장 가능한 UI 시스템을 만드는 과정을 정리하는 데 목적이 있습니다.
 
 - Next 기반 UI 컴포넌트 설계 및 가이드 페이지 구성
-- controlled 입력 컴포넌트와 RHF 래퍼 연결 규칙 정리
-- React Hook Form 연동 예제 제공
-- Field 중심 폼 레이아웃 규칙 정립
-- 공통 디자인 토큰 정리
-  - typography
-  - spacing
-  - size
-  - radius / shadow
-  - color / state
-  - motion
-- 접근성과 재사용성을 고려한 compound component 패턴 정리
+- controlled 컴포넌트와 React Hook Form 래퍼 구조 정리
+- Field 중심 폼 레이아웃과 접근성 연결 규칙 정립
+- popup, toast, datepicker 등 overlay 패턴 정리
+- typography, spacing, size, radius / shadow, color / state, motion 디자인 토큰 체계 정리
+- 재사용성과 접근성을 고려한 compound component 패턴 정리
 
 ## 컴포넌트 리스트
 
@@ -84,7 +82,7 @@ Next.js 환경에서 사용할 수 있는 공용 UI 컴포넌트를 가이드 �
 
 ## 사용 라이브러리
 
-홈 페이지 기준으로 프로젝트에서 사용하는 핵심 라이브러리는 아래와 같습니다.
+프로젝트에서 사용하는 핵심 라이브러리는 아래와 같습니다.
 
 ### Core Stack
 
@@ -139,25 +137,9 @@ src
 └─ utils            # 공통 유틸리티와 JS 모션 토큰
 ```
 
-## 네이밍 규칙
+## 관련 문서
 
-홈 페이지에 정리된 네이밍 규칙은 아래 기준을 따릅니다.
-
-- 동작 함수는 동사형
-  - `get`, `set`, `open`, `close`, `create`, `remove`
-- 이벤트 prop은 `on...`
-- 내부 구현용 핸들러는 `handle...`
-- boolean은 의미에 따라 접두어 구분
-  - 상태: `is...`
-  - 보유 여부: `has...`
-  - 가능 여부: `can...`
-  - 정책/의도: `should...`
-- 값 prop은 명사형 유지
-- 외부 라이브러리 pass-through prop은 원래 이름 유지
-
-## 디자인 시스템 규칙
-
-프로젝트 UI 규칙은 아래 문서 폴더를 기준으로 관리합니다.
+UI 시스템 규칙과 구현 기준은 아래 문서에 정리했습니다.
 
 - [docs/ui-system-rules/README.md](docs/ui-system-rules/README.md)
 - [docs/ui-system-rules/components.md](docs/ui-system-rules/components.md)

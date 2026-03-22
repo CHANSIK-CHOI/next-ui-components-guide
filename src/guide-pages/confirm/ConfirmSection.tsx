@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@/components";
+import { Button } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
 import { AttentionIcon, DelOutlineIcon } from "@/components/Icon";
 import { useConfirm, usePopupStack } from "@/components/Popup";
@@ -215,8 +215,6 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
   const hasSecondDemoConfirm = demoConfirms.some(
     ({ id }) => id === GUIDE_SECOND_CONFIRM_ID,
   );
-  const hasGuidePopupActions = hasFirstDemoConfirm && hasSecondDemoConfirm;
-  const lastDemoConfirmId = demoConfirms[demoConfirms.length - 1]?.id;
 
   return (
     <GuideProp
@@ -230,7 +228,8 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
           <br /> - `open()`은 confirm id를 반환하고, `close(id?)`는 특정 id 또는
           가장 마지막 Confirm을 닫습니다.
           <br /> - `openAsync()`는 `await`로 확인 결과를 받아서 다음 로직을
-          이어갈 수 있고, `closeAll()`은 현재 열린 Confirm만 한 번에 닫습니다.
+          이어갈 수 있고, 여러 개가 열린 상태에서는 `closeAll()`로 현재 열린
+          Confirm만 한 번에 닫을 수 있습니다.
         </>
       }
     >
@@ -280,30 +279,6 @@ const ConfirmHookGuideProp = memo(function ConfirmHookGuideProp() {
       >
         await Confirm 열기
       </Button>
-
-      {hasGuidePopupActions && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            {lastDemoConfirmId && (
-              <ButtonGroup.Item>
-                <Button
-                  color="primary"
-                  variant="line"
-                  onClick={() => confirm.close(lastDemoConfirmId)}
-                >
-                  마지막 Confirm 닫기
-                </Button>
-              </ButtonGroup.Item>
-            )}
-
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => confirm.closeAll()}>
-                Confirm 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });

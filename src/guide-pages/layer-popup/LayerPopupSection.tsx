@@ -236,7 +236,7 @@ function FirstGuideLayerPopup(runtimeProps: LayerPopupComponentProps) {
       <LayerSummaryContent
         badges={["stack", "first"]}
         summaryItems={[
-          { label: "닫기 기준", value: "close(id?)" },
+          { label: "닫기 기준", value: "특정 id 또는 마지막 항목" },
           { label: "현재 상태", value: "open" },
         ]}
       />
@@ -260,7 +260,7 @@ function SecondGuideLayerPopup(runtimeProps: LayerPopupComponentProps) {
         badges={["stack", "second"]}
         summaryItems={[
           { label: "최근 항목", value: "마지막 순서" },
-          { label: "전체 닫기", value: "closeAll()" },
+          { label: "정리 범위", value: "현재 LayerPopup 전체" },
         ]}
       />
     </LayerPopup>
@@ -368,8 +368,6 @@ const LayerPopupHookGuideProp = memo(function LayerPopupHookGuideProp() {
   const hasSecondDemoLayer = demoLayerPopups.some(
     ({ id }) => id === GUIDE_SECOND_LAYER_ID,
   );
-  const hasGuidePopupActions = hasFirstDemoLayer && hasSecondDemoLayer;
-  const lastDemoLayerId = demoLayerPopups[demoLayerPopups.length - 1]?.id;
 
   return (
     <GuideProp
@@ -382,6 +380,8 @@ const LayerPopupHookGuideProp = memo(function LayerPopupHookGuideProp() {
           popup만 닫거나 현재 타입만 한 번에 닫을 수 있게 해줍니다.
           <br /> - `open()`은 생성된 id를 반환하고, `close(id?)`는 특정 id 또는
           마지막 LayerPopup을 닫습니다.
+          <br /> - 이 예제처럼 두 개를 연 뒤에는 `closeAll()`로 현재 열린
+          LayerPopup만 묶어서 정리할 수 있습니다.
         </>
       }
     >
@@ -404,30 +404,6 @@ const LayerPopupHookGuideProp = memo(function LayerPopupHookGuideProp() {
       >
         LayerPopup 두 개 열기
       </Button>
-
-      {hasGuidePopupActions && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            {lastDemoLayerId && (
-              <ButtonGroup.Item>
-                <Button
-                  color="primary"
-                  variant="line"
-                  onClick={() => layerPopup.close(lastDemoLayerId)}
-                >
-                  마지막 LayerPopup 닫기
-                </Button>
-              </ButtonGroup.Item>
-            )}
-
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => layerPopup.closeAll()}>
-                LayerPopup 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });

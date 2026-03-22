@@ -244,9 +244,9 @@ function SecondGuideFullPopup(runtimeProps: FullPopupComponentProps) {
         progressLabel="2 / 2 단계"
         summaryItems={[
           { label: "최근 항목", value: "마지막 순서" },
-          { label: "전체 닫기", value: "closeAll()" },
+          { label: "정리 범위", value: "현재 FullPopup 전체" },
         ]}
-        checklist={["stack 순서 확인", "전체 닫기 동작 확인"]}
+        checklist={["stack 순서 확인", "현재 타입 일괄 정리 확인"]}
       />
     </FullPopup>
   );
@@ -348,8 +348,6 @@ const FullPopupHookGuideProp = memo(function FullPopupHookGuideProp() {
   const hasSecondDemoFullPopup = demoFullPopups.some(
     ({ id }) => id === GUIDE_SECOND_FULL_POPUP_ID,
   );
-  const hasGuidePopupActions = hasFirstDemoFullPopup && hasSecondDemoFullPopup;
-  const lastDemoFullPopupId = demoFullPopups[demoFullPopups.length - 1]?.id;
 
   return (
     <GuideProp
@@ -361,6 +359,8 @@ const FullPopupHookGuideProp = memo(function FullPopupHookGuideProp() {
           - `useFullPopup()`은 전체 화면 popup을 전역으로 열고 닫는 훅입니다.
           <br /> - 여러 개를 순차적으로 stack에 쌓을 수 있고, `close(id?)`,
           `closeAll()`로 현재 full popup 흐름만 분리해서 제어할 수 있습니다.
+          <br /> - 스택이 쌓인 상태에서는 `close(id?)`로 마지막 항목 또는 특정
+          id를 닫는 방식으로 관리합니다.
         </>
       }
     >
@@ -383,30 +383,6 @@ const FullPopupHookGuideProp = memo(function FullPopupHookGuideProp() {
       >
         FullPopup 두 개 열기
       </Button>
-
-      {hasGuidePopupActions && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            {lastDemoFullPopupId && (
-              <ButtonGroup.Item>
-                <Button
-                  color="primary"
-                  variant="line"
-                  onClick={() => fullPopup.close(lastDemoFullPopupId)}
-                >
-                  마지막 FullPopup 닫기
-                </Button>
-              </ButtonGroup.Item>
-            )}
-
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => fullPopup.closeAll()}>
-                FullPopup 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });

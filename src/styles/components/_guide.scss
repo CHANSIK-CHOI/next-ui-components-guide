@@ -2,7 +2,6 @@
 @use "../abstracts/mixins" as mix;
 
 $guideState: "guidePopupState";
-$guideActions: "guidePopupActions";
 $guidePopupDemo: "guidePopupDemo";
 $guidePropsTable: "guidePropsTable";
 $guideTypeTooltip: "guideTypeTooltip";
@@ -434,25 +433,6 @@ $guideTypeTooltip: "guideTypeTooltip";
       left: auto;
       right: func.space("lg");
     }
-  }
-}
-
-.#{$guideActions} {
-  position: fixed;
-  top: func.space("lg");
-  left: func.space("lg");
-  right: func.space("lg");
-  width: auto;
-  max-width: 36rem;
-  z-index: func.z("overlay-layer") + 1;
-  border: 1px solid var(--border-default);
-  background: var(--surface-panel-strong);
-  backdrop-filter: blur(0.8rem);
-  box-shadow: func.shadow("overlay");
-  @include mix.respond-to("desktop") {
-    top: func.space("xl");
-    left: auto;
-    right: func.space("lg");
   }
 }
 

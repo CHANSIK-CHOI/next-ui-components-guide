@@ -298,8 +298,6 @@ const BottomSheetHookGuideProp = memo(function BottomSheetHookGuideProp() {
   const hasSecondDemoSheet = demoBottomSheets.some(
     ({ id }) => id === GUIDE_SECOND_BOTTOM_SHEET_ID,
   );
-  const hasGuidePopupActions = hasFirstDemoSheet && hasSecondDemoSheet;
-  const lastDemoSheetId = demoBottomSheets[demoBottomSheets.length - 1]?.id;
 
   return (
     <GuideProp
@@ -312,6 +310,8 @@ const BottomSheetHookGuideProp = memo(function BottomSheetHookGuideProp() {
           훅입니다.
           <br /> - `close(id?)`는 특정 시트 또는 가장 마지막 시트를 닫고,
           `closeAll()`은 현재 열린 BottomSheet 타입만 한 번에 닫습니다.
+          <br /> - 여러 개를 연 상태에서는 마지막 시트부터 정리되므로 모바일
+          흐름을 단계적으로 되돌릴 때도 같은 메서드를 그대로 사용할 수 있습니다.
         </>
       }
     >
@@ -334,30 +334,6 @@ const BottomSheetHookGuideProp = memo(function BottomSheetHookGuideProp() {
       >
         BottomSheet 두 개 열기
       </Button>
-
-      {hasGuidePopupActions && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            {lastDemoSheetId && (
-              <ButtonGroup.Item>
-                <Button
-                  color="primary"
-                  variant="line"
-                  onClick={() => bottomSheet.close(lastDemoSheetId)}
-                >
-                  마지막 BottomSheet 닫기
-                </Button>
-              </ButtonGroup.Item>
-            )}
-
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => bottomSheet.closeAll()}>
-                BottomSheet 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });

@@ -31,16 +31,6 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "Textfield / RHFTextfield",
   },
   {
-    href: "/textarea",
-    label: "Textarea",
-    description: "Textarea / RHFTextarea",
-  },
-  {
-    href: "/select",
-    label: "Select",
-    description: "Select / MultiSelect / RHFSelect / RHFMultiSelect",
-  },
-  {
     href: "/search",
     label: "Search",
     description: "Search / RHFSearch",
@@ -66,9 +56,20 @@ export const guideNavigation: GuideNavigationItem[] = [
     description: "DateMultiplePicker / RHFDateMultiplePicker",
   },
   {
+    href: "/textarea",
+    label: "Textarea",
+    description: "Textarea / RHFTextarea",
+  },
+  {
+    href: "/select",
+    label: "Select",
+    description: "Select / MultiSelect / RHFSelect / RHFMultiSelect",
+  },
+  {
     href: "/field",
     label: "Field",
-    description: "Field / Field.Item / Field.Grid / Field.Label / Field.Description",
+    description:
+      "Field / Field.Item / Field.Grid / Field.Label / Field.Description",
   },
   {
     href: "/alert",

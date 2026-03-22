@@ -14,7 +14,6 @@ $confirm: "popupConfirm";
     position: absolute;
     inset: 0;
     background: var(--surface-overlay-dim);
-    backdrop-filter: blur(0.6rem);
     pointer-events: auto;
   }
 
@@ -36,10 +35,10 @@ $confirm: "popupConfirm";
     width: min(100%, 48rem);
     max-height: min(calc(100vh - 4rem), 72rem);
     max-height: min(calc(100dvh - 4rem), 72rem);
-    background: var(--gradient-panel-strong);
+    background: var(--surface-panel-strong);
     border: 1px solid var(--border-default);
     border-radius: func.radius("xl");
-    box-shadow: func.shadow("inset-soft"), func.shadow("overlay");
+    box-shadow: func.shadow("overlay");
     display: flex;
     flex-direction: column;
     overflow: hidden;

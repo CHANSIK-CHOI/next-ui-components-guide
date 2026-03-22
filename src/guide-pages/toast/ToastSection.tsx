@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@/components";
+import { Button } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
 import { useToast, useToastStack } from "@/components/Toast";
 import { memo, useState } from "react";
@@ -124,8 +124,8 @@ const ToastHookGuideProp = memo(function ToastHookGuideProp() {
           객체만 넘겨서 가벼운 feedback 메시지를 전역 stack에 추가합니다.
           <br /> - `open()`은 생성된 id를 반환하고, `close(id?)`는 특정 toast
           또는 마지막 toast를 닫습니다.
-          <br /> - `closeAll()`은 현재 열린 toast 전체를 closing 상태로 바꿔서
-          한 번에 정리합니다.
+          <br /> - 여러 toast가 열린 상태에서는 `closeAll()`로 현재 열린 toast
+          전체를 closing 상태로 바꿔서 한 번에 정리합니다.
         </>
       }
     >
@@ -175,24 +175,6 @@ toast.open({
       >
         세 번째 error Toast 열기
       </Button>
-
-      {toast.toasts.length > 0 && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => toast.close()}>
-                마지막 Toast 닫기
-              </Button>
-            </ButtonGroup.Item>
-
-            <ButtonGroup.Item>
-              <Button color="secondary" variant="line" onClick={toast.closeAll}>
-                Toast 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@/components";
+import { Button } from "@/components";
 import { GuideProp, GuideSection } from "@/components/Guide";
 import { AttentionIcon, CalendarIcon, DelOutlineIcon } from "@/components/Icon";
 import { useAlert, usePopupStack } from "@/components/Popup";
@@ -252,8 +252,6 @@ const AlertHookGuideProp = memo(function AlertHookGuideProp() {
   const hasSecondDemoAlert = demoAlerts.some(
     ({ id }) => id === GUIDE_SECOND_ALERT_ID,
   );
-  const hasGuidePopupActions = hasFirstDemoAlert && hasSecondDemoAlert;
-  const lastDemoAlertId = demoAlerts[demoAlerts.length - 1]?.id;
 
   return (
     <GuideProp
@@ -266,7 +264,9 @@ const AlertHookGuideProp = memo(function AlertHookGuideProp() {
           `useAlert()`로 Alert를 띄우고 닫는 구조입니다.
           <br /> - `open()`은 생성된 alert id를 반환하고, `close(id?)`는 특정 id
           또는 가장 마지막 Alert를 닫습니다.
-          <br /> - `closeAll()`은 현재 열려 있는 Alert들을 한 번에 닫습니다.
+          <br /> - 이 예제처럼 여러 개를 연 뒤에는 `close(id?)`로 마지막 Alert
+          또는 원하는 id를 닫고, `closeAll()`은 현재 열려 있는 Alert들을 한 번에
+          닫습니다.
         </>
       }
     >
@@ -292,29 +292,6 @@ const AlertHookGuideProp = memo(function AlertHookGuideProp() {
       >
         Alert 두 개 열기
       </Button>
-      {hasGuidePopupActions && (
-        <div className="guidePopupActions">
-          <ButtonGroup>
-            {lastDemoAlertId && (
-              <ButtonGroup.Item>
-                <Button
-                  color="primary"
-                  variant="line"
-                  onClick={() => alert.close(lastDemoAlertId)}
-                >
-                  마지막 Alert 닫기
-                </Button>
-              </ButtonGroup.Item>
-            )}
-
-            <ButtonGroup.Item>
-              <Button variant="line" onClick={() => alert.closeAll()}>
-                Alert 전체 닫기
-              </Button>
-            </ButtonGroup.Item>
-          </ButtonGroup>
-        </div>
-      )}
     </GuideProp>
   );
 });
