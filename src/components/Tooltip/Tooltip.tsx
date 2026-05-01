@@ -4,8 +4,8 @@ import { motionTransition } from "@/utils/motion";
 import {
   cloneElement,
   isValidElement,
-  useEffect,
   useId,
+  useRef,
   useState,
   type FocusEventHandler,
   type KeyboardEventHandler,
@@ -68,6 +68,12 @@ export default function Tooltip({
 }: TooltipProps) {
   const tooltipId = useId();
   const [isTooltipOpen, setIsTooltipOpen] = useState(defaultOpen);
+  const prevDisabledRef = useRef(disabled);
+
+  if (!prevDisabledRef.current && disabled && isTooltipOpen) {
+    setIsTooltipOpen(false);
+  }
+  prevDisabledRef.current = disabled;
 
   const isControlled = typeof open === "boolean";
   const resolvedOpen = disabled ? false : (isControlled ? open : isTooltipOpen);
@@ -114,12 +120,6 @@ export default function Tooltip({
       setTooltipOpenState(false);
     }
   };
-
-  useEffect(() => {
-    if (disabled) {
-      setIsTooltipOpen(false);
-    }
-  }, [disabled]);
 
   const resolvedChildren = isValidElement<TooltipChildProps>(children)
     ? cloneElement(children, {

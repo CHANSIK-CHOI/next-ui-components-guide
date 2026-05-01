@@ -286,10 +286,9 @@ function FieldDescription({
   const { registerDescription } = useFieldContext();
   const resolvedDescriptionId = id ?? generatedDescriptionId;
 
-  useEffect(
-    () => registerDescription?.(resolvedDescriptionId),
-    [registerDescription, resolvedDescriptionId],
-  );
+  useEffect(() => {
+    return registerDescription?.(resolvedDescriptionId);
+  }, [registerDescription, resolvedDescriptionId]);
 
   return (
     <p
