@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { useId, useState } from "react";
+import { useCallback, useId, useMemo, useState } from "react";
 import AccordionButton from "./AccordionButton";
 import AccordionContext from "./Accordion.context";
 import AccordionHead from "./AccordionHead";
@@ -63,7 +63,7 @@ function AccordionRoot({
     activeIndices: isControlled ? activeIndices : uncontrolledActiveIndices,
   });
 
-  const handleToggleItem = (targetIndex: number) => {
+  const handleToggleItem = useCallback((targetIndex: number) => {
     const isItemOpen = resolvedActiveIndices.includes(targetIndex);
     let nextActiveIndices: number[];
 
@@ -80,16 +80,16 @@ function AccordionRoot({
     }
 
     onChange?.(nextActiveIndices);
-  };
+  }, [resolvedActiveIndices, type, isControlled, onChange]);
 
   return (
     <AccordionContext.Provider
-      value={{
+      value={useMemo(() => ({
         accordionId,
         activeIndices: resolvedActiveIndices,
         shouldKeepMounted,
         handleToggleItem,
-      }}
+      }), [accordionId, resolvedActiveIndices, shouldKeepMounted, handleToggleItem])}
     >
       <div
         className={cn(nameBlock, className, {
