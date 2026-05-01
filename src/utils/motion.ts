@@ -5,7 +5,9 @@ export const motionDuration = {
   fast: 0.18,
   base: 0.2,
   slow: 0.24,
-  deliberate: 0.32,
+  deliberate: 0.30,
+  measured: 0.34,
+  relaxed: 0.38,
 } as const;
 
 export const motionEase = {
@@ -24,13 +26,61 @@ export const motionTransition = {
     duration: motionDuration.fast,
     ease: motionEase.standard,
   } satisfies Transition,
+  overlayExit: {
+    duration: motionDuration.fast,
+    ease: motionEase.exit,
+  } satisfies Transition,
   popover: {
     duration: motionDuration.fast,
     ease: motionEase.standard,
   } satisfies Transition,
+  popoverExit: {
+    duration: motionDuration.quick,
+    ease: motionEase.exit,
+  } satisfies Transition,
   panel: {
     duration: motionDuration.slow,
     ease: motionEase.emphasized,
+  } satisfies Transition,
+  panelExit: {
+    duration: motionDuration.fast,
+    ease: motionEase.exit,
+  } satisfies Transition,
+  // dialog (center modal) — 작은 요소, 빠른 인지
+  panelDialog: {
+    duration: motionDuration.deliberate,
+    ease: motionEase.emphasized,
+  } satisfies Transition,
+  panelDialogExit: {
+    duration: motionDuration.base,
+    ease: motionEase.exit,
+  } satisfies Transition,
+  // bottomSheet — 큰 면적, 아래에서 위로
+  panelSheet: {
+    duration: motionDuration.relaxed,
+    ease: motionEase.emphasized,
+  } satisfies Transition,
+  panelSheetExit: {
+    duration: motionDuration.slow,
+    ease: motionEase.exit,
+  } satisfies Transition,
+  // fullPopup — 전체 화면 슬라이드
+  panelFull: {
+    duration: motionDuration.measured,
+    ease: motionEase.emphasized,
+  } satisfies Transition,
+  panelFullExit: {
+    duration: motionDuration.base,
+    ease: motionEase.exit,
+  } satisfies Transition,
+  // overlay — dialog보다 살짝 길게
+  overlayDialog: {
+    duration: 0.22,
+    ease: motionEase.standard,
+  } satisfies Transition,
+  overlayDialogExit: {
+    duration: motionDuration.fast,
+    ease: motionEase.exit,
   } satisfies Transition,
   toast: {
     duration: motionDuration.slow,
