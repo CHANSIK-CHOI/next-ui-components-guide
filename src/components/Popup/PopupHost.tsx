@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Alert from "./Alert";
 import Confirm from "./Confirm";
 import { usePopupStore } from "./popup.store";
@@ -15,7 +15,10 @@ export default function PopupHost({ children }: PopupHostProps) {
   const items = usePopupStore((state) => state.items);
   const closePopup = usePopupStore((state) => state.closePopup);
   const removePopup = usePopupStore((state) => state.removePopup);
-  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+  const [portalRoot] = useState<HTMLElement | null>(() => {
+    if (typeof document === "undefined") return null;
+    return document.getElementById(POPUP_ROOT_ID);
+  });
   const topmostOpenPopupId = useMemo(
     () => [...items].reverse().find((item) => item.status === "open")?.id,
     [items],
@@ -29,14 +32,6 @@ export default function PopupHost({ children }: PopupHostProps) {
     },
     [closePopup],
   );
-
-  useEffect(() => {
-    const existingRoot = document.getElementById(POPUP_ROOT_ID);
-
-    if (existingRoot instanceof HTMLElement) {
-      setPortalRoot(existingRoot);
-    }
-  }, []);
 
   return (
     <>

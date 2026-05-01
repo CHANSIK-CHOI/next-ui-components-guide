@@ -14,6 +14,8 @@ function getPanelMotion(variant: PopupVariant) {
       initial: { opacity: 1, y: "100%" },
       animate: { opacity: 1, y: 0 },
       exit: { opacity: 1, y: "100%" },
+      enter: motionTransition.panelSheet,
+      exitTransition: motionTransition.panelSheetExit,
     };
   }
 
@@ -22,13 +24,18 @@ function getPanelMotion(variant: PopupVariant) {
       initial: { opacity: 1, x: "100%" },
       animate: { opacity: 1, x: 0 },
       exit: { opacity: 1, x: "100%" },
+      enter: motionTransition.panelFull,
+      exitTransition: motionTransition.panelFullExit,
     };
   }
 
+  // dialog (default)
   return {
     initial: { opacity: 0, y: 24, scale: 0.96 },
     animate: { opacity: 1, y: 0, scale: 1 },
     exit: { opacity: 0, y: 24, scale: 0.98 },
+    enter: motionTransition.panelDialog,
+    exitTransition: motionTransition.panelDialogExit,
   };
 }
 
@@ -114,7 +121,7 @@ export default function PopupBase({
   return (
     <AnimatePresence onExitComplete={onExited}>
       {open ? (
-        <div
+        <motion.div
           id={id}
           className={cn(
             nameBlock,
@@ -130,8 +137,8 @@ export default function PopupBase({
             className={cn(`${nameBlock}__dim`)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={motionTransition.overlay}
+            exit={{ opacity: 0, transition: motionTransition.overlayDialogExit }}
+            transition={motionTransition.overlayDialog}
             onClick={handleBackdropClick}
           />
 
@@ -147,8 +154,8 @@ export default function PopupBase({
               tabIndex={-1}
               initial={panelMotion.initial}
               animate={panelMotion.animate}
-              exit={panelMotion.exit}
-              transition={motionTransition.panel}
+              exit={{ ...panelMotion.exit, transition: panelMotion.exitTransition }}
+              transition={panelMotion.enter}
             >
               {headerContent}
 
@@ -174,7 +181,7 @@ export default function PopupBase({
               )}
             </motion.section>
           </div>
-        </div>
+        </motion.div>
       ) : null}
     </AnimatePresence>
   );

@@ -15,6 +15,7 @@ $confirm: "popupConfirm";
     inset: 0;
     background: var(--surface-overlay-dim);
     pointer-events: auto;
+    will-change: opacity;
   }
 
   &__positioner {
@@ -43,6 +44,8 @@ $confirm: "popupConfirm";
     flex-direction: column;
     overflow: hidden;
     pointer-events: auto;
+    will-change: transform, opacity;
+    transform-origin: center;
 
     @include mix.respond-to("desktop") {
       width: min(100%, 52rem);
