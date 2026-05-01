@@ -44,7 +44,9 @@
     border: 0.1rem solid var(--control-border);
     background-color: var(--control-bg);
     color: var(--text-inverse-strong);
-    @include mix.motion-transition((border-color, background-color, box-shadow, color));
+    @include mix.motion-transition(
+      (border-color, background-color, box-shadow, color)
+    );
   }
 
   &__indicator {
@@ -53,7 +55,7 @@
     @include mix.motion-transition((opacity, transform, background-color));
   }
 
-  &:not(.is-disabled):not(.is-readonly):hover &__control {
+  &:not(.is-disabled):not(.is-readonly):not(.is-error):hover &__control {
     border-color: var(--control-accent);
   }
 
@@ -186,7 +188,7 @@
     @include mix.motion-transition((transform, background-color));
   }
 
-  &:not(.is-disabled):not(.is-readonly):hover
+  &:not(.is-disabled):not(.is-readonly):not(.is-error):hover
     &__input:not(:checked)
     &__control {
     border-color: var(--control-accent);

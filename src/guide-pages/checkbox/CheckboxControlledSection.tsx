@@ -60,12 +60,9 @@ export default function CheckboxControlledSection() {
           />
           <Field.Label>readOnly 상태</Field.Label>
         </Field.Item>
-        <Field.Item
-          align="start"
-          errorMessage="에러 상태를 표시한 예시입니다."
-        >
-            <Checkbox isError />
-            <Field.Label>isError 상태</Field.Label>
+        <Field.Item align="start" errorMessage="에러 상태를 표시한 예시입니다.">
+          <Checkbox isError />
+          <Field.Label>isError 상태</Field.Label>
         </Field.Item>
       </GuideProp>
 
