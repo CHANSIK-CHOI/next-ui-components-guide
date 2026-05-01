@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Alert from "./Alert";
 import Confirm from "./Confirm";
 import { usePopupStore } from "./popup.store";
@@ -26,13 +26,6 @@ export default function PopupHost({ children }: PopupHostProps) {
 
   usePopupHostA11y({ hasPopup: items.length > 0 });
 
-  const handleClosePopup = useCallback(
-    (id: string) => {
-      closePopup(id);
-    },
-    [closePopup],
-  );
-
   return (
     <>
       {children}
@@ -55,7 +48,7 @@ export default function PopupHost({ children }: PopupHostProps) {
                           alertProps.onConfirm?.();
 
                           if (shouldCloseOnConfirm ?? true) {
-                            handleClosePopup(item.id);
+                            closePopup(item.id);
                           }
                         }}
                         onExited={() => {
@@ -82,14 +75,14 @@ export default function PopupHost({ children }: PopupHostProps) {
                           confirmProps.onCancel?.();
 
                           if (shouldCloseOnCancel ?? true) {
-                            handleClosePopup(item.id);
+                            closePopup(item.id);
                           }
                         }}
                         onConfirm={() => {
                           confirmProps.onConfirm?.();
 
                           if (shouldCloseOnConfirm ?? true) {
-                            handleClosePopup(item.id);
+                            closePopup(item.id);
                           }
                         }}
                         onExited={() => {
@@ -110,7 +103,7 @@ export default function PopupHost({ children }: PopupHostProps) {
                         open={item.status === "open"}
                         isTopmost={item.id === topmostOpenPopupId}
                         onRequestClose={() => {
-                          handleClosePopup(item.id);
+                          closePopup(item.id);
                         }}
                         onExited={() => {
                           removePopup(item.id);

@@ -24,6 +24,7 @@ import Textfield, { type TextfieldProps } from "../Textfield/Textfield";
 import TextfieldBtn from "../Textfield/TextfieldBtn";
 
 const nameBlock = "datepicker";
+const CURRENT_YEAR = new Date().getFullYear();
 
 type DatepickerMode = "single" | "multiple" | "range";
 
@@ -132,11 +133,10 @@ export default function DatepickerBase<
   );
   const resolvedDefaultMonth =
     dayPickerProps?.defaultMonth ?? getDefaultMonth({ selected });
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
   const resolvedStartMonth =
-    dayPickerProps?.startMonth ?? new Date(currentYear - 100, 0, 1);
+    dayPickerProps?.startMonth ?? new Date(CURRENT_YEAR - 100, 0, 1);
   const resolvedEndMonth =
-    dayPickerProps?.endMonth ?? new Date(currentYear + 20, 11, 1);
+    dayPickerProps?.endMonth ?? new Date(CURRENT_YEAR + 20, 11, 1);
   const resolvedCalendarButtonTitle =
     calendarButtonTitle ?? (isCalendarOpen ? "캘린더 닫기" : "날짜 선택하기");
   const isDayPickerDisabled = readOnly ? true : dayPickerProps?.disabled;
