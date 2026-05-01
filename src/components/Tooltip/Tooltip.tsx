@@ -116,10 +116,10 @@ export default function Tooltip({
   };
 
   useEffect(() => {
-    if (disabled && isTooltipOpen) {
+    if (disabled) {
       setIsTooltipOpen(false);
     }
-  }, [disabled, isTooltipOpen]);
+  }, [disabled]);
 
   const resolvedChildren = isValidElement<TooltipChildProps>(children)
     ? cloneElement(children, {
@@ -148,20 +148,23 @@ export default function Tooltip({
 
       <AnimatePresence initial={false}>
         {resolvedOpen ? (
-          <div className={cn(`${nameBlock}__panel`)}>
-            <motion.div
+          <motion.div
+            key="tooltip-panel"
+            className={cn(`${nameBlock}__panel`)}
+            initial={{ opacity: 0, y: animationOffset, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: animationOffset, scale: 0.98, transition: motionTransition.popoverExit }}
+            transition={motionTransition.popover}
+          >
+            <div
               id={tooltipId}
               role="tooltip"
               className={cn(`${nameBlock}__bubble`)}
-              initial={{ opacity: 0, y: animationOffset, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: animationOffset, scale: 0.98 }}
-              transition={motionTransition.popover}
             >
               <div className={cn(`${nameBlock}__content`)}>{content}</div>
               <span className={cn(`${nameBlock}__arrow`)} aria-hidden="true" />
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         ) : null}
       </AnimatePresence>
     </div>

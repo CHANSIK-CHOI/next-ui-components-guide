@@ -51,7 +51,7 @@ $module: "tooltip";
   &--topCenter &__panel {
     bottom: calc(100% + #{func.space("sm")});
     left: 50%;
-    transform: translateX(-50%);
+    translate: -50% 0;
   }
 
   &--topLeft &__panel {
@@ -67,7 +67,7 @@ $module: "tooltip";
   &--bottomCenter &__panel {
     top: calc(100% + #{func.space("sm")});
     left: 50%;
-    transform: translateX(-50%);
+    translate: -50% 0;
   }
 
   &--bottomLeft &__panel {
