@@ -418,10 +418,10 @@ $guideTypeTooltip: "guideTypeTooltip";
 
   &--floating {
     position: fixed;
-    top: func.space("lg");
-    right: func.space("lg");
+    bottom: func.space("lg");
+    left: func.space("lg");
     width: auto;
-    max-width: 36rem;
+    max-width: min(36rem, calc(100vw - #{func.space("lg")} * 2));
     z-index: func.z("overlay-layer") + 1;
     border: 1px solid var(--border-default);
     background: var(--surface-panel-strong);
@@ -429,9 +429,7 @@ $guideTypeTooltip: "guideTypeTooltip";
     box-shadow: func.shadow("overlay");
 
     @include mix.respond-to("desktop") {
-      top: func.space("xl");
-      left: auto;
-      right: func.space("lg");
+      bottom: func.space("xl");
     }
   }
 }
